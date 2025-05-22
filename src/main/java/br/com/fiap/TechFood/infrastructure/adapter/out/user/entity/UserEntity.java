@@ -2,6 +2,8 @@ package br.com.fiap.TechFood.infrastructure.adapter.out.user.entity;
 
 import br.com.fiap.TechFood.application.core.domain.user.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "users")
@@ -12,7 +14,11 @@ public class UserEntity {
     private Long id;
 
     private String name;
+
+    @Email
     private String email;
+
+    @CPF
     private String cpf;
 
     public UserEntity() {
