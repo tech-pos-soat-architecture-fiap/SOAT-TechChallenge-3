@@ -1,11 +1,11 @@
-package br.com.fiap.TechFood.infrastructure.adapters.out;
+package br.com.fiap.TechFood.infrastructure.adapter.out.user;
 
-import br.com.fiap.TechFood.core.domain.User;
-import br.com.fiap.TechFood.core.ports.PagePort;
-import br.com.fiap.TechFood.core.ports.UserGateway;
-import br.com.fiap.TechFood.infrastructure.adapters.PageDTO;
-import br.com.fiap.TechFood.infrastructure.adapters.out.entity.UserEntity;
-import br.com.fiap.TechFood.infrastructure.adapters.out.repository.UserEntityRepository;
+import br.com.fiap.TechFood.application.core.domain.user.User;
+import br.com.fiap.TechFood.application.port.PagePort;
+import br.com.fiap.TechFood.application.port.user.UserRespositoryPort;
+import br.com.fiap.TechFood.infrastructure.adapter.out.PageDTO;
+import br.com.fiap.TechFood.infrastructure.adapter.out.user.entity.UserEntity;
+import br.com.fiap.TechFood.infrastructure.adapter.out.user.repository.UserEntityRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
@@ -13,11 +13,11 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class UserGatewayAdapter implements UserGateway {
+public class UserRespositoryAdapter implements UserRespositoryPort {
 
     private final UserEntityRepository userEntityRepository;
 
-    public UserGatewayAdapter(UserEntityRepository userEntityRepository) {
+    public UserRespositoryAdapter(UserEntityRepository userEntityRepository) {
         this.userEntityRepository = userEntityRepository;
     }
 

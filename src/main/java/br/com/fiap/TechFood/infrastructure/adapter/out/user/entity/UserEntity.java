@@ -1,6 +1,6 @@
-package br.com.fiap.TechFood.infrastructure.adapters.out.entity;
+package br.com.fiap.TechFood.infrastructure.adapter.out.user.entity;
 
-import br.com.fiap.TechFood.core.domain.User;
+import br.com.fiap.TechFood.application.core.domain.user.User;
 import jakarta.persistence.*;
 
 @Entity

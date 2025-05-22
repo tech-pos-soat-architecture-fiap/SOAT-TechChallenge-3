@@ -1,6 +1,6 @@
-package br.com.fiap.TechFood.infrastructure.adapters;
+package br.com.fiap.TechFood.infrastructure.adapter.out;
 
-import br.com.fiap.TechFood.core.ports.PagePort;
+import br.com.fiap.TechFood.application.port.PagePort;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

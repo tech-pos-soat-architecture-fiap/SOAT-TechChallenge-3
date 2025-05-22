@@ -3,22 +3,16 @@ services:
   db:
     image: postgres:17.5-alpine
     restart: no
-    # set shared memory limit when using docker compose
     shm_size: 128mb
-    #volumes:
-    #  - type: tmpfs
-    #    target: /dev/shm
-    #    tmpfs:
-    #      size: 134217728 # 128*2^20 bytes = 128Mb
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: 123
+      POSTGRES_USER: ${POSTGRES_USER:-root}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-root}
       POSTGRES_DB: TechFood
 
   adminer:
     image: adminer
-    restart: always
+    restart: no
     ports:
       - "8080:8081"

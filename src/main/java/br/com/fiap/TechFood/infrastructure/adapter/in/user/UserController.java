@@ -1,10 +1,8 @@
-package br.com.fiap.TechFood.infrastructure.adapters.in;
+package br.com.fiap.TechFood.infrastructure.adapter.in.user;
 
-import br.com.fiap.TechFood.core.domain.User;
-import br.com.fiap.TechFood.core.ports.PagePort;
-import br.com.fiap.TechFood.core.service.UserService;
-import br.com.fiap.TechFood.infrastructure.adapters.UserForm;
-import br.com.fiap.TechFood.infrastructure.adapters.UserView;
+import br.com.fiap.TechFood.application.core.domain.user.User;
+import br.com.fiap.TechFood.application.port.PagePort;
+import br.com.fiap.TechFood.application.port.user.UserServicePort;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +12,15 @@ import java.net.URI;
 @RestController
 public class UserController {
 
-    private final UserService userService;
+    private final UserServicePort userServicePort;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserServicePort userServicePort) {
+        this.userServicePort = userServicePort;
     }
 
     @PostMapping("/users")
     public ResponseEntity<String> createUser(@Valid @RequestBody UserForm userForm) {
-        User user = userService.create(userForm.toUser());
+        User user = userServicePort.create(userForm.toUser());
 
         URI uri = URI.create("/users/" + user.getId());
         return ResponseEntity.created(uri).build();
@@ -30,13 +28,13 @@ public class UserController {
 
     @GetMapping("/users")
     public ResponseEntity<PagePort<UserView>> listUser(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        PagePort<UserView> usersDTO = userService.findAll(page, size).map(UserView::of);
+        PagePort<UserView> usersDTO = userServicePort.findAll(page, size).map(UserView::of);
         return ResponseEntity.ok(usersDTO);
     }
 
     @GetMapping("/users/{id}")
     public ResponseEntity<UserView> showUser(@PathVariable("id") Long id) {
-        UserView userView = userService.findById(id).map(UserView::of).orElse(null);
+        UserView userView = userServicePort.findById(id).map(UserView::of).orElse(null);
         return ResponseEntity.ok(userView);
     }
 }

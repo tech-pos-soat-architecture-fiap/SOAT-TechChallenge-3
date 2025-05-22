@@ -1,4 +1,4 @@
-package br.com.fiap.TechFood.core.domain;
+package br.com.fiap.TechFood.application.core.domain.user;
 
 public class User {
 

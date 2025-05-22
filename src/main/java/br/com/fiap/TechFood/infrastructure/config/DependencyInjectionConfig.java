@@ -1,7 +1,8 @@
 package br.com.fiap.TechFood.infrastructure.config;
 
-import br.com.fiap.TechFood.core.ports.UserGateway;
-import br.com.fiap.TechFood.core.service.UserService;
+import br.com.fiap.TechFood.application.core.service.user.UserService;
+import br.com.fiap.TechFood.application.port.user.UserRespositoryPort;
+import br.com.fiap.TechFood.application.port.user.UserServicePort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class DependencyInjectionConfig {
 
     @Bean
-    public UserService userService(UserGateway userGateway) {
+    public UserServicePort userService(UserRespositoryPort userGateway) {
         return new UserService(userGateway);
     }
 }

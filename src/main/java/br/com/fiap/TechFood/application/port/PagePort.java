@@ -1,4 +1,4 @@
-package br.com.fiap.TechFood.core.ports;
+package br.com.fiap.TechFood.application.port;
 
 import java.util.List;
 import java.util.function.Function;

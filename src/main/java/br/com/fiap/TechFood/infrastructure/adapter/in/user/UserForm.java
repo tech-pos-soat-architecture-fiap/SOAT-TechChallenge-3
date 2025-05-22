@@ -1,6 +1,6 @@
-package br.com.fiap.TechFood.infrastructure.adapters;
+package br.com.fiap.TechFood.infrastructure.adapter.in.user;
 
-import br.com.fiap.TechFood.core.domain.User;
+import br.com.fiap.TechFood.application.core.domain.user.User;
 import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.br.CPF;
 
