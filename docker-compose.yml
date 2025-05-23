@@ -1,6 +1,6 @@
 services:
 
-  db:
+  postgres:
     image: postgres:17.5-alpine
     restart: no
     shm_size: 128mb
@@ -10,9 +10,29 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-root}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-root}
       POSTGRES_DB: TechFood
+    profiles:
+      - dev
+      - prod
 
   adminer:
     image: adminer
     restart: no
     ports:
       - "8080:8081"
+    profiles:
+      - dev
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: no
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+    depends_on:
+      - postgres
+    profiles:
+      - prod
