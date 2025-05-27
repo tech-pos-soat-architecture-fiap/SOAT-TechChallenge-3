@@ -2,7 +2,7 @@ package br.com.fiap.TechFood.infrastructure.adapter.out.user;
 
 import br.com.fiap.TechFood.application.core.domain.user.User;
 import br.com.fiap.TechFood.application.port.PagePort;
-import br.com.fiap.TechFood.application.port.user.UserRespositoryPort;
+import br.com.fiap.TechFood.application.port.user.UserRepositoryPort;
 import br.com.fiap.TechFood.infrastructure.adapter.out.PageDTO;
 import br.com.fiap.TechFood.infrastructure.adapter.out.user.entity.UserEntity;
 import br.com.fiap.TechFood.infrastructure.adapter.out.user.repository.UserEntityRepository;
@@ -13,11 +13,11 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class UserRespositoryAdapter implements UserRespositoryPort {
+public class UserRepositoryAdapter implements UserRepositoryPort {
 
     private final UserEntityRepository userEntityRepository;
 
-    public UserRespositoryAdapter(UserEntityRepository userEntityRepository) {
+    public UserRepositoryAdapter(UserEntityRepository userEntityRepository) {
         this.userEntityRepository = userEntityRepository;
     }
 
