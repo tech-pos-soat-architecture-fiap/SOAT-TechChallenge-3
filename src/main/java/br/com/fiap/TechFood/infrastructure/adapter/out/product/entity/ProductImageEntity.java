@@ -11,7 +11,7 @@ import java.util.Objects;
 @Embeddable
 public class ProductImageEntity {
 
-    @URL
+    @URL(message = "A URL deve ser uma imagem válida com extensão .jpg, .jpeg ou .png", regexp = ".*\\.(jpg|jpeg|png)$")
     private String url;
 
     @NotBlank

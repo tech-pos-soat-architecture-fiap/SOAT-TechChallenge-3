@@ -4,21 +4,21 @@ import br.com.fiap.TechFood.application.core.domain.product.Product;
 import br.com.fiap.TechFood.application.core.domain.product.vo.ProductImage;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public record ProductView(String name,
                           String category,
                           BigDecimal price,
                           String description,
-                          List<ProductImageView> images) {
+                          Set<ProductImageView> images) {
 
     public static ProductView from(Product product) {
         return new ProductView(product.getName(),
                 product.getCategoryName(),
                 product.getPrice(),
                 product.getDescription(),
-                product.getImages().stream().map(ProductImageView::from).collect(Collectors.toList()));
+                product.getImages().stream().map(ProductImageView::from).collect(Collectors.toSet()));
     }
 
     private record ProductImageView(String url,

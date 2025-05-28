@@ -1,7 +1,6 @@
 package br.com.fiap.TechFood.infrastructure.adapter.in.product;
 
 import br.com.fiap.TechFood.application.core.domain.product.Product;
-import br.com.fiap.TechFood.application.core.domain.product.ProductCategory;
 import br.com.fiap.TechFood.application.core.domain.product.vo.ProductImage;
 import br.com.fiap.TechFood.infrastructure.adapter.in.validation.ValidCategory;
 import jakarta.validation.Valid;
@@ -29,7 +28,7 @@ public record ProductForm(
                 images.stream().map(ProductImageForm::toProductImage).collect(Collectors.toSet()));
     }
 
-    record ProductImageForm(@URL String url,
+    record ProductImageForm(@URL(message = "A URL deve ser uma imagem válida com extensão .jpg, .jpeg ou .png", regexp = ".*\\.(jpg|jpeg|png)$") String url,
                             @NotBlank String description,
                             @Min(1) int position) {
 
