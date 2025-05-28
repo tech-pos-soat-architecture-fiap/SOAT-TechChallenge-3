@@ -5,7 +5,6 @@ import br.com.fiap.TechFood.application.core.domain.product.ProductCategory;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.product.ProductRepositoryPort;
 import br.com.fiap.TechFood.application.port.product.ProductServicePort;
-import br.com.fiap.TechFood.infrastructure.adapter.in.product.ProductForm;
 import br.com.fiap.TechFood.infrastructure.adapter.out.PageDTO;
 
 import java.util.Optional;
@@ -29,8 +28,8 @@ public class ProductService implements ProductServicePort {
     }
 
     @Override
-    public Product update(Product product, ProductForm productForm) {
-        return productRepositoryPort.save(product);
+    public Product update(Long id, Product updatedProductData) {
+        return productRepositoryPort.update(id, updatedProductData);
     }
 
     @Override

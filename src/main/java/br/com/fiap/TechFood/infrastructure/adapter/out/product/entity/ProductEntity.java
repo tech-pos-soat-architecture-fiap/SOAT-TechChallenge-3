@@ -2,12 +2,14 @@ package br.com.fiap.TechFood.infrastructure.adapter.out.product.entity;
 
 import br.com.fiap.TechFood.application.core.domain.product.Product;
 import br.com.fiap.TechFood.application.core.domain.product.ProductCategory;
+import br.com.fiap.TechFood.application.core.domain.product.vo.ProductImage;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toSet;
 
@@ -39,6 +41,15 @@ public class ProductEntity {
 
     @Deprecated
     public ProductEntity() {}
+
+    public ProductEntity(Long id, String name, ProductCategory category, BigDecimal price, String description, Set<ProductImageEntity> images) {
+        this.id = id;
+        this.name = name;
+        this.category = category;
+        this.price = price;
+        this.description = description;
+        this.images = images;
+    }
 
     public ProductEntity(Product product) {
         this.id = product.getId();
@@ -81,5 +92,17 @@ public class ProductEntity {
                 this.price,
                 this.description,
                 this.images.stream().map(ProductImageEntity::toProductImage).collect(toSet()));
+    }
+
+    public ProductEntity updateFrom(Product product) {
+        this.name = product.getName();
+        this.category = product.getCategory();
+        this.price = product.getPrice();
+        this.description = product.getDescription();
+        this.images.clear();
+        this.images.addAll(product.getImages().stream()
+            .map(ProductImageEntity::new)
+            .collect(Collectors.toSet()));
+        return this;
     }
 }

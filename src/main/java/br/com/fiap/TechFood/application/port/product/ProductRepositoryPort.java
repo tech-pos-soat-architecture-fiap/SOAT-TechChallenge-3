@@ -12,6 +12,8 @@ public interface ProductRepositoryPort {
 
     Product save(Product product);
 
+    Product update(Long id, Product product);
+
     PagePort<Product> findAll(int page, int size);
 
     PagePort<Product> findAllByCategory(ProductCategory category, int page, int size);

@@ -4,6 +4,7 @@ import br.com.fiap.TechFood.application.core.domain.product.Product;
 import br.com.fiap.TechFood.application.core.domain.product.ProductCategory;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.product.ProductRepositoryPort;
+import br.com.fiap.TechFood.application.shared.exception.NotFoundException;
 import br.com.fiap.TechFood.infrastructure.adapter.out.PageDTO;
 import br.com.fiap.TechFood.infrastructure.adapter.out.product.entity.ProductEntity;
 import br.com.fiap.TechFood.infrastructure.adapter.out.product.repository.ProductEntityRepository;
@@ -30,6 +31,13 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
     @Override
     public Product save(Product product) {
         return productEntityRepository.save(new ProductEntity(product)).getProduct();
+    }
+
+    @Override
+    public Product update(Long id, Product product) {
+        ProductEntity productEntity = productEntityRepository.findById(id).orElseThrow(NotFoundException::new);
+        ProductEntity updatedProductEntity = productEntity.updateFrom(product);
+        return productEntityRepository.save(updatedProductEntity).getProduct();
     }
 
     @Override

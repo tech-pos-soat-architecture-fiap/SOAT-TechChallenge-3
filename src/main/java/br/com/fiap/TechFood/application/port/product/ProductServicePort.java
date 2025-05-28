@@ -2,7 +2,6 @@ package br.com.fiap.TechFood.application.port.product;
 
 import br.com.fiap.TechFood.application.core.domain.product.Product;
 import br.com.fiap.TechFood.application.port.PagePort;
-import br.com.fiap.TechFood.infrastructure.adapter.in.product.ProductForm;
 
 import java.util.Optional;
 
@@ -12,7 +11,7 @@ public interface ProductServicePort {
 
     Product create(Product product);
 
-    Product update(Product product, ProductForm productForm);
+    Product update(Long id, Product product);
 
     void remove(Product product);
 

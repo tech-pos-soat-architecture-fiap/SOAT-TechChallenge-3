@@ -60,4 +60,13 @@ public class Product {
     public Set<ProductImage> getImages() {
         return images;
     }
+
+    public Product update(Product productData) {
+        return new Product(productData.getId(),
+                productData.getName(),
+                productData.getCategory(),
+                productData.getPrice(),
+                productData.getDescription(),
+                productData.getImages());
+    }
 }

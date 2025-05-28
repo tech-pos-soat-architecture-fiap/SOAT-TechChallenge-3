@@ -26,12 +26,12 @@ public class ProductController {
         return ResponseEntity.created(uri).build();
     }
 
-//    @PutMapping("/product/{id}")
-//    public ResponseEntity<String> update(@PathVariable("id") Long id, @Valid @RequestBody ProductForm productForm) {
-//        Product product = productServicePort.findById(id).orElseThrow(NotFoundException::new);
-//        URI uri = URI.create("/products/" + product.getId());
-//        return ResponseEntity.created(uri).build();
-//    }
+    @PutMapping("/product/{id}")
+    public ResponseEntity<String> update(@PathVariable("id") Long id, @Valid @RequestBody ProductForm productForm) {
+        Product updatedProduct = productServicePort.update(id, productForm.toProduct());
+        URI uri = URI.create("/products/" + updatedProduct.getId());
+        return ResponseEntity.ok().location(uri).build();
+    }
 
     @GetMapping("/products/category/{category}")
     public ResponseEntity<PagePort<ProductView>> showByCategory(@PathVariable("category") String category,

@@ -1,6 +1,6 @@
 package br.com.fiap.TechFood.infrastructure.config;
 
-import br.com.fiap.TechFood.application.core.service.user.ProductService;
+import br.com.fiap.TechFood.application.core.service.product.ProductService;
 import br.com.fiap.TechFood.application.core.service.user.UserService;
 import br.com.fiap.TechFood.application.port.product.ProductRepositoryPort;
 import br.com.fiap.TechFood.application.port.product.ProductServicePort;
