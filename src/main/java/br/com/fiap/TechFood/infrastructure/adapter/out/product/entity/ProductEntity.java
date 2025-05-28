@@ -2,16 +2,17 @@ package br.com.fiap.TechFood.infrastructure.adapter.out.product.entity;
 
 import br.com.fiap.TechFood.application.core.domain.product.Product;
 import br.com.fiap.TechFood.application.core.domain.product.ProductCategory;
-import br.com.fiap.TechFood.application.core.domain.product.vo.ProductImage;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Set;
+
+import static java.util.stream.Collectors.toSet;
 
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 public class ProductEntity {
 
     @Id
@@ -34,7 +35,7 @@ public class ProductEntity {
     @NotNull
     @ElementCollection
     @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
-    private List<ProductImageEntity> images;
+    private Set<ProductImageEntity> images;
 
     @Deprecated
     public ProductEntity() {}
@@ -45,7 +46,7 @@ public class ProductEntity {
         this.category = product.getCategory();
         this.price = product.getPrice();
         this.description = product.getDescription();
-        this.images = product.getImages().stream().map(ProductImageEntity::new).toList();
+        this.images = product.getImages().stream().map(ProductImageEntity::new).collect(toSet());
     }
 
     public Long getId() {
@@ -68,14 +69,8 @@ public class ProductEntity {
         return price;
     }
 
-    public List<ProductImageEntity> getImages() {
+    public Set<ProductImageEntity> getImages() {
         return images;
-    }
-
-    public List<ProductImage> productImages() {
-        return this.images.stream()
-                .map(imgEntity -> new ProductImage(imgEntity.getUrl(), imgEntity.getDescription(), imgEntity.getPosition()))
-                .toList();
     }
 
     public Product getProduct() {
@@ -85,6 +80,6 @@ public class ProductEntity {
                 this.category,
                 this.price,
                 this.description,
-                this.images.stream().map(ProductImageEntity::toProductImage).toList());
+                this.images.stream().map(ProductImageEntity::toProductImage).collect(toSet()));
     }
 }

@@ -3,7 +3,7 @@ package br.com.fiap.TechFood.application.core.domain.product;
 import br.com.fiap.TechFood.application.core.domain.product.vo.ProductImage;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Set;
 
 public class Product {
 
@@ -12,11 +12,11 @@ public class Product {
     private ProductCategory productCategory;
     private BigDecimal price;
     private String description;
-    private List<ProductImage> images;
+    private Set<ProductImage> images;
 
     public Product() {}
 
-    public Product(Long id, String name, ProductCategory productCategory, BigDecimal price, String description, List<ProductImage> images) {
+    public Product(Long id, String name, ProductCategory productCategory, BigDecimal price, String description, Set<ProductImage> images) {
         this.id = id;
         this.name = name;
         this.productCategory = productCategory;
@@ -25,9 +25,9 @@ public class Product {
         this.images = images;
     }
 
-    public Product(String name, ProductCategory productCategory, BigDecimal price, String description, List<ProductImage> images) {
+    public Product(String name, String categoryName, BigDecimal price, String description, Set<ProductImage> images) {
         this.name = name;
-        this.productCategory = productCategory;
+        this.productCategory = ProductCategory.getByName(categoryName);
         this.price = price;
         this.description = description;
         this.images = images;
@@ -57,7 +57,7 @@ public class Product {
         return description;
     }
 
-    public List<ProductImage> getImages() {
+    public Set<ProductImage> getImages() {
         return images;
     }
 }

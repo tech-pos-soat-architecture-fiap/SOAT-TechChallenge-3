@@ -13,21 +13,22 @@ public record ProductView(String name,
                           String description,
                           List<ProductImageView> images) {
 
-    public static ProductView of(Product product) {
-        List<ProductImageView> productImageViews = toProductImageViews(product.getImages());
-        return new ProductView(product.getName(), product.getCategoryName(), product.getPrice(), product.getDescription(), productImageViews);
+    public static ProductView from(Product product) {
+        return new ProductView(product.getName(),
+                product.getCategoryName(),
+                product.getPrice(),
+                product.getDescription(),
+                product.getImages().stream().map(ProductImageView::from).collect(Collectors.toList()));
     }
 
-    private static List<ProductImageView> toProductImageViews(List<ProductImage> productImages) {
-        return productImages.stream().map(ProductImageView::of).collect(Collectors.toList());
-    }
-
-    record ProductImageView(String url,
+    private record ProductImageView(String url,
                             String description,
                             int position) {
 
-        private static ProductImageView of(ProductImage productImage) {
-            return new ProductImageView(productImage.getUrl(),  productImage.getDescription(), productImage.getPosition());
+        private static ProductImageView from(ProductImage productImage) {
+            return new ProductImageView(productImage.getUrl(),
+                    productImage.getDescription(),
+                    productImage.getPosition());
         }
     }
 }

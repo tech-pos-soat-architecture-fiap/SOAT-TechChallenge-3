@@ -1,6 +1,7 @@
 package br.com.fiap.TechFood.application.core.domain.product;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public enum ProductCategory {
     SNACK("Lanche"),
@@ -18,7 +19,13 @@ public enum ProductCategory {
         return name;
     }
 
-    public static ProductCategory findByName(String name) {
+    public static Optional<ProductCategory> findByName(String name) {
+        return Arrays.stream(ProductCategory.values())
+                .filter(category -> category.getName().equals(name))
+                .findFirst();
+    }
+
+    public static ProductCategory getByName(String name) {
         return Arrays.stream(ProductCategory.values())
                 .filter(category -> category.getName().equals(name))
                 .findFirst()
