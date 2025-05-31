@@ -1,6 +1,9 @@
 package br.com.fiap.TechFood.infrastructure.adapter.out.order.entity;
 
+import br.com.fiap.TechFood.application.core.domain.order.Order;
 import br.com.fiap.TechFood.application.core.domain.order.OrderStatus;
+import br.com.fiap.TechFood.infrastructure.adapter.out.product.entity.ProductImageEntity;
+import br.com.fiap.TechFood.infrastructure.adapter.out.user.entity.UserEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -8,6 +11,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toSet;
 
 @Entity(name = "orders")
 public class OrderEntity {
@@ -30,15 +36,28 @@ public class OrderEntity {
     @CollectionTable(name = "order_items", joinColumns = @JoinColumn(name = "order_id"))
     private Set<OrderItemEntity> items = new HashSet<>();
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private UserEntity user;
+
     @Deprecated
     public OrderEntity() {
     }
 
     public OrderEntity(BigDecimal total, OrderStatus status, LocalDateTime createdAt, Set<OrderItemEntity> items) {
-        this.id = id;
         this.total = total;
         this.status = status;
         this.createdAt = createdAt;
         this.items = items;
+    }
+
+    public Order getOrder() {
+        return new Order(
+                this.id,
+                this.user.getUser(),
+                this.total,
+                this.status,
+                this.items.stream()
+                        .map(OrderItemEntity::toOrderItem)
+                        .collect(Collectors.toSet()));
     }
 }

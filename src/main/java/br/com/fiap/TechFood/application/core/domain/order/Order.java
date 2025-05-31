@@ -24,4 +24,24 @@ public class Order {
         this.status = status;
         this.orderItems = orderItems;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
+    }
 }
