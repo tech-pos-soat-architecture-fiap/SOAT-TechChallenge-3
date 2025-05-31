@@ -9,6 +9,8 @@ public interface UserRespositoryPort {
 
     Optional<User> findById(Long id);
 
+    Optional<User> findByCpf(String cpf);
+
     User save(User user);
 
     PagePort<User> findAll(int page, int size);
