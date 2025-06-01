@@ -2,18 +2,18 @@ package br.com.fiap.TechFood.infrastructure.adapter.out.order.entity;
 
 import br.com.fiap.TechFood.application.core.domain.order.Order;
 import br.com.fiap.TechFood.application.core.domain.order.OrderStatus;
-import br.com.fiap.TechFood.infrastructure.adapter.out.product.entity.ProductImageEntity;
 import br.com.fiap.TechFood.infrastructure.adapter.out.user.entity.UserEntity;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toSet;
 
 @Entity(name = "orders")
 public class OrderEntity {
@@ -37,6 +37,7 @@ public class OrderEntity {
     private Set<OrderItemEntity> items = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL)
+    @Nullable
     private UserEntity user;
 
     @Deprecated
@@ -53,7 +54,7 @@ public class OrderEntity {
     public Order getOrder() {
         return new Order(
                 this.id,
-                this.user.getUser(),
+                this.user != null ? Optional.of(this.user.getUser()) : Optional.empty(),
                 this.total,
                 this.status,
                 this.items.stream()
