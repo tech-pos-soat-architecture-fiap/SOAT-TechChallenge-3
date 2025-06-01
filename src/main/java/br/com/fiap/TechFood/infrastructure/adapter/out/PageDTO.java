@@ -43,8 +43,4 @@ public class PageDTO<T> implements PagePort<T> {
     public <U> PagePort<U> map(Function<? super T, ? extends U> converter) {
         return new PageDTO<>(page.map(converter));
     }
-
-    public static <T> PageDTO<T> empty() {
-        return new PageDTO<>(Page.empty());
-    }
 }

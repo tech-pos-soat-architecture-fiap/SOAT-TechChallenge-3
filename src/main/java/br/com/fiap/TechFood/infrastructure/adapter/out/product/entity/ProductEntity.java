@@ -41,15 +41,6 @@ public class ProductEntity {
     @Deprecated
     public ProductEntity() {}
 
-    public ProductEntity(Long id, String name, ProductCategory category, BigDecimal price, String description, Set<ProductImageEntity> images) {
-        this.id = id;
-        this.name = name;
-        this.category = category;
-        this.price = price;
-        this.description = description;
-        this.images = images;
-    }
-
     public ProductEntity(Product product) {
         this.id = product.getId();
         this.name = product.getName();

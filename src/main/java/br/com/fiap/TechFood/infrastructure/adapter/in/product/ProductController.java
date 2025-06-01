@@ -1,14 +1,17 @@
 package br.com.fiap.TechFood.infrastructure.adapter.in.product;
 
 import br.com.fiap.TechFood.application.core.domain.product.Product;
+import br.com.fiap.TechFood.application.core.domain.product.ProductCategory;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.product.ProductServicePort;
 import br.com.fiap.TechFood.application.shared.exception.NotFoundException;
+import br.com.fiap.TechFood.infrastructure.adapter.out.PageDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
 public class ProductController {
@@ -37,7 +40,8 @@ public class ProductController {
     public ResponseEntity<PagePort<ProductView>> showByCategory(@PathVariable("category") String category,
                                                                 @RequestParam(defaultValue = "0") int page,
                                                                 @RequestParam(defaultValue = "10") int size) {
-        PagePort<ProductView> productView = productServicePort.findAllByCategory(category, page, size).map(ProductView::from);
+        ProductCategory productCategory = ProductCategory.findByName(category).orElseThrow(NotFoundException::new);
+        PagePort<ProductView> productView = productServicePort.findAllByCategory(productCategory, page, size).map(ProductView::from);
         return ResponseEntity.ok(productView);
     }
 
