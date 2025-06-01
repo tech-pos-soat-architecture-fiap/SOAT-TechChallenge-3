@@ -44,6 +44,15 @@ public class OrderEntity {
     public OrderEntity() {
     }
 
+    public OrderEntity(Order order) {
+        this.id = order.getId();
+        this.total = order.getTotal();
+        this.status = order.getStatus();
+        this.createdAt = order.getCreatedAt();
+        this.items = order.getOrderItems().stream().map(OrderItemEntity::new).collect(Collectors.toSet());
+        this.user = order.getUser().isPresent() ? new UserEntity(order.getUser().get()) : null;
+    }
+
     public OrderEntity(BigDecimal total, OrderStatus status, LocalDateTime createdAt, Set<OrderItemEntity> items) {
         this.total = total;
         this.status = status;

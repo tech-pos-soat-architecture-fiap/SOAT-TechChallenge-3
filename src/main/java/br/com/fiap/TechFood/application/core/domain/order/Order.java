@@ -47,7 +47,15 @@ public class Order {
         return status;
     }
 
+    public String getStatusName() {
+        return status.name();
+    }
+
     public Set<OrderItem> getOrderItems() {
         return orderItems;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 }

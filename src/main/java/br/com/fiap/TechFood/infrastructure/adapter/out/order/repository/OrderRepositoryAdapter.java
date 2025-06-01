@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class OrderRepositoryAdapter implements OrderRepositoryPort {
 
@@ -22,5 +24,15 @@ public class OrderRepositoryAdapter implements OrderRepositoryPort {
     public PagePort<Order> findAll(int page, int size) {
         Page<Order> orders = orderEntityRepository.findAll(PageRequest.of(page, size)).map(OrderEntity::getOrder);
         return new PageDTO<>(orders);
+    }
+
+    @Override
+    public Optional<Order> findById(Long id) {
+        return orderEntityRepository.findById(id).map(OrderEntity::getOrder);
+    }
+
+    @Override
+    public Order save(Order order) {
+        return orderEntityRepository.save(new OrderEntity(order)).getOrder();
     }
 }
