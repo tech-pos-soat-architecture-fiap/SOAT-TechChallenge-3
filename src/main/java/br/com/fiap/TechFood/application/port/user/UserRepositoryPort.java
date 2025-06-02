@@ -5,7 +5,7 @@ import br.com.fiap.TechFood.application.port.PagePort;
 
 import java.util.Optional;
 
-public interface UserRespositoryPort {
+public interface UserRepositoryPort {
 
     Optional<User> findById(Long id);
 
