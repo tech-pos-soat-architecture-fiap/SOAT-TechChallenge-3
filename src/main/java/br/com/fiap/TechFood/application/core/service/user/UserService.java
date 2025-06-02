@@ -21,6 +21,11 @@ public class UserService implements UserServicePort {
     }
 
     @Override
+    public Optional<User> findByCpf(String cpf) {
+        return userRespositoryPort.findByCpf(cpf);
+    }
+
+    @Override
     public PagePort<User> findAll(int page, int size) {
         return userRepositoryPort.findAll(page, size);
     }

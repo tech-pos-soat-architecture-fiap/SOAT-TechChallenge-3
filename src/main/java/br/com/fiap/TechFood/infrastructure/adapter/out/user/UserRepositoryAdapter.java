@@ -27,6 +27,11 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
     }
 
     @Override
+    public Optional<User> findByCpf(String cpf) {
+        return userEntityRepository.findByCpf(cpf).map(UserEntity::getUser);
+    }
+
+    @Override
     public PagePort<User> findAll(int page, int size) {
         Page<User> users = userEntityRepository.findAll(PageRequest.of(page, size)).map(UserEntity::toUser);
         return new PageDTO<>(users);

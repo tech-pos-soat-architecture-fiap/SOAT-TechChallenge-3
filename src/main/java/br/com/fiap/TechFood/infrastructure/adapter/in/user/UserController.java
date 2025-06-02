@@ -37,4 +37,11 @@ public class UserController {
         UserView userView = userServicePort.findById(id).map(UserView::of).orElse(null);
         return ResponseEntity.ok(userView);
     }
+
+    @GetMapping("/users/cpf/{cpf}")
+    public ResponseEntity<UserView> showUserByCpf(@PathVariable("cpf") String cpf) {
+        UserView userView = userServicePort.findByCpf(cpf).map(UserView::of).orElse(null);
+        return ResponseEntity.ok(userView);
+    }
+    
 }

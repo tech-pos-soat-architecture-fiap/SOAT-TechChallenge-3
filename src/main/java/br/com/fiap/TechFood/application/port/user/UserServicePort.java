@@ -9,6 +9,8 @@ public interface UserServicePort {
 
     Optional<User> findById(Long id);
 
+    Optional<User> findByCpf(String cpf);
+
     User create(User user);
 
     PagePort<User> findAll(int page, int size);
