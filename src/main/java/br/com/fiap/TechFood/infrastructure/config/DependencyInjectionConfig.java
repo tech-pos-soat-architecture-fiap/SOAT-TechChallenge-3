@@ -22,11 +22,11 @@ public class DependencyInjectionConfig {
 
     @Bean
     public ProductServicePort productService(ProductRepositoryPort productGateway) {
-        return new ProductService((productGateway));
+        return new ProductService(productGateway);
     }
 
     @Bean
-    public OrderServicePort orderService(OrderRepositoryPort orderRepositoryPort) {
-        return new OrderService((orderRepositoryPort));
+    public OrderServicePort orderService(OrderRepositoryPort orderRepositoryPort, UserRepositoryPort userRepositoryPort) {
+        return new OrderService(orderRepositoryPort, userRepositoryPort);
     }
 }

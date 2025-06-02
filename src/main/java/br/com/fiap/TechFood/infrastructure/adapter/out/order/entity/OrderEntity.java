@@ -10,7 +10,6 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -26,7 +25,7 @@ public class OrderEntity {
     private BigDecimal total = BigDecimal.ZERO;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus status = OrderStatus.RECEIVED;
+    private OrderStatus status = OrderStatus.DRAFT;
 
     @NotNull
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -36,7 +35,7 @@ public class OrderEntity {
     @CollectionTable(name = "order_items", joinColumns = @JoinColumn(name = "order_id"))
     private Set<OrderItemEntity> items = new HashSet<>();
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @Nullable
     private UserEntity user;
 
@@ -50,20 +49,13 @@ public class OrderEntity {
         this.status = order.getStatus();
         this.createdAt = order.getCreatedAt();
         this.items = order.getOrderItems().stream().map(OrderItemEntity::new).collect(Collectors.toSet());
-        this.user = order.getUser().isPresent() ? new UserEntity(order.getUser().get()) : null;
-    }
-
-    public OrderEntity(BigDecimal total, OrderStatus status, LocalDateTime createdAt, Set<OrderItemEntity> items) {
-        this.total = total;
-        this.status = status;
-        this.createdAt = createdAt;
-        this.items = items;
+        this.user = order.getUser() != null ? new UserEntity(order.getUser()) : null;
     }
 
     public Order getOrder() {
         return new Order(
                 this.id,
-                this.user != null ? Optional.of(this.user.getUser()) : Optional.empty(),
+                this.user != null ? this.user.getUser() : null,
                 this.total,
                 this.status,
                 this.items.stream()

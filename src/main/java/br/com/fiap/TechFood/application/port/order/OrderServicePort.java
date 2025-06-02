@@ -10,6 +10,10 @@ public interface OrderServicePort {
     PagePort<Order> findAll(int page, int size);
 
     Optional<Order> findById(Long id);
+
     Order save(Order order);
+
     OrderStatusView changeStatus(Long orderId);
+
+    Order create(Long userId);
 }

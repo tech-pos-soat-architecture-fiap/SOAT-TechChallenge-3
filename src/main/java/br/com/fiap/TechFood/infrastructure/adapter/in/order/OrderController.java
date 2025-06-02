@@ -1,11 +1,15 @@
 package br.com.fiap.TechFood.infrastructure.adapter.in.order;
 
+import br.com.fiap.TechFood.application.core.domain.order.Order;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.order.OrderServicePort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 public class OrderController {
@@ -15,13 +19,21 @@ public class OrderController {
         this.orderServicePort = orderServicePort;
     }
 
+    //TODO criar o endpoint /orders/id
+
     @PostMapping("create/order")
-    public ResponseEntity<?> createOrder(@RequestBody OrderForm order) {
-        if (Objects.requireNonNull(order.orderItems()).isEmpty()) {
-            return ResponseEntity.badRequest().build();
-        }
-        return null;
+    public ResponseEntity<?> createOrder(@RequestBody(required = false) Long userId) {
+        Order order = orderServicePort.create(userId);
+
+        URI uri = URI.create("/orders/" + userId);
+
+        return ResponseEntity.created(uri).body(OrderView.from(order));
     }
+
+//    @PostMapping("/add-item")
+//    public ResponseEntity<?> addItem(@RequestBody List<OrderItemForm> orderItemsForms) {
+//        Order order = orderServicePort.addItems(orderItemsForms);
+//    }
 
     @GetMapping("/orders")
     public ResponseEntity<PagePort<OrderView>> showAll(@RequestParam(defaultValue = "0") int page,

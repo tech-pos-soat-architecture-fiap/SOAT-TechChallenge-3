@@ -1,6 +1,12 @@
 package br.com.fiap.TechFood.application.core.domain.order;
 
 public enum OrderStatus {
+    DRAFT {
+        @Override
+        public OrderStatus next() {
+            return RECEIVED;
+        }
+    },
     RECEIVED {
         @Override
         public OrderStatus next() {
@@ -27,9 +33,5 @@ public enum OrderStatus {
 
     public boolean isNotFinished() {
         return !FINISHED.equals(this);
-    }
-
-    public String getStatusName() {
-        return this.name();
     }
 }
