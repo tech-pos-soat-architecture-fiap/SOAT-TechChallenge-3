@@ -9,7 +9,7 @@ public interface UserRepositoryPort {
 
     Optional<User> findById(Long id);
 
-    Optional<User> findByCpf(String cpf);
+    Optional<User> findByCpf_Cpf(String cpf);
 
     User save(User user);
 

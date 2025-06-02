@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface UserEntityRepository extends JpaRepository<UserEntity, Long> {
 
-    Optional<UserEntity> findByCpf(String cpf);
+    Optional<UserEntity> findByCpf_Cpf(String cpf);
 
 }

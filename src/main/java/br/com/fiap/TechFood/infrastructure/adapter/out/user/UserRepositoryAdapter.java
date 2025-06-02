@@ -27,8 +27,8 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
     }
 
     @Override
-    public Optional<User> findByCpf(String cpf) {
-        return userEntityRepository.findByCpf(cpf).map(UserEntity::getUser);
+    public Optional<User> findByCpf_Cpf(String cpf) {
+        return userEntityRepository.findByCpf_Cpf(cpf).map(UserEntity::toUser);
     }
 
     @Override

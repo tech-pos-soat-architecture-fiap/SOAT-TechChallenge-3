@@ -22,7 +22,7 @@ public class UserService implements UserServicePort {
 
     @Override
     public Optional<User> findByCpf(String cpf) {
-        return userRespositoryPort.findByCpf(cpf);
+        return userRepositoryPort.findByCpf_Cpf(cpf);
     }
 
     @Override
