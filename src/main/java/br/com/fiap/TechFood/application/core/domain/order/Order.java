@@ -5,6 +5,8 @@ import br.com.fiap.TechFood.application.core.domain.user.User;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public class Order {
@@ -63,5 +65,22 @@ public class Order {
 
     public void setStatus(OrderStatus status) {
         this.status = status;
+    }
+
+    public void addItems(List<OrderItem> items) {
+        items.forEach(this::addItem);
+    }
+
+
+    private void addItem(OrderItem item) {
+        Optional<OrderItem> existingItem = orderItems.stream()
+                .filter(cartItem -> cartItem.getProductId().equals(item.getProductId()))
+                .findFirst();
+
+        if (existingItem.isPresent()) {
+            existingItem.get().setQuantity(existingItem.get().getQuantity() + item.getQuantity());
+        } else {
+            orderItems.add(item);
+        }
     }
 }

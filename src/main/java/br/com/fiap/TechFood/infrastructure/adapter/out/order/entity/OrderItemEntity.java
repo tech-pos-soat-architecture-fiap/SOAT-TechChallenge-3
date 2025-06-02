@@ -41,6 +41,6 @@ public class OrderItemEntity {
     }
 
     public OrderItem toOrderItem() {
-        return new OrderItem(this.quantity, this.product.getProduct(), this.price);
+        return new OrderItem(this.quantity, this.product.getProduct());
     }
 }

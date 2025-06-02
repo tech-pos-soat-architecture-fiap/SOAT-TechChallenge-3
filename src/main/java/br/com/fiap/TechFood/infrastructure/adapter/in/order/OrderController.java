@@ -3,6 +3,7 @@ package br.com.fiap.TechFood.infrastructure.adapter.in.order;
 import br.com.fiap.TechFood.application.core.domain.order.Order;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.order.OrderServicePort;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,10 +31,11 @@ public class OrderController {
         return ResponseEntity.created(uri).body(OrderView.from(order));
     }
 
-//    @PostMapping("/add-item")
-//    public ResponseEntity<?> addItem(@RequestBody List<OrderItemForm> orderItemsForms) {
-//        Order order = orderServicePort.addItems(orderItemsForms);
-//    }
+    @PostMapping("/add-items")
+    public ResponseEntity<?> addItem(@Valid @RequestBody List<OrderItemForm> orderItemsForms, Long orderId) {
+        Order order = orderServicePort.addItems(orderItemsForms, orderId);
+        return ResponseEntity.ok(OrderView.from(order));
+    }
 
     @GetMapping("/orders")
     public ResponseEntity<PagePort<OrderView>> showAll(@RequestParam(defaultValue = "0") int page,

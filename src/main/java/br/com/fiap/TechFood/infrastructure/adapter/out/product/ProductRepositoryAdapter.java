@@ -12,7 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class ProductRepositoryAdapter implements ProductRepositoryPort {
@@ -55,5 +57,10 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
     @Override
     public void remove(Product product) {
         productEntityRepository.delete(new ProductEntity(product));
+    }
+
+    @Override
+    public List<Product> findAllByIdIn(List<Long> ids) {
+        return productEntityRepository.findAllById(ids).stream().map(ProductEntity::getProduct).toList();
     }
 }

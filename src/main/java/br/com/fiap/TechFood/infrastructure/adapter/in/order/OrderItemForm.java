@@ -1,4 +1,8 @@
 package br.com.fiap.TechFood.infrastructure.adapter.in.order;
 
-public record OrderItemForm(int quantity, Long productId) {
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
+public record OrderItemForm(@Min(1) int quantity, @NotNull Long productId) {
+
 }

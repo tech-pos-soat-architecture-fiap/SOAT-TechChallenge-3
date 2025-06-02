@@ -26,7 +26,8 @@ public class DependencyInjectionConfig {
     }
 
     @Bean
-    public OrderServicePort orderService(OrderRepositoryPort orderRepositoryPort, UserRepositoryPort userRepositoryPort) {
-        return new OrderService(orderRepositoryPort, userRepositoryPort);
+    public OrderServicePort orderService(OrderRepositoryPort orderRepositoryPort, UserRepositoryPort userRepositoryPort,
+                                         ProductServicePort productServicePort) {
+        return new OrderService(orderRepositoryPort, userRepositoryPort, productServicePort);
     }
 }

@@ -11,10 +11,10 @@ public class OrderItem {
 
     public OrderItem() {}
 
-    public OrderItem(int quantity, Product product, BigDecimal price) {
+    public OrderItem(int quantity, Product product) {
         this.quantity = quantity;
         this.product = product;
-        this.price = price;
+        this.price = product.getPrice().multiply(new BigDecimal(quantity));
     }
 
     public int getQuantity() {
@@ -27,5 +27,13 @@ public class OrderItem {
 
     public BigDecimal getPrice() {
         return price;
+    }
+
+    public Long getProductId() {
+        return this.product.getId();
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

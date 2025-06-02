@@ -3,6 +3,7 @@ package br.com.fiap.TechFood.application.port.product;
 import br.com.fiap.TechFood.application.core.domain.product.Product;
 import br.com.fiap.TechFood.application.port.PagePort;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ProductServicePort {
@@ -18,4 +19,6 @@ public interface ProductServicePort {
     PagePort<Product> findAll(int page, int size);
 
     PagePort<Product> findAllByCategory(String categoryName, int page, int size);
+
+    List<Product> getProductsByIds(List<Long> list);
 }

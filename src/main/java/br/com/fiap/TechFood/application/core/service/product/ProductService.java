@@ -7,6 +7,7 @@ import br.com.fiap.TechFood.application.port.product.ProductRepositoryPort;
 import br.com.fiap.TechFood.application.port.product.ProductServicePort;
 import br.com.fiap.TechFood.infrastructure.adapter.out.PageDTO;
 
+import java.util.List;
 import java.util.Optional;
 
 public class ProductService implements ProductServicePort {
@@ -47,5 +48,10 @@ public class ProductService implements ProductServicePort {
         Optional<ProductCategory> category = ProductCategory.findByName(categoryName);
         if (category.isEmpty()) return PageDTO.empty();
         return productRepositoryPort.findAllByCategory(category.get(), page, size);
+    }
+
+    @Override
+    public List<Product> getProductsByIds(List<Long> ids) {
+        return productRepositoryPort.findAllByIdIn(ids);
     }
 }
