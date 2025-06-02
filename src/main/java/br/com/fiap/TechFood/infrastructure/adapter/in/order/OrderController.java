@@ -3,10 +3,9 @@ package br.com.fiap.TechFood.infrastructure.adapter.in.order;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.order.OrderServicePort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 @RestController
 public class OrderController {
@@ -14,6 +13,14 @@ public class OrderController {
 
     public OrderController(OrderServicePort orderServicePort) {
         this.orderServicePort = orderServicePort;
+    }
+
+    @PostMapping("create/order")
+    public ResponseEntity<?> createOrder(@RequestBody OrderForm order) {
+        if (Objects.requireNonNull(order.orderItems()).isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        return null;
     }
 
     @GetMapping("/orders")
@@ -27,4 +34,5 @@ public class OrderController {
     public ResponseEntity<?> changeStatus(@PathVariable("orderId") Long id) {
         return ResponseEntity.ok(orderServicePort.changeStatus(id));
     }
+
 }
