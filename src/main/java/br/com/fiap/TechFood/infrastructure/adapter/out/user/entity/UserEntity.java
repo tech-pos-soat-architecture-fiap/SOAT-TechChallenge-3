@@ -47,7 +47,7 @@ public class UserEntity {
         return cpf;
     }
 
-    public User getUser() {
+    public User toUser() {
         return new User(this.getId(), this.getName(), this.getEmail(), this.getCpf());
     }
 }

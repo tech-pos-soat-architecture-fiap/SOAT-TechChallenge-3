@@ -23,17 +23,17 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
 
     @Override
     public Optional<User> findById(Long id) {
-        return userEntityRepository.findById(id).map(UserEntity::getUser);
+        return userEntityRepository.findById(id).map(UserEntity::toUser);
     }
 
     @Override
     public PagePort<User> findAll(int page, int size) {
-        Page<User> users = userEntityRepository.findAll(PageRequest.of(page, size)).map(UserEntity::getUser);
+        Page<User> users = userEntityRepository.findAll(PageRequest.of(page, size)).map(UserEntity::toUser);
         return new PageDTO<>(users);
     }
 
     @Override
     public User save(User user) {
-        return userEntityRepository.save(new UserEntity(user)).getUser();
+        return userEntityRepository.save(new UserEntity(user)).toUser();
     }
 }

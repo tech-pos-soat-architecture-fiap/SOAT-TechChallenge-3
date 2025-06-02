@@ -5,13 +5,11 @@ import br.com.fiap.TechFood.application.core.domain.product.ProductCategory;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.product.ProductServicePort;
 import br.com.fiap.TechFood.application.shared.exception.NotFoundException;
-import br.com.fiap.TechFood.infrastructure.adapter.out.PageDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.Optional;
 
 @RestController
 public class ProductController {

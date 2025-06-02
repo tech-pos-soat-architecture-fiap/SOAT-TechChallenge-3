@@ -74,7 +74,7 @@ public class ProductEntity {
         return images;
     }
 
-    public Product getProduct() {
+    public Product toProduct() {
         return new Product(
                 this.id,
                 this.name,
