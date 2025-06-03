@@ -5,7 +5,10 @@ import br.com.fiap.TechFood.application.core.domain.product.ProductCategory;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.product.ProductRepositoryPort;
 import br.com.fiap.TechFood.application.port.product.ProductServicePort;
+import br.com.fiap.TechFood.application.shared.exception.NotFoundException;
+import br.com.fiap.TechFood.infrastructure.adapter.out.PageDTO;
 
+import java.util.List;
 import java.util.Optional;
 
 public class ProductService implements ProductServicePort {
@@ -32,7 +35,8 @@ public class ProductService implements ProductServicePort {
     }
 
     @Override
-    public void remove(Product product) {
+    public void remove(Long id) {
+        Product product = productRepositoryPort.findById(id).orElseThrow(NotFoundException::new);
         productRepositoryPort.remove(product);
     }
 
@@ -44,5 +48,10 @@ public class ProductService implements ProductServicePort {
     @Override
     public PagePort<Product> findAllByCategory(ProductCategory productCategory, int page, int size) {
         return productRepositoryPort.findAllByCategory(productCategory, page, size);
+    }
+
+    @Override
+    public List<Product> getProductsByIds(List<Long> ids) {
+        return productRepositoryPort.findAllByIdIn(ids);
     }
 }

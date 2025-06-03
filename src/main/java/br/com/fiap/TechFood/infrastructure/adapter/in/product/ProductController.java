@@ -58,8 +58,7 @@ public class ProductController {
 
     @DeleteMapping("/product/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-        Product product = productServicePort.findById(id).orElseThrow(NotFoundException::new);
-        productServicePort.remove(product);
+        productServicePort.remove(id);
         return ResponseEntity.ok().build();
     }
 }

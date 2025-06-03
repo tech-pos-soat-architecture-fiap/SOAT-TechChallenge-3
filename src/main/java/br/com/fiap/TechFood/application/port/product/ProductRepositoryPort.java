@@ -4,6 +4,7 @@ import br.com.fiap.TechFood.application.core.domain.product.Product;
 import br.com.fiap.TechFood.application.core.domain.product.ProductCategory;
 import br.com.fiap.TechFood.application.port.PagePort;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ProductRepositoryPort {
@@ -19,4 +20,6 @@ public interface ProductRepositoryPort {
     PagePort<Product> findAllByCategory(ProductCategory category, int page, int size);
 
     void remove(Product product);
+
+    List<Product> findAllByIdIn(List<Long> ids);
 }
