@@ -60,8 +60,8 @@ Este projeto consiste no desenvolvimento de um sistema de autoatendimento para u
 
 
 ## Documentação
-
 - [Documentação do sistema (DDD) com Event Storming](https://miro.com/app/board/uXjVI3-v7GA=/)
+- [API Reference](docs/API-Reference.md)
 - [Documentação API com Swagger](http://localhost:8080/swagger-ui/index.html) (aplicação precisar estar de pé)
 
 ## Observações
