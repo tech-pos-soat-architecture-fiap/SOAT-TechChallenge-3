@@ -40,12 +40,13 @@ Este projeto consiste no desenvolvimento de um sistema de autoatendimento para u
 ```bash
   # SSH
   git clone git@github.com:tech-pos-soat-architecture-fiap/SOAT-TechChallenge-1.git
-  
+```
+```bash
   # HTTPS
   git clone https://github.com/tech-pos-soat-architecture-fiap/SOAT-TechChallenge-1.git
 ```
 
-- Entrar na diretório do projeto
+- Entrar no diretório do projeto
 
 ```bash
   cd SOAT-TechChallenge-1
