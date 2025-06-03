@@ -2,8 +2,6 @@ package br.com.fiap.TechFood.application.port.order;
 
 import br.com.fiap.TechFood.application.core.domain.order.Order;
 import br.com.fiap.TechFood.application.port.PagePort;
-import br.com.fiap.TechFood.infrastructure.adapter.in.order.OrderItemForm;
-import br.com.fiap.TechFood.infrastructure.adapter.in.order.OrderStatusView;
 
 import java.util.List;
 
@@ -14,11 +12,11 @@ public interface OrderServicePort {
 
     Order save(Order order);
 
-    OrderStatusView changeStatus(Long orderId);
+    Order changeStatus(Long orderId);
 
     Order create(Long userId);
 
-    Order addItems(List<OrderItemForm> orderItemsForms, Long orderId);
+    Order addItems(List<? extends OrderItemPort> orderItems, Long orderId);
 
-    Order removeItems(List<OrderItemForm> orderItemsForms, Long orderId);
+    Order removeItems(List<? extends OrderItemPort> orderItems, Long orderId);
 }

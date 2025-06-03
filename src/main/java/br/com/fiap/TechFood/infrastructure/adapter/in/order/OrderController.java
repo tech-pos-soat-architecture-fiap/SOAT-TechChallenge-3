@@ -55,11 +55,8 @@ public class OrderController {
     }
 
     @PutMapping("order/change-status/{orderId}")
-    public ResponseEntity<?> changeStatus(@PathVariable("orderId") Long id) {
-        try {
-            return ResponseEntity.ok(orderServicePort.changeStatus(id));
-        } catch (IllegalStateException ex) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("error", ex.getMessage()));
-        }
+    public ResponseEntity<OrderStatusView> changeStatus(@PathVariable("orderId") Long id) {
+        Order order = orderServicePort.changeStatus(id);
+        return ResponseEntity.ok(OrderStatusView.from(order));
     }
 }

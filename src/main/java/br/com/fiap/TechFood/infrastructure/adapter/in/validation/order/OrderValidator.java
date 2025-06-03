@@ -3,6 +3,7 @@ package br.com.fiap.TechFood.infrastructure.adapter.in.validation.order;
 import br.com.fiap.TechFood.application.core.domain.order.Order;
 import br.com.fiap.TechFood.application.core.domain.order.OrderItem;
 import br.com.fiap.TechFood.application.core.domain.product.Product;
+import br.com.fiap.TechFood.application.port.order.OrderItemPort;
 import br.com.fiap.TechFood.application.port.order.OrderValidatorPort;
 import br.com.fiap.TechFood.infrastructure.adapter.in.order.OrderItemForm;
 import br.com.fiap.TechFood.application.shared.exception.ValidationResult;
@@ -16,10 +17,10 @@ import java.util.stream.Collectors;
 public class OrderValidator implements OrderValidatorPort {
 
     @Override
-    public ValidationResult validateAddItems(List<OrderItemForm> orderItemForm, List<Product> productsByIds) {
+    public ValidationResult validateAddItems(List<? extends OrderItemPort> orderItemForm, List<Product> productsByIds) {
         ValidationResult validationResult = new ValidationResult();
 
-        orderItemForm.stream().map(OrderItemForm::productId).forEach(productId -> {
+        orderItemForm.stream().map(OrderItemPort::productId).forEach(productId -> {
             if (productsByIds.stream().noneMatch(product -> product.getId().equals(productId))) {
                 validationResult.addError("productId", "Product %s not found".formatted(productId));
             }
@@ -29,7 +30,7 @@ public class OrderValidator implements OrderValidatorPort {
     }
 
     @Override
-    public ValidationResult validateRemoveItems(Order order, List<OrderItemForm> orderItemForms) {
+    public ValidationResult validateRemoveItems(Order order, List<? extends OrderItemPort> orderItemForms) {
         ValidationResult validationResult = new ValidationResult();
 
         Map<Long, Integer> productsQuantityMap = order.getOrderItems().stream().collect(Collectors.toMap(OrderItem::getProductId,

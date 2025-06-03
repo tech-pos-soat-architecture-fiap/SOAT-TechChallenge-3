@@ -35,5 +35,12 @@ public class OrderItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+        updateSubTotal();
+    }
+
+    private void updateSubTotal() {
+        if (this.product != null && this.product.getPrice() != null) {
+            this.subTotal = this.product.getPrice().multiply(BigDecimal.valueOf(this.quantity));
+        }
     }
 }

@@ -5,14 +5,13 @@ import br.com.fiap.TechFood.application.core.domain.order.OrderItem;
 import br.com.fiap.TechFood.application.core.domain.order.OrderStatus;
 import br.com.fiap.TechFood.application.core.domain.product.Product;
 import br.com.fiap.TechFood.application.port.PagePort;
+import br.com.fiap.TechFood.application.port.order.OrderItemPort;
 import br.com.fiap.TechFood.application.port.order.OrderRepositoryPort;
 import br.com.fiap.TechFood.application.port.order.OrderServicePort;
 import br.com.fiap.TechFood.application.port.order.OrderValidatorPort;
 import br.com.fiap.TechFood.application.port.product.ProductServicePort;
 import br.com.fiap.TechFood.application.port.user.UserRepositoryPort;
 import br.com.fiap.TechFood.application.shared.exception.NotFoundException;
-import br.com.fiap.TechFood.infrastructure.adapter.in.order.OrderItemForm;
-import br.com.fiap.TechFood.infrastructure.adapter.in.order.OrderStatusView;
 
 import java.util.List;
 import java.util.Map;
@@ -40,13 +39,12 @@ public class OrderService implements OrderServicePort {
     }
 
     @Override
-    public OrderStatusView changeStatus(Long orderId) {
+    public Order changeStatus(Long orderId) {
         Order order = this.findById(orderId);
         if (order.isNotFinished()) {
             OrderStatus nextStatus = order.getStatus().next();
             order.setStatus(nextStatus);
-            save(order);
-            return new OrderStatusView(orderId, order.getStatusName());
+            return save(order);
         }
         throw new IllegalStateException("Order not found or already finished.");
     }
@@ -60,41 +58,42 @@ public class OrderService implements OrderServicePort {
     }
 
     @Override
-    public Order addItems(List<OrderItemForm> orderItemsForms, Long orderId) {
+    public Order addItems(List<? extends OrderItemPort> orderItems, Long orderId) {
         Order order = orderRepositoryPort.findById(orderId).orElseThrow(NotFoundException::new);
 
-        List<Product> products = productServicePort.getProductsByIds(orderItemsForms.stream()
-                .map(OrderItemForm::productId).toList());
+        if (order.isNotDraft()) throw new IllegalStateException("Order is not draft.");
 
-        orderValidator.validateAddItems(orderItemsForms, products).throwIfInvalid();
+        List<Product> products = productServicePort.getProductsByIds(orderItems.stream()
+                .map(OrderItemPort::productId).toList());
+
+        orderValidator.validateAddItems(orderItems, products).throwIfInvalid();
 
         Map<Long, Product> productMap = products.stream().collect(Collectors.toMap(Product::getId, Function.identity()));
 
-        List<OrderItem> orderItems = orderItemsForms.stream().map(orderItemForm ->
-                new OrderItem(orderItemForm.quantity(),
-                        productMap.get(orderItemForm.productId()))).toList();
+        List<OrderItem> itemsToAdd = orderItems.stream()
+            .map(orderItem -> new OrderItem(orderItem.quantity(), productMap.get(orderItem.productId())))
+            .toList();
 
+        order.addItems(itemsToAdd);
 
-        order.addItems(orderItems);
         return orderRepositoryPort.save(order);
     }
 
     @Override
-    public Order removeItems(List<OrderItemForm> orderItemsForms, Long orderId) {
+    public Order removeItems(List<? extends OrderItemPort> orderItems, Long orderId) {
         Order order = orderRepositoryPort.findById(orderId).orElseThrow(NotFoundException::new);
 
-        orderValidator.validateRemoveItems(order, orderItemsForms).throwIfInvalid();
+        orderValidator.validateRemoveItems(order, orderItems).throwIfInvalid();
 
-        List<Product> products = productServicePort.getProductsByIds(orderItemsForms.stream()
-                .map(OrderItemForm::productId).toList());
+        List<Product> products = productServicePort.getProductsByIds(orderItems.stream()
+                .map(OrderItemPort::productId).toList());
 
         Map<Long, Product> productMap = products.stream().collect(Collectors.toMap(Product::getId, Function.identity()));
 
-        List<OrderItem> orderItems = orderItemsForms.stream().map(orderItemForm ->
-                new OrderItem(orderItemForm.quantity(),
-                        productMap.get(orderItemForm.productId()))).toList();
+        List<OrderItem> orderItemsToRemove = orderItems.stream().map(orderItem ->
+                new OrderItem(orderItem.quantity(), productMap.get(orderItem.productId()))).toList();
 
-        order.removeItems(orderItems);
+        order.removeItems(orderItemsToRemove);
 
         return orderRepositoryPort.save(order);
     }

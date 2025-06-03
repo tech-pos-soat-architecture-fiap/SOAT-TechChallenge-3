@@ -52,8 +52,9 @@ public class Order {
     public OrderStatus getStatus() {
         return status;
     }
+
     public boolean isNotFinished() {
-        return this.status.isNotFinished();
+        return !status.is(OrderStatus.FINISHED);
     }
 
     public String getStatusName() {
@@ -79,7 +80,8 @@ public class Order {
                 .findFirst();
 
         if (existingItem.isPresent()) {
-            existingItem.get().setQuantity(existingItem.get().getQuantity() + item.getQuantity());
+            OrderItem currentItem = existingItem.get();
+            currentItem.setQuantity(currentItem.getQuantity() + item.getQuantity());
         } else {
             orderItems.add(item);
         }
@@ -103,4 +105,9 @@ public class Order {
             }
         }
     }
+
+    public boolean isNotDraft() {
+        return !status.is(OrderStatus.DRAFT);
+    }
+
 }

@@ -31,7 +31,8 @@ public enum OrderStatus {
 
     public abstract OrderStatus next();
 
-    public boolean isNotFinished() {
-        return FINISHED != this;
+    public boolean is(OrderStatus status) {
+        return status == this;
     }
+
 }
