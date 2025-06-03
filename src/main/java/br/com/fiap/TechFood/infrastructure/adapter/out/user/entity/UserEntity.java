@@ -1,6 +1,7 @@
 package br.com.fiap.TechFood.infrastructure.adapter.out.user.entity;
 
 import br.com.fiap.TechFood.application.core.domain.user.User;
+import br.com.fiap.TechFood.application.core.domain.user.vo.Cpf;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import org.hibernate.validator.constraints.br.CPF;
@@ -18,8 +19,8 @@ public class UserEntity {
     @Email
     private String email;
 
-    @CPF
-    private String cpf;
+    @Embedded
+    private CpfEntity cpf;
 
     public UserEntity() {
     }
@@ -28,7 +29,7 @@ public class UserEntity {
         this.id = user.getId();
         this.name = user.getName();
         this.email = user.getEmail();
-        this.cpf = user.getCpf();
+        this.cpf = new CpfEntity(user.getCpfAsString());
     }
 
     public Long getId() {
@@ -43,11 +44,15 @@ public class UserEntity {
         return email;
     }
 
-    public String getCpf() {
+    public CpfEntity getCpf() {
         return cpf;
     }
 
-    public User getUser() {
-        return new User(this.getId(), this.getName(), this.getEmail(), this.getCpf());
+    public String getCpfAsString() {
+        return cpf.getCpf();
+    }
+
+    public User toUser() {
+        return new User(this.getId(), this.getName(), this.getEmail(), new Cpf(this.getCpfAsString()));
     }
 }

@@ -46,10 +46,8 @@ public class ProductService implements ProductServicePort {
     }
 
     @Override
-    public PagePort<Product> findAllByCategory(String categoryName, int page, int size) {
-        Optional<ProductCategory> category = ProductCategory.findByName(categoryName);
-        if (category.isEmpty()) return PageDTO.empty();
-        return productRepositoryPort.findAllByCategory(category.get(), page, size);
+    public PagePort<Product> findAllByCategory(ProductCategory productCategory, int page, int size) {
+        return productRepositoryPort.findAllByCategory(productCategory, page, size);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package br.com.fiap.TechFood.infrastructure.adapter.in.user;
 
 import br.com.fiap.TechFood.application.core.domain.user.User;
+import br.com.fiap.TechFood.application.core.domain.user.vo.Cpf;
 import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -11,6 +12,6 @@ public record UserForm(
 ) {
 
     public User toUser() {
-        return new User(name, email, cpf);
+        return new User(name, email, new Cpf(cpf));
     }
 }

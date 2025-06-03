@@ -1,21 +1,21 @@
 package br.com.fiap.TechFood.application.core.domain.user;
 
+import br.com.fiap.TechFood.application.core.domain.user.vo.Cpf;
+
 public class User {
 
     private Long id;
     private String name;
     private String email;
-    private String cpf;
+    private Cpf cpf;
 
-    public User() {}
-
-    public User(String name, String email, String cpf) {
+    public User(String name, String email, Cpf cpf) {
         this.name = name;
         this.email = email;
         this.cpf = cpf;
     }
 
-    public User(Long id, String name, String email, String cpf) {
+    public User(Long id, String name, String email, Cpf cpf) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -34,7 +34,11 @@ public class User {
         return email;
     }
 
-    public String getCpf() {
+    public Cpf getCpf() {
         return cpf;
+    }
+
+    public String getCpfAsString() {
+        return cpf.getCpf();
     }
 }

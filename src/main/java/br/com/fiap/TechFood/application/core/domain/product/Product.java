@@ -14,8 +14,6 @@ public class Product {
     private String description;
     private Set<ProductImage> images;
 
-    public Product() {}
-
     public Product(Long id, String name, ProductCategory productCategory, BigDecimal price, String description, Set<ProductImage> images) {
         this.id = id;
         this.name = name;
