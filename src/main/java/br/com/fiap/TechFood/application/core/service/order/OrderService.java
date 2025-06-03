@@ -4,7 +4,6 @@ import br.com.fiap.TechFood.application.core.domain.order.Order;
 import br.com.fiap.TechFood.application.core.domain.order.OrderItem;
 import br.com.fiap.TechFood.application.core.domain.order.OrderStatus;
 import br.com.fiap.TechFood.application.core.domain.product.Product;
-import br.com.fiap.TechFood.application.core.domain.user.User;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.order.OrderRepositoryPort;
 import br.com.fiap.TechFood.application.port.order.OrderServicePort;
@@ -54,11 +53,10 @@ public class OrderService implements OrderServicePort {
 
     @Override
     public Order create(Long userId) {
-        User user = null;
         if (userId != null) {
-            user = userRepositoryPort.findById(userId).orElseThrow(NotFoundException::new);
+            userRepositoryPort.findById(userId).orElseThrow(NotFoundException::new);
         }
-        return orderRepositoryPort.save(Order.createDraft(user));
+        return orderRepositoryPort.save(Order.createDraft(userId));
     }
 
     @Override

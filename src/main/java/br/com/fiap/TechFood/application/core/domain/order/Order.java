@@ -11,25 +11,25 @@ import java.util.Set;
 
 public class Order {
     private Long id;
-    private User user;
+    private Long userId;
     private BigDecimal total = BigDecimal.ZERO;
     private LocalDateTime createdAt = LocalDateTime.now();
-    private OrderStatus status = OrderStatus.RECEIVED;
+    private OrderStatus status = OrderStatus.DRAFT;
     private Set<OrderItem> orderItems = new HashSet<>();
 
-    public static Order createDraft(User user) {
-        return new Order(user, OrderStatus.DRAFT);
+    public static Order createDraft(Long userId) {
+        return new Order(userId, OrderStatus.DRAFT);
     }
 
-    private Order(User user, OrderStatus status) {
-        this.user = user;
+    private Order(Long user, OrderStatus status) {
+        this.userId = user;
         this.status = status;
     }
 
-    public Order(Long id, User user, BigDecimal total,
+    public Order(Long id, Long userId, BigDecimal total,
                  OrderStatus status, Set<OrderItem> orderItems) {
         this.id = id;
-        this.user = user;
+        this.userId = userId;
         this.total = total;
         this.status = status;
         this.orderItems = orderItems;
@@ -39,8 +39,8 @@ public class Order {
         return id;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
     public BigDecimal getTotal() {

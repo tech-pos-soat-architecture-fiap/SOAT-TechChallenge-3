@@ -2,7 +2,6 @@ package br.com.fiap.TechFood.infrastructure.adapter.out.order.entity;
 
 import br.com.fiap.TechFood.application.core.domain.order.Order;
 import br.com.fiap.TechFood.application.core.domain.order.OrderStatus;
-import br.com.fiap.TechFood.infrastructure.adapter.out.user.entity.UserEntity;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -35,17 +34,11 @@ public class OrderEntity {
     @CollectionTable(name = "order_items", joinColumns = @JoinColumn(name = "order_id"))
     private Set<OrderItemEntity> items = new HashSet<>();
 
-    @OneToOne
     @Nullable
-    private UserEntity user;
+    private Long userId;
 
     @Deprecated
     public OrderEntity() {
-    }
-
-
-    public OrderEntity(UserEntity user) {
-        this.user = user;
     }
 
     public OrderEntity(Order order) {
@@ -54,13 +47,13 @@ public class OrderEntity {
         this.status = order.getStatus();
         this.createdAt = order.getCreatedAt();
         this.items = order.getOrderItems().stream().map(OrderItemEntity::new).collect(Collectors.toSet());
-        this.user = order.getUser() != null ? new UserEntity(order.getUser()) : null;
+        this.userId = order.getUserId();
     }
 
     public Order getOrder() {
         return new Order(
                 this.id,
-                this.user != null ? this.user.getUser() : null,
+                this.userId,
                 this.total,
                 this.status,
                 this.items.stream()
