@@ -8,6 +8,7 @@ import br.com.fiap.TechFood.application.core.domain.user.User;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.order.OrderRepositoryPort;
 import br.com.fiap.TechFood.application.port.order.OrderServicePort;
+import br.com.fiap.TechFood.application.port.order.OrderValidatorPort;
 import br.com.fiap.TechFood.application.port.product.ProductServicePort;
 import br.com.fiap.TechFood.application.port.user.UserRepositoryPort;
 import br.com.fiap.TechFood.application.shared.exception.NotFoundException;
@@ -16,7 +17,6 @@ import br.com.fiap.TechFood.infrastructure.adapter.in.order.OrderStatusView;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -25,12 +25,14 @@ public class OrderService implements OrderServicePort {
     private final OrderRepositoryPort orderRepositoryPort;
     private final UserRepositoryPort userRepositoryPort;
     private final ProductServicePort productServicePort;
+    private final OrderValidatorPort orderValidator;
 
     public OrderService(OrderRepositoryPort orderRepositoryPort, UserRepositoryPort userRepositoryPort,
-                        ProductServicePort productServicePort) {
+                        ProductServicePort productServicePort, OrderValidatorPort orderValidator) {
         this.orderRepositoryPort = orderRepositoryPort;
         this.userRepositoryPort = userRepositoryPort;
         this.productServicePort = productServicePort;
+        this.orderValidator = orderValidator;
     }
 
     @Override
@@ -40,9 +42,8 @@ public class OrderService implements OrderServicePort {
 
     @Override
     public OrderStatusView changeStatus(Long orderId) {
-        Optional<Order> possibleOrder = this.findById(orderId);
-        if (possibleOrder.isPresent() && possibleOrder.get().getStatus().isNotFinished()) {
-            Order order = possibleOrder.get();
+        Order order = this.findById(orderId);
+        if (order.getStatus().isNotFinished()) {
             OrderStatus nextStatus = order.getStatus().next();
             order.setStatus(nextStatus);
             save(order);
@@ -67,6 +68,8 @@ public class OrderService implements OrderServicePort {
         List<Product> products = productServicePort.getProductsByIds(orderItemsForms.stream()
                 .map(OrderItemForm::productId).toList());
 
+        orderValidator.validateAddItems(orderItemsForms, products).throwIfInvalid();
+
         Map<Long, Product> productMap = products.stream().collect(Collectors.toMap(Product::getId, Function.identity()));
 
         List<OrderItem> orderItems = orderItemsForms.stream().map(orderItemForm ->
@@ -79,8 +82,28 @@ public class OrderService implements OrderServicePort {
     }
 
     @Override
-    public Optional<Order> findById(Long id) {
-        return orderRepositoryPort.findById(id);
+    public Order removeItems(List<OrderItemForm> orderItemsForms, Long orderId) {
+        Order order = orderRepositoryPort.findById(orderId).orElseThrow(NotFoundException::new);
+
+        orderValidator.validateRemoveItems(order, orderItemsForms).throwIfInvalid();
+
+        List<Product> products = productServicePort.getProductsByIds(orderItemsForms.stream()
+                .map(OrderItemForm::productId).toList());
+
+        Map<Long, Product> productMap = products.stream().collect(Collectors.toMap(Product::getId, Function.identity()));
+
+        List<OrderItem> orderItems = orderItemsForms.stream().map(orderItemForm ->
+                new OrderItem(orderItemForm.quantity(),
+                        productMap.get(orderItemForm.productId()))).toList();
+
+        order.removeItems(orderItems);
+
+        return orderRepositoryPort.save(order);
+    }
+
+    @Override
+    public Order findById(Long id) {
+        return orderRepositoryPort.findById(id).orElseThrow(NotFoundException::new);
     }
 
     @Override

@@ -83,4 +83,23 @@ public class Order {
             orderItems.add(item);
         }
     }
+
+    public void removeItems(List<OrderItem> items) {
+        items.forEach(this::removeItem);
+    }
+
+    public void removeItem(OrderItem item) {
+        Optional<OrderItem> existingItem = orderItems.stream()
+                .filter(cartItem -> cartItem.getProductId().equals(item.getProductId()))
+                .findFirst();
+
+        if (existingItem.isPresent()) {
+            int newQuantity = existingItem.get().getQuantity() - item.getQuantity();
+            if (newQuantity > 0) {
+                existingItem.get().setQuantity(newQuantity);
+            } else {
+                orderItems.remove(existingItem.get());
+            }
+        }
+    }
 }

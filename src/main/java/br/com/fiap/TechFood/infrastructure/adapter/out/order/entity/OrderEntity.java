@@ -43,6 +43,11 @@ public class OrderEntity {
     public OrderEntity() {
     }
 
+
+    public OrderEntity(UserEntity user) {
+        this.user = user;
+    }
+
     public OrderEntity(Order order) {
         this.id = order.getId();
         this.total = order.getTotal();

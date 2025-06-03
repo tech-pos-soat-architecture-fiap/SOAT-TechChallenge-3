@@ -5,6 +5,7 @@ import br.com.fiap.TechFood.application.core.service.product.ProductService;
 import br.com.fiap.TechFood.application.core.service.user.UserService;
 import br.com.fiap.TechFood.application.port.order.OrderRepositoryPort;
 import br.com.fiap.TechFood.application.port.order.OrderServicePort;
+import br.com.fiap.TechFood.application.port.order.OrderValidatorPort;
 import br.com.fiap.TechFood.application.port.product.ProductRepositoryPort;
 import br.com.fiap.TechFood.application.port.product.ProductServicePort;
 import br.com.fiap.TechFood.application.port.user.UserRepositoryPort;
@@ -27,7 +28,7 @@ public class DependencyInjectionConfig {
 
     @Bean
     public OrderServicePort orderService(OrderRepositoryPort orderRepositoryPort, UserRepositoryPort userRepositoryPort,
-                                         ProductServicePort productServicePort) {
-        return new OrderService(orderRepositoryPort, userRepositoryPort, productServicePort);
+                                         ProductServicePort productServicePort, OrderValidatorPort orderValidatorPort) {
+        return new OrderService(orderRepositoryPort, userRepositoryPort, productServicePort, orderValidatorPort);
     }
 }

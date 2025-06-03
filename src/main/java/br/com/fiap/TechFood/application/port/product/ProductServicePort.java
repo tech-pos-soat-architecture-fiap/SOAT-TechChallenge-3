@@ -14,7 +14,7 @@ public interface ProductServicePort {
 
     Product update(Long id, Product product);
 
-    void remove(Product product);
+    void remove(Long id);
 
     PagePort<Product> findAll(int page, int size);
 

@@ -6,12 +6,11 @@ import br.com.fiap.TechFood.infrastructure.adapter.in.order.OrderItemForm;
 import br.com.fiap.TechFood.infrastructure.adapter.in.order.OrderStatusView;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface OrderServicePort {
     PagePort<Order> findAll(int page, int size);
 
-    Optional<Order> findById(Long id);
+    Order findById(Long id);
 
     Order save(Order order);
 
@@ -19,5 +18,7 @@ public interface OrderServicePort {
 
     Order create(Long userId);
 
-    Order addItems(List<OrderItemForm> orderItemsForms, Long cartId);
+    Order addItems(List<OrderItemForm> orderItemsForms, Long orderId);
+
+    Order removeItems(List<OrderItemForm> orderItemsForms, Long orderId);
 }

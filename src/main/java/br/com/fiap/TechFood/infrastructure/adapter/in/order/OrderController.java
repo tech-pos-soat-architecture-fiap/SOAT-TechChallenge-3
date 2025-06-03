@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @RestController
 public class OrderController {
@@ -20,10 +18,14 @@ public class OrderController {
         this.orderServicePort = orderServicePort;
     }
 
-    //TODO criar o endpoint /orders/id
+    @GetMapping("/order/{orderId}")
+    public ResponseEntity<OrderView> getOrder(@PathVariable Long orderId) {
+        Order order = orderServicePort.findById(orderId);
+        return ResponseEntity.ok(OrderView.from(order));
+    }
 
-    @PostMapping("create/order")
-    public ResponseEntity<?> createOrder(@RequestBody(required = false) Long userId) {
+    @PostMapping("create/orders")
+    public ResponseEntity<OrderView> createOrder(@RequestBody(required = false) Long userId) {
         Order order = orderServicePort.create(userId);
 
         URI uri = URI.create("/orders/" + userId);
@@ -31,9 +33,15 @@ public class OrderController {
         return ResponseEntity.created(uri).body(OrderView.from(order));
     }
 
-    @PostMapping("/add-items")
-    public ResponseEntity<?> addItem(@Valid @RequestBody List<OrderItemForm> orderItemsForms, Long orderId) {
+    @PostMapping("/add-items/{orderId}")
+    public ResponseEntity<OrderView> addItem(@Valid @RequestBody List<OrderItemForm> orderItemsForms, @PathVariable Long orderId) {
         Order order = orderServicePort.addItems(orderItemsForms, orderId);
+        return ResponseEntity.ok(OrderView.from(order));
+    }
+
+    @PostMapping("/remove-items/{orderId}")
+    public ResponseEntity<OrderView> removeItems(@Valid @RequestBody List<OrderItemForm> orderItemForms, @PathVariable Long orderId) {
+        Order order = orderServicePort.removeItems(orderItemForms, orderId);
         return ResponseEntity.ok(OrderView.from(order));
     }
 
