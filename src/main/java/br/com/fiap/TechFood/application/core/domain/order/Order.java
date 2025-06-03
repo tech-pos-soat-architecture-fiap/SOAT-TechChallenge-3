@@ -52,6 +52,9 @@ public class Order {
     public OrderStatus getStatus() {
         return status;
     }
+    public boolean isNotFinished() {
+        return this.status.isNotFinished();
+    }
 
     public String getStatusName() {
         return status.name();

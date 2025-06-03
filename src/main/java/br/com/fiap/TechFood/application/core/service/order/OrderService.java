@@ -42,7 +42,7 @@ public class OrderService implements OrderServicePort {
     @Override
     public OrderStatusView changeStatus(Long orderId) {
         Order order = this.findById(orderId);
-        if (order.getStatus().isNotFinished()) {
+        if (order.isNotFinished()) {
             OrderStatus nextStatus = order.getStatus().next();
             order.setStatus(nextStatus);
             save(order);
