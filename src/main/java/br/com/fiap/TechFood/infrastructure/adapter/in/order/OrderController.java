@@ -53,7 +53,7 @@ public class OrderController {
     }
 
     @GetMapping("order/change-status/{orderId}")
-    public ResponseEntity<?> changeStatus(@PathVariable("orderId") Long id) {
+    public ResponseEntity<OrderStatusView> changeStatus(@PathVariable("orderId") Long id) {
         return ResponseEntity.ok(orderServicePort.changeStatus(id));
     }
 

@@ -1,7 +1,6 @@
 package br.com.fiap.TechFood.infrastructure.adapter.out.order.entity;
 
 import br.com.fiap.TechFood.application.core.domain.order.OrderItem;
-import br.com.fiap.TechFood.application.core.domain.product.Product;
 import br.com.fiap.TechFood.infrastructure.adapter.out.product.entity.ProductEntity;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.ManyToOne;
@@ -27,7 +26,7 @@ public class OrderItemEntity {
     }
 
     public OrderItemEntity(OrderItem orderItem) {
-        this.price = orderItem.getPrice();
+        this.price = orderItem.getSubTotal();
         this.quantity = orderItem.getQuantity();
         this.product = new ProductEntity(orderItem.getProduct());
     }

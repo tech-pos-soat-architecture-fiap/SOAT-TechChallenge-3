@@ -6,6 +6,6 @@ import java.math.BigDecimal;
 
 public record OrderItemView(int quantity, BigDecimal price, String productName) {
     public static OrderItemView from(OrderItem orderItem) {
-        return new OrderItemView(orderItem.getQuantity(), orderItem.getPrice(), orderItem.getProduct().getName());
+        return new OrderItemView(orderItem.getQuantity(), orderItem.getSubTotal(), orderItem.getProduct().getName());
     }
 }

@@ -20,9 +20,6 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    private BigDecimal total = BigDecimal.ZERO;
-
     @Enumerated(EnumType.STRING)
     private OrderStatus status = OrderStatus.DRAFT;
 
@@ -43,7 +40,6 @@ public class OrderEntity {
 
     public OrderEntity(Order order) {
         this.id = order.getId();
-        this.total = order.getTotal();
         this.status = order.getStatus();
         this.createdAt = order.getCreatedAt();
         this.items = order.getOrderItems().stream().map(OrderItemEntity::new).collect(Collectors.toSet());
@@ -54,7 +50,6 @@ public class OrderEntity {
         return new Order(
                 this.id,
                 this.userId,
-                this.total,
                 this.status,
                 this.items.stream()
                         .map(OrderItemEntity::toOrderItem)

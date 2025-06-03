@@ -7,14 +7,14 @@ import java.math.BigDecimal;
 public class OrderItem {
     private int quantity;
     private Product product;
-    private BigDecimal price = BigDecimal.ZERO;
+    private BigDecimal subTotal = BigDecimal.ZERO;
 
     public OrderItem() {}
 
     public OrderItem(int quantity, Product product) {
         this.quantity = quantity;
         this.product = product;
-        this.price = product.getPrice().multiply(new BigDecimal(quantity));
+        this.subTotal = product.getPrice().multiply(new BigDecimal(quantity));
     }
 
     public int getQuantity() {
@@ -25,8 +25,8 @@ public class OrderItem {
         return product;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public BigDecimal getSubTotal() {
+        return subTotal;
     }
 
     public Long getProductId() {
