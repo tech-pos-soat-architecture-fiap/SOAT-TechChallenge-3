@@ -20,7 +20,6 @@ public interface ProductServicePort {
     PagePort<Product> findAll(int page, int size);
 
     PagePort<Product> findAllByCategory(ProductCategory productCategory, int page, int size);
-    PagePort<Product> findAllByCategory(String categoryName, int page, int size);
 
     List<Product> getProductsByIds(List<Long> list);
 }
