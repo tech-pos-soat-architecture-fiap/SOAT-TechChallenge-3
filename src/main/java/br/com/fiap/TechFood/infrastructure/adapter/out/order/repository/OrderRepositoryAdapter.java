@@ -3,10 +3,8 @@ package br.com.fiap.TechFood.infrastructure.adapter.out.order.repository;
 import br.com.fiap.TechFood.application.core.domain.order.Order;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.order.OrderRepositoryPort;
-import br.com.fiap.TechFood.application.shared.exception.NotFoundException;
 import br.com.fiap.TechFood.infrastructure.adapter.out.PageDTO;
 import br.com.fiap.TechFood.infrastructure.adapter.out.order.entity.OrderEntity;
-import br.com.fiap.TechFood.infrastructure.adapter.out.user.entity.UserEntity;
 import br.com.fiap.TechFood.infrastructure.adapter.out.user.repository.UserEntityRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,17 +25,17 @@ public class OrderRepositoryAdapter implements OrderRepositoryPort {
 
     @Override
     public PagePort<Order> findAll(int page, int size) {
-        Page<Order> orders = orderEntityRepository.findAll(PageRequest.of(page, size)).map(OrderEntity::getOrder);
+        Page<Order> orders = orderEntityRepository.findAll(PageRequest.of(page, size)).map(OrderEntity::toOrder);
         return new PageDTO<>(orders);
     }
 
     @Override
     public Optional<Order> findById(Long id) {
-        return orderEntityRepository.findById(id).map(OrderEntity::getOrder);
+        return orderEntityRepository.findById(id).map(OrderEntity::toOrder);
     }
 
     @Override
     public Order save(Order order) {
-        return orderEntityRepository.save(new OrderEntity(order)).getOrder();
+        return orderEntityRepository.save(new OrderEntity(order)).toOrder();
     }
 }

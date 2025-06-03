@@ -32,6 +32,6 @@ public enum OrderStatus {
     public abstract OrderStatus next();
 
     public boolean isNotFinished() {
-        return !FINISHED.equals(this);
+        return FINISHED != this;
     }
 }

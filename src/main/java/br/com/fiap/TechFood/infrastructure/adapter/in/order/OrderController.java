@@ -4,11 +4,13 @@ import br.com.fiap.TechFood.application.core.domain.order.Order;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.order.OrderServicePort;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class OrderController {
@@ -52,9 +54,12 @@ public class OrderController {
         return ResponseEntity.ok(ordersView);
     }
 
-    @GetMapping("order/change-status/{orderId}")
-    public ResponseEntity<OrderStatusView> changeStatus(@PathVariable("orderId") Long id) {
-        return ResponseEntity.ok(orderServicePort.changeStatus(id));
+    @PutMapping("order/change-status/{orderId}")
+    public ResponseEntity<?> changeStatus(@PathVariable("orderId") Long id) {
+        try {
+            return ResponseEntity.ok(orderServicePort.changeStatus(id));
+        } catch (IllegalStateException ex) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("error", ex.getMessage()));
+        }
     }
-
 }

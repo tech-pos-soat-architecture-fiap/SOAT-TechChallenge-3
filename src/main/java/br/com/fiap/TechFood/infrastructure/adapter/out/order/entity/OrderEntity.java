@@ -6,7 +6,6 @@ import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -46,7 +45,7 @@ public class OrderEntity {
         this.userId = order.getUserId();
     }
 
-    public Order getOrder() {
+    public Order toOrder() {
         return new Order(
                 this.id,
                 this.userId,
