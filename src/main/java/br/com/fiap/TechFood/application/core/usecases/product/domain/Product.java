@@ -23,7 +23,7 @@ public class Product {
         this.images = images;
     }
 
-    public Product(String name, String categoryName, BigDecimal price, String description, Collection<? extends ImageContact> images) {
+    public Product(String name, String categoryName, BigDecimal price, String description, Collection<? extends ImageContract> images) {
         this.name = name;
         this.productCategory = ProductCategory.getByName(categoryName);
         this.price = price;

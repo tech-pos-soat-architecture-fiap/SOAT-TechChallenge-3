@@ -1,6 +1,6 @@
 package br.com.fiap.TechFood.application.core.usecases.product.domain;
 
-public class ProductImage implements ImageContact {
+public class ProductImage implements ImageContract {
 
     private String url;
     private String description;
@@ -14,10 +14,10 @@ public class ProductImage implements ImageContact {
         this.position = position;
     }
 
-    public ProductImage(ImageContact imageContact) {
-        this.url = imageContact.getUrl();
-        this.description = imageContact.getDescription();
-        this.position = imageContact.getPosition();
+    public ProductImage(ImageContract imageContract) {
+        this.url = imageContract.getUrl();
+        this.description = imageContract.getDescription();
+        this.position = imageContract.getPosition();
     }
 
     @Override

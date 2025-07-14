@@ -1,6 +1,6 @@
 package br.com.fiap.TechFood.infrastructure.adapter.in.product;
 
-import br.com.fiap.TechFood.application.core.usecases.product.domain.ImageContact;
+import br.com.fiap.TechFood.application.core.usecases.product.domain.ImageContract;
 import br.com.fiap.TechFood.infrastructure.adapter.in.validation.ValidCategory;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -25,7 +25,7 @@ public record CreateProductForm(
 
     record CreateProductImageForm(@URL(message = "A URL deve ser uma imagem válida com extensão .jpg, .jpeg ou .png", regexp = ".*\\.(jpg|jpeg|png)$") String url,
                                   @NotBlank String description,
-                                  @Min(1) int position) implements ImageContact {
+                                  @Min(1) int position) implements ImageContract {
 
         @Override
         public String getUrl() {
