@@ -1,57 +1,61 @@
 package br.com.fiap.TechFood.application.core.service.product;
 
-import br.com.fiap.TechFood.application.core.domain.product.Product;
-import br.com.fiap.TechFood.application.core.domain.product.ProductCategory;
+import br.com.fiap.TechFood.application.core.usecases.product.domain.Product;
+import br.com.fiap.TechFood.application.core.usecases.product.domain.ProductCategory;
 import br.com.fiap.TechFood.application.port.PagePort;
-import br.com.fiap.TechFood.application.port.product.ProductRepositoryPort;
+import br.com.fiap.TechFood.application.port.product.ProductGatewayPort;
 import br.com.fiap.TechFood.application.port.product.ProductServicePort;
 import br.com.fiap.TechFood.application.shared.exception.NotFoundException;
-import br.com.fiap.TechFood.infrastructure.adapter.out.PageDTO;
 
 import java.util.List;
 import java.util.Optional;
 
 public class ProductService implements ProductServicePort {
 
-    private final ProductRepositoryPort productRepositoryPort;
+    private final ProductGatewayPort productGatewayPort;
 
-    public ProductService(ProductRepositoryPort productRepositoryPort) {
-        this.productRepositoryPort = productRepositoryPort;
+    public ProductService(ProductGatewayPort productGatewayPort) {
+        this.productGatewayPort = productGatewayPort;
     }
 
     @Override
     public Optional<Product> findById(Long id) {
-        return productRepositoryPort.findById(id);
+        return productGatewayPort.findById(id);
     }
 
     @Override
     public Product create(Product product) {
-        return productRepositoryPort.save(product);
+        return productGatewayPort.save(product);
     }
 
     @Override
     public Product update(Long id, Product updatedProductData) {
-        return productRepositoryPort.update(id, updatedProductData);
+        return productGatewayPort.update(id, updatedProductData);
     }
 
     @Override
     public void remove(Long id) {
-        Product product = productRepositoryPort.findById(id).orElseThrow(NotFoundException::new);
-        productRepositoryPort.remove(product);
+        Product product = productGatewayPort.findById(id).orElseThrow(NotFoundException::new);
+        productGatewayPort.remove(product);
     }
 
     @Override
     public PagePort<Product> findAll(int page, int size) {
-        return productRepositoryPort.findAll(page, size);
+        return productGatewayPort.findAll(page, size);
     }
 
     @Override
     public PagePort<Product> findAllByCategory(ProductCategory productCategory, int page, int size) {
-        return productRepositoryPort.findAllByCategory(productCategory, page, size);
+        return productGatewayPort.findAllByCategory(productCategory, page, size);
     }
 
     @Override
     public List<Product> getProductsByIds(List<Long> ids) {
-        return productRepositoryPort.findAllByIdIn(ids);
+        return productGatewayPort.findAllByIdIn(ids);
+    }
+
+    @Override
+    public Optional<Product> findByName(String name) {
+        return productGatewayPort.findByName(name);
     }
 }

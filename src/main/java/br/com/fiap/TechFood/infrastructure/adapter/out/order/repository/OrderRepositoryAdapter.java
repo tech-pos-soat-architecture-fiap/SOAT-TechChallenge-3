@@ -1,6 +1,6 @@
 package br.com.fiap.TechFood.infrastructure.adapter.out.order.repository;
 
-import br.com.fiap.TechFood.application.core.domain.order.Order;
+import br.com.fiap.TechFood.application.core.usecases.order.Order;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.order.OrderRepositoryPort;
 import br.com.fiap.TechFood.infrastructure.adapter.out.PageDTO;

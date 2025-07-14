@@ -1,6 +1,6 @@
 package br.com.fiap.TechFood.infrastructure.adapter.out.user;
 
-import br.com.fiap.TechFood.application.core.domain.user.User;
+import br.com.fiap.TechFood.application.core.usecases.user.User;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.user.UserRepositoryPort;
 import br.com.fiap.TechFood.infrastructure.adapter.out.PageDTO;

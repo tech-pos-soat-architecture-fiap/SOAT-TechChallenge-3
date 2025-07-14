@@ -1,13 +1,13 @@
 package br.com.fiap.TechFood.application.port.product;
 
-import br.com.fiap.TechFood.application.core.domain.product.Product;
-import br.com.fiap.TechFood.application.core.domain.product.ProductCategory;
+import br.com.fiap.TechFood.application.core.usecases.product.domain.Product;
+import br.com.fiap.TechFood.application.core.usecases.product.domain.ProductCategory;
 import br.com.fiap.TechFood.application.port.PagePort;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface ProductRepositoryPort {
+public interface ProductGatewayPort {
 
     Optional<Product> findById(Long id);
 
@@ -22,4 +22,6 @@ public interface ProductRepositoryPort {
     void remove(Product product);
 
     List<Product> findAllByIdIn(List<Long> ids);
+
+    Optional<Product> findByName(String name);
 }

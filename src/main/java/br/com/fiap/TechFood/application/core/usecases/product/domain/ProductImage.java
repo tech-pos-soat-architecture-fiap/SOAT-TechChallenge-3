@@ -1,6 +1,6 @@
-package br.com.fiap.TechFood.application.core.domain.product.vo;
+package br.com.fiap.TechFood.application.core.usecases.product.domain;
 
-public class ProductImage {
+public class ProductImage implements ImageContact {
 
     private String url;
     private String description;
@@ -14,14 +14,23 @@ public class ProductImage {
         this.position = position;
     }
 
+    public ProductImage(ImageContact imageContact) {
+        this.url = imageContact.getUrl();
+        this.description = imageContact.getDescription();
+        this.position = imageContact.getPosition();
+    }
+
+    @Override
     public String getUrl() {
         return url;
     }
 
+    @Override
     public String getDescription() {
         return description;
     }
 
+    @Override
     public int getPosition() {
         return position;
     }

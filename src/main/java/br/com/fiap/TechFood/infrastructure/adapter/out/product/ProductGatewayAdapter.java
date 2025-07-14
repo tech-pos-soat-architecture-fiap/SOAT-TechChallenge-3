@@ -1,9 +1,9 @@
 package br.com.fiap.TechFood.infrastructure.adapter.out.product;
 
-import br.com.fiap.TechFood.application.core.domain.product.Product;
-import br.com.fiap.TechFood.application.core.domain.product.ProductCategory;
+import br.com.fiap.TechFood.application.core.usecases.product.domain.Product;
+import br.com.fiap.TechFood.application.core.usecases.product.domain.ProductCategory;
 import br.com.fiap.TechFood.application.port.PagePort;
-import br.com.fiap.TechFood.application.port.product.ProductRepositoryPort;
+import br.com.fiap.TechFood.application.port.product.ProductGatewayPort;
 import br.com.fiap.TechFood.application.shared.exception.NotFoundException;
 import br.com.fiap.TechFood.infrastructure.adapter.out.PageDTO;
 import br.com.fiap.TechFood.infrastructure.adapter.out.product.entity.ProductEntity;
@@ -14,14 +14,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
-public class ProductRepositoryAdapter implements ProductRepositoryPort {
+public class ProductGatewayAdapter implements ProductGatewayPort {
 
     private final ProductEntityRepository productEntityRepository;
 
-    public ProductRepositoryAdapter(ProductEntityRepository productEntityRepository) {
+    public ProductGatewayAdapter(ProductEntityRepository productEntityRepository) {
         this.productEntityRepository = productEntityRepository;
     }
 
@@ -62,5 +61,10 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
     @Override
     public List<Product> findAllByIdIn(List<Long> ids) {
         return productEntityRepository.findAllById(ids).stream().map(ProductEntity::toProduct).toList();
+    }
+
+    @Override
+    public Optional<Product> findByName(String name) {
+        return productEntityRepository.findByName(name).map(ProductEntity::toProduct);
     }
 }

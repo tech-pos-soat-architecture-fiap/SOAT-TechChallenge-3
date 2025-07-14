@@ -1,4 +1,4 @@
-package br.com.fiap.TechFood.application.core.domain.product;
+package br.com.fiap.TechFood.application.core.usecases.product.domain;
 
 import java.util.Arrays;
 import java.util.Optional;

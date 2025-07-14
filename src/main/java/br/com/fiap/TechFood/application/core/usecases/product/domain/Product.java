@@ -1,9 +1,9 @@
-package br.com.fiap.TechFood.application.core.domain.product;
-
-import br.com.fiap.TechFood.application.core.domain.product.vo.ProductImage;
+package br.com.fiap.TechFood.application.core.usecases.product.domain;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Product {
 
@@ -23,12 +23,12 @@ public class Product {
         this.images = images;
     }
 
-    public Product(String name, String categoryName, BigDecimal price, String description, Set<ProductImage> images) {
+    public Product(String name, String categoryName, BigDecimal price, String description, Collection<? extends ImageContact> images) {
         this.name = name;
         this.productCategory = ProductCategory.getByName(categoryName);
         this.price = price;
         this.description = description;
-        this.images = images;
+        this.images = images.stream().map(ProductImage::new).collect(Collectors.toSet());
     }
 
     public Long getId() {

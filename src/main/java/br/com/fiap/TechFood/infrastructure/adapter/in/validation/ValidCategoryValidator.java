@@ -1,6 +1,6 @@
 package br.com.fiap.TechFood.infrastructure.adapter.in.validation;
 
-import br.com.fiap.TechFood.application.core.domain.product.ProductCategory;
+import br.com.fiap.TechFood.application.core.usecases.product.domain.ProductCategory;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

@@ -1,16 +1,14 @@
 package br.com.fiap.TechFood.infrastructure.adapter.in.order;
 
-import br.com.fiap.TechFood.application.core.domain.order.Order;
+import br.com.fiap.TechFood.application.core.usecases.order.Order;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.order.OrderServicePort;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class OrderController {

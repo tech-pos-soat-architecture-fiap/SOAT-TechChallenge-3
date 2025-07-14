@@ -1,10 +1,9 @@
 package br.com.fiap.TechFood.infrastructure.adapter.out.user.entity;
 
-import br.com.fiap.TechFood.application.core.domain.user.User;
-import br.com.fiap.TechFood.application.core.domain.user.vo.Cpf;
+import br.com.fiap.TechFood.application.core.usecases.user.User;
+import br.com.fiap.TechFood.application.core.usecases.user.vo.Cpf;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "users")
