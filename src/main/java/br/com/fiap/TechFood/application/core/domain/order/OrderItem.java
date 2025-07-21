@@ -1,4 +1,4 @@
-package br.com.fiap.TechFood.application.core.usecases.order;
+package br.com.fiap.TechFood.application.core.domain.order;
 
 import br.com.fiap.TechFood.application.core.usecases.product.domain.Product;
 

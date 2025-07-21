@@ -1,7 +1,7 @@
 package br.com.fiap.TechFood.infrastructure.adapter.in.validation.order;
 
-import br.com.fiap.TechFood.application.core.usecases.order.Order;
-import br.com.fiap.TechFood.application.core.usecases.order.OrderItem;
+import br.com.fiap.TechFood.application.core.domain.order.Order;
+import br.com.fiap.TechFood.application.core.domain.order.OrderItem;
 import br.com.fiap.TechFood.application.core.usecases.product.domain.Product;
 import br.com.fiap.TechFood.application.port.order.OrderItemPort;
 import br.com.fiap.TechFood.application.port.order.OrderValidatorPort;

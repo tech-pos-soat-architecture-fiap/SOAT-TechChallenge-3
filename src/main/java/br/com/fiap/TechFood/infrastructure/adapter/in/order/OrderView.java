@@ -1,6 +1,6 @@
 package br.com.fiap.TechFood.infrastructure.adapter.in.order;
 
-import br.com.fiap.TechFood.application.core.usecases.order.Order;
+import br.com.fiap.TechFood.application.core.domain.order.Order;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

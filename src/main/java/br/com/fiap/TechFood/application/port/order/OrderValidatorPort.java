@@ -1,6 +1,6 @@
 package br.com.fiap.TechFood.application.port.order;
 
-import br.com.fiap.TechFood.application.core.usecases.order.Order;
+import br.com.fiap.TechFood.application.core.domain.order.Order;
 import br.com.fiap.TechFood.application.core.usecases.product.domain.Product;
 import br.com.fiap.TechFood.application.shared.exception.ValidationResult;
 
