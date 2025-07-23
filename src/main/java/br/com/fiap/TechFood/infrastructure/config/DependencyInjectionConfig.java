@@ -21,38 +21,38 @@ public class DependencyInjectionConfig {
     }
 
     @Bean
-    public ProductGatewayPort userGateway() {
+    public ProductGatewayPort productGateway() {
         return new ProductGatewayAdapter(productEntityRepository);
     }
 
     @Bean
     public CreateProductPort createProductUseCase() {
-        return new CreateProductUseCase(userGateway());
+        return new CreateProductUseCase(productGateway());
     }
 
     @Bean
     public FindProductsByCategoryPort findProductsByCategoryPort() {
-        return new FindProductsByCategoryUseCase(userGateway());
+        return new FindProductsByCategoryUseCase(productGateway());
     }
 
     @Bean
     public UpdateProductPort updateProductPort() {
-        return new UpdateProductUseCase(userGateway());
+        return new UpdateProductUseCase(productGateway());
     }
 
     @Bean
     public FindProductPort findProductPort() {
-        return new FindProductUseCase(userGateway());
+        return new FindProductUseCase(productGateway());
     }
 
     @Bean
     public FindAllProductsPort finddAllProductsPort() {
-        return new FindAllProductsUseCase(userGateway());
+        return new FindAllProductsUseCase(productGateway());
     }
 
     @Bean
     public RemoveProductPort removeProductPort() {
-        return new RemoveProductUseCase(userGateway());
+        return new RemoveProductUseCase(productGateway());
     }
 
     @Bean
