@@ -2,7 +2,7 @@ package br.com.fiap.TechFood.infrastructure.config;
 
 import br.com.fiap.TechFood.application.port.product.in.*;
 import br.com.fiap.TechFood.application.port.product.out.ProductGatewayPort;
-import br.com.fiap.TechFood.application.port.user.UserRepositoryPort;
+import br.com.fiap.TechFood.application.port.user.*;
 import br.com.fiap.TechFood.application.usecases.product.*;
 import br.com.fiap.TechFood.application.usecases.user.*;
 import br.com.fiap.TechFood.infrastructure.adapter.out.product.ProductGatewayAdapter;
@@ -61,22 +61,22 @@ public class DependencyInjectionConfig {
     }
 
     @Bean
-    public CreateUserUseCase createUserUseCase(UserRepositoryPort userRepositoryPort) {
+    public CreateUserPort createUserUsePort(UserRepositoryPort userRepositoryPort) {
         return new CreateUserUseCase(userRepositoryPort);
     }
 
     @Bean
-    public FindAllUsersUseCase findAllUsersUseCase(UserRepositoryPort userRepositoryPort) {
+    public FindAllUsersPort findAllUsersPort(UserRepositoryPort userRepositoryPort) {
         return new FindAllUsersUseCase(userRepositoryPort);
     }
 
     @Bean
-    public FindUserByIdUseCase findUserByIdUseCase(UserRepositoryPort userRepositoryPort) {
+    public FindUserByIdPort findUserByIdPort(UserRepositoryPort userRepositoryPort) {
         return new FindUserByIdUseCase(userRepositoryPort);
     }
 
     @Bean
-    public FindUserByCpfUseCase findUserByCpfUseCase(UserRepositoryPort userRepositoryPort) {
+    public FindUserByCpfPort findUserByCpfPort(UserRepositoryPort userRepositoryPort) {
         return new FindUserByCpfUseCase(userRepositoryPort);
     }
 
