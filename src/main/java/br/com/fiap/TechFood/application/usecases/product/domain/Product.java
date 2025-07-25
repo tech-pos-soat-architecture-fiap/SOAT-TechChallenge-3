@@ -14,13 +14,22 @@ public class Product {
     private String description;
     private Set<ProductImage> images;
 
-    public Product(Long id, String name, ProductCategory productCategory, BigDecimal price, String description, Set<ProductImage> images) {
+    public Product(Long id, String name, ProductCategory productCategory, BigDecimal price, String description, Collection<? extends ImageContract> images) {
         this.id = id;
         this.name = name;
         this.productCategory = productCategory;
         this.price = price;
         this.description = description;
-        this.images = images;
+        this.images = images.stream().map(ProductImage::new).collect(Collectors.toSet());
+    }
+
+    public Product(Long id, String name, String categoryName, BigDecimal price, String description, Collection<? extends ImageContract> images) {
+        this.id = id;
+        this.name = name;
+        this.productCategory = ProductCategory.getByName(categoryName);
+        this.price = price;
+        this.description = description;
+        this.images = images.stream().map(ProductImage::new).collect(Collectors.toSet());
     }
 
     public Product(String name, String categoryName, BigDecimal price, String description, Collection<? extends ImageContract> images) {

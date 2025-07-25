@@ -7,14 +7,16 @@ import java.math.BigDecimal;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public record ProductView(String name,
+public record ProductView(Long id,
+                          String name,
                           String category,
                           BigDecimal price,
                           String description,
                           Set<ProductImageView> images) {
 
     public static ProductView from(Product product) {
-        return new ProductView(product.getName(),
+        return new ProductView(product.getId(),
+                product.getName(),
                 product.getCategoryName(),
                 product.getPrice(),
                 product.getDescription(),

@@ -1,4 +1,4 @@
-package br.com.fiap.TechFood.application.port.product;
+package br.com.fiap.TechFood.application.port.product.out;
 
 import br.com.fiap.TechFood.application.usecases.product.domain.Product;
 import br.com.fiap.TechFood.application.usecases.product.domain.ProductCategory;
@@ -7,21 +7,19 @@ import br.com.fiap.TechFood.application.port.PagePort;
 import java.util.List;
 import java.util.Optional;
 
-public interface ProductServicePort {
+public interface ProductGatewayPort {
 
     Optional<Product> findById(Long id);
 
-    Product create(Product product);
-
-    Product update(Long id, Product product);
-
-    void remove(Long id);
+    Product save(Product product);
 
     PagePort<Product> findAll(int page, int size);
 
-    PagePort<Product> findAllByCategory(ProductCategory productCategory, int page, int size);
+    PagePort<Product> findAllByCategory(ProductCategory category, int page, int size);
 
-    List<Product> getProductsByIds(List<Long> list);
+    void remove(Product product);
+
+    List<Product> findAllByIdIn(List<Long> ids);
 
     Optional<Product> findByName(String name);
 }

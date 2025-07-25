@@ -8,7 +8,6 @@ import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toSet;
 
@@ -82,17 +81,5 @@ public class ProductEntity {
                 this.price,
                 this.description,
                 this.images.stream().map(ProductImageEntity::toProductImage).collect(toSet()));
-    }
-
-    public ProductEntity updateFrom(Product product) {
-        this.name = product.getName();
-        this.category = product.getCategory();
-        this.price = product.getPrice();
-        this.description = product.getDescription();
-        this.images.clear();
-        this.images.addAll(product.getImages().stream()
-            .map(ProductImageEntity::new)
-            .collect(Collectors.toSet()));
-        return this;
     }
 }

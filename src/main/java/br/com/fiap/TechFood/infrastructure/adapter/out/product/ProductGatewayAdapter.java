@@ -1,10 +1,9 @@
 package br.com.fiap.TechFood.infrastructure.adapter.out.product;
 
+import br.com.fiap.TechFood.application.port.PagePort;
+import br.com.fiap.TechFood.application.port.product.out.ProductGatewayPort;
 import br.com.fiap.TechFood.application.usecases.product.domain.Product;
 import br.com.fiap.TechFood.application.usecases.product.domain.ProductCategory;
-import br.com.fiap.TechFood.application.port.PagePort;
-import br.com.fiap.TechFood.application.port.product.ProductGatewayPort;
-import br.com.fiap.TechFood.application.shared.exception.NotFoundException;
 import br.com.fiap.TechFood.infrastructure.adapter.out.PageDTO;
 import br.com.fiap.TechFood.infrastructure.adapter.out.product.entity.ProductEntity;
 import br.com.fiap.TechFood.infrastructure.adapter.out.product.repository.ProductEntityRepository;
@@ -32,13 +31,6 @@ public class ProductGatewayAdapter implements ProductGatewayPort {
     @Override
     public Product save(Product product) {
         return productEntityRepository.save(new ProductEntity(product)).toProduct();
-    }
-
-    @Override
-    public Product update(Long id, Product product) {
-        ProductEntity productEntity = productEntityRepository.findById(id).orElseThrow(NotFoundException::new);
-        ProductEntity updatedProductEntity = productEntity.updateFrom(product);
-        return productEntityRepository.save(updatedProductEntity).toProduct();
     }
 
     @Override
