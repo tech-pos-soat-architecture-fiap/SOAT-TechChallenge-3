@@ -1,4 +1,4 @@
-package br.com.fiap.TechFood.application.core.usecases.product.domain;
+package br.com.fiap.TechFood.application.usecases.product.domain;
 
 import java.math.BigDecimal;
 import java.util.Collection;

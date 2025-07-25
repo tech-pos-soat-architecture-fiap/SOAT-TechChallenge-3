@@ -1,8 +1,8 @@
 package br.com.fiap.TechFood.infrastructure.config;
 
 import br.com.fiap.TechFood.application.core.service.product.ProductService;
-import br.com.fiap.TechFood.application.core.usecases.product.CreateProductUseCase;
-import br.com.fiap.TechFood.application.core.usecases.product.FindProductsByCategoryUSeCase;
+import br.com.fiap.TechFood.application.usecases.product.CreateProductUseCase;
+import br.com.fiap.TechFood.application.usecases.product.FindProductsByCategoryUSeCase;
 import br.com.fiap.TechFood.application.port.product.CreateProductPort;
 import br.com.fiap.TechFood.application.port.product.FindProductsByCategoryPort;
 import br.com.fiap.TechFood.application.port.product.ProductGatewayPort;

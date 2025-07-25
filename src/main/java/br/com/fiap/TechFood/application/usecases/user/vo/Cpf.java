@@ -1,4 +1,4 @@
-package br.com.fiap.TechFood.application.core.usecases.user.vo;
+package br.com.fiap.TechFood.application.usecases.user.vo;
 
 public class Cpf {
 

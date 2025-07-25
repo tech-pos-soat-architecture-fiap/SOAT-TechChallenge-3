@@ -1,11 +1,10 @@
 package br.com.fiap.TechFood.infrastructure.adapter.out.order.repository;
 
-import br.com.fiap.TechFood.application.core.domain.order.Order;
+import br.com.fiap.TechFood.application.usecases.order.Order;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.order.OrderRepositoryPort;
 import br.com.fiap.TechFood.infrastructure.adapter.out.PageDTO;
 import br.com.fiap.TechFood.infrastructure.adapter.out.order.entity.OrderEntity;
-import br.com.fiap.TechFood.infrastructure.adapter.out.user.repository.UserEntityRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;

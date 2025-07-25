@@ -1,10 +1,10 @@
 package br.com.fiap.TechFood.infrastructure.config;
 
-import br.com.fiap.TechFood.application.core.usecases.order.*;
 import br.com.fiap.TechFood.application.port.order.OrderRepositoryPort;
 import br.com.fiap.TechFood.application.port.order.OrderValidatorPort;
 import br.com.fiap.TechFood.application.port.product.ProductGatewayPort;
 import br.com.fiap.TechFood.application.port.user.UserRepositoryPort;
+import br.com.fiap.TechFood.application.usecases.order.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

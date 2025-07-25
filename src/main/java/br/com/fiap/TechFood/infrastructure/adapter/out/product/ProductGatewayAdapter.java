@@ -1,7 +1,7 @@
 package br.com.fiap.TechFood.infrastructure.adapter.out.product;
 
-import br.com.fiap.TechFood.application.core.usecases.product.domain.Product;
-import br.com.fiap.TechFood.application.core.usecases.product.domain.ProductCategory;
+import br.com.fiap.TechFood.application.usecases.product.domain.Product;
+import br.com.fiap.TechFood.application.usecases.product.domain.ProductCategory;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.product.ProductGatewayPort;
 import br.com.fiap.TechFood.application.shared.exception.NotFoundException;

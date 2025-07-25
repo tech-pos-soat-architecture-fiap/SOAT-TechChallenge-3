@@ -1,6 +1,6 @@
-package br.com.fiap.TechFood.application.core.usecases.product;
+package br.com.fiap.TechFood.application.usecases.product;
 
-import br.com.fiap.TechFood.application.core.usecases.product.domain.Product;
+import br.com.fiap.TechFood.application.usecases.product.domain.Product;
 import br.com.fiap.TechFood.application.port.product.CreateProductPort;
 import br.com.fiap.TechFood.application.port.product.ProductServicePort;
 import br.com.fiap.TechFood.infrastructure.result.OperationResult;

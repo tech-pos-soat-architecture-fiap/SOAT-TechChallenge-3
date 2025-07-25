@@ -1,7 +1,7 @@
 package br.com.fiap.TechFood.infrastructure.adapter.out.product.entity;
 
-import br.com.fiap.TechFood.application.core.usecases.product.domain.Product;
-import br.com.fiap.TechFood.application.core.usecases.product.domain.ProductCategory;
+import br.com.fiap.TechFood.application.usecases.product.domain.Product;
+import br.com.fiap.TechFood.application.usecases.product.domain.ProductCategory;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -1,7 +1,7 @@
 package br.com.fiap.TechFood.infrastructure.adapter.in.user;
 
-import br.com.fiap.TechFood.application.core.usecases.user.User;
-import br.com.fiap.TechFood.application.core.usecases.user.vo.Cpf;
+import br.com.fiap.TechFood.application.usecases.user.User;
+import br.com.fiap.TechFood.application.usecases.user.vo.Cpf;
 import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.br.CPF;
 

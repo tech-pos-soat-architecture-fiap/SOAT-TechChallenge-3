@@ -1,6 +1,6 @@
-package br.com.fiap.TechFood.application.core.usecases.user;
+package br.com.fiap.TechFood.application.usecases.user;
 
-import br.com.fiap.TechFood.application.core.usecases.user.vo.Cpf;
+import br.com.fiap.TechFood.application.usecases.user.vo.Cpf;
 
 public class User {
 

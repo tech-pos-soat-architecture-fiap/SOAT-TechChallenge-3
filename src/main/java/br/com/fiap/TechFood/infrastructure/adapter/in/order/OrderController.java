@@ -1,8 +1,8 @@
 package br.com.fiap.TechFood.infrastructure.adapter.in.order;
 
-import br.com.fiap.TechFood.application.core.domain.order.Order;
-import br.com.fiap.TechFood.application.core.usecases.order.*;
+import br.com.fiap.TechFood.application.usecases.order.Order;
 import br.com.fiap.TechFood.application.port.PagePort;
+import br.com.fiap.TechFood.application.usecases.order.*;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

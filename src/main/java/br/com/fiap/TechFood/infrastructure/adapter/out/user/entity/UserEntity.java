@@ -1,7 +1,7 @@
 package br.com.fiap.TechFood.infrastructure.adapter.out.user.entity;
 
-import br.com.fiap.TechFood.application.core.usecases.user.User;
-import br.com.fiap.TechFood.application.core.usecases.user.vo.Cpf;
+import br.com.fiap.TechFood.application.usecases.user.User;
+import br.com.fiap.TechFood.application.usecases.user.vo.Cpf;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 

@@ -1,7 +1,7 @@
 package br.com.fiap.TechFood.infrastructure.adapter.out.order.entity;
 
-import br.com.fiap.TechFood.application.core.domain.order.Order;
-import br.com.fiap.TechFood.application.core.domain.order.OrderStatus;
+import br.com.fiap.TechFood.application.usecases.order.Order;
+import br.com.fiap.TechFood.application.usecases.order.OrderStatus;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

@@ -1,6 +1,6 @@
 package br.com.fiap.TechFood.infrastructure.adapter.in.product;
 
-import br.com.fiap.TechFood.application.core.usecases.product.domain.ImageContract;
+import br.com.fiap.TechFood.application.usecases.product.domain.ImageContract;
 import br.com.fiap.TechFood.infrastructure.adapter.in.validation.ValidCategory;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
