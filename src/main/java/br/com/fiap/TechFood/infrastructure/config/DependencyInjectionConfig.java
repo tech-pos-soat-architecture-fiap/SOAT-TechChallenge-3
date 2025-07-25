@@ -1,9 +1,13 @@
 package br.com.fiap.TechFood.infrastructure.config;
 
+import br.com.fiap.TechFood.application.port.order.out.OrderRepositoryPort;
+import br.com.fiap.TechFood.application.port.order.OrderValidatorPort;
+import br.com.fiap.TechFood.application.port.order.in.*;
 import br.com.fiap.TechFood.application.port.product.in.*;
 import br.com.fiap.TechFood.application.port.product.out.ProductGatewayPort;
+import br.com.fiap.TechFood.application.port.user.UserRepositoryPort;
+import br.com.fiap.TechFood.application.usecases.order.*;
 import br.com.fiap.TechFood.application.usecases.product.*;
-import br.com.fiap.TechFood.infrastructure.adapter.out.product.ProductGatewayAdapter;
 import br.com.fiap.TechFood.infrastructure.adapter.out.product.repository.ProductEntityRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,43 +22,72 @@ public class DependencyInjectionConfig {
     }
 
     @Bean
-    public ProductGatewayPort userGateway() {
-        return new ProductGatewayAdapter(productEntityRepository);
+    public CreateProductPort createProductUseCase(ProductGatewayPort productGatewayPort) {
+        return new CreateProductUseCase(productGatewayPort);
     }
 
     @Bean
-    public CreateProductPort createProductUseCase() {
-        return new CreateProductUseCase(userGateway());
+    public FindProductsByCategoryPort findProductsByCategoryPort(ProductGatewayPort productGatewayPort) {
+        return new FindProductsByCategoryUseCase(productGatewayPort);
     }
 
     @Bean
-    public FindProductsByCategoryPort findProductsByCategoryPort() {
-        return new FindProductsByCategoryUseCase(userGateway());
+    public UpdateProductPort updateProductPort(ProductGatewayPort productGatewayPort) {
+        return new UpdateProductUseCase(productGatewayPort);
     }
 
     @Bean
-    public UpdateProductPort updateProductPort() {
-        return new UpdateProductUseCase(userGateway());
+    public FindProductPort findProductPort(ProductGatewayPort productGatewayPort) {
+        return new FindProductUseCase(productGatewayPort);
     }
 
     @Bean
-    public FindProductPort findProductPort() {
-        return new FindProductUseCase(userGateway());
+    public FindAllProductsPort finddAllProductsPort(ProductGatewayPort productGatewayPort) {
+        return new FindAllProductsUseCase(productGatewayPort);
     }
 
     @Bean
-    public FindAllProductsPort finddAllProductsPort() {
-        return new FindAllProductsUseCase(userGateway());
+    public RemoveProductPort removeProductPort(ProductGatewayPort productGatewayPort) {
+        return new RemoveProductUseCase(productGatewayPort);
     }
 
     @Bean
-    public RemoveProductPort removeProductPort() {
-        return new RemoveProductUseCase(userGateway());
+    public AddOrderItemsPort addOrderItemsUseCase(
+            OrderRepositoryPort orderRepositoryPort,
+            OrderValidatorPort orderValidator,
+            ProductGatewayPort productGatewayPort) {
+        return new AddOrderItemsUseCase(orderRepositoryPort, orderValidator, productGatewayPort);
     }
 
-//    @Bean
-//    public OrderServicePort orderService(OrderRepositoryPort orderRepositoryPort, UserRepositoryPort userRepositoryPort,
-//                                         ProductServicePort productServicePort, OrderValidatorPort orderValidatorPort) {
-//        return new OrderService(orderRepositoryPort, userRepositoryPort, productServicePort, orderValidatorPort);
-//    }
+    @Bean
+    public ChangeOrderStatusPort changeOrderStatusUseCase(
+            OrderRepositoryPort orderRepositoryPort
+    ){
+        return new ChangeOrderStatusUseCase(orderRepositoryPort);
+    }
+
+    @Bean
+    public CreateOrderPort createOrderUseCase(
+            UserRepositoryPort userRepositoryPort,
+            OrderRepositoryPort orderRepositoryPort
+    ) {
+        return new CreateOrderUseCase(userRepositoryPort, orderRepositoryPort);
+    }
+
+    @Bean
+    public RemoveOrderItemsPort removeOrderItemsUseCase(
+            OrderRepositoryPort orderRepositoryPort,
+            OrderValidatorPort orderValidator,
+            ProductGatewayPort productGatewayPort
+    ) {
+        return new RemoveOrderItemsUseCase(orderRepositoryPort, orderValidator, productGatewayPort);
+    }
+
+    @Bean
+    public FindAllOrderPort findAllOrderUseCase(
+            OrderRepositoryPort orderRepositoryPort
+    ) {
+        return new FindAllOrderUseCase(orderRepositoryPort);
+    }
+
 }

@@ -1,8 +1,8 @@
 package br.com.fiap.TechFood.infrastructure.adapter.in.order;
 
-import br.com.fiap.TechFood.application.usecases.order.Order;
+import br.com.fiap.TechFood.application.domain.Order;
 import br.com.fiap.TechFood.application.port.PagePort;
-import br.com.fiap.TechFood.application.usecases.order.*;
+import br.com.fiap.TechFood.application.port.order.in.*;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,18 +12,18 @@ import java.util.List;
 
 @RestController
 public class OrderController {
-    private final ChangeOrderStatusUseCase changeOrderStatusUseCase;
-    private final RemoveOrderItemsUseCase removeOrderItemsUseCase;
-    private final AddOrderItemsUseCase addOrderItemsUseCase;
-    private final CreateOrderUseCase createOrderUseCase;
-    private final FindAllOrderUseCase findAllOrderUseCase;
+    private final ChangeOrderStatusPort changeOrderStatusPort;
+    private final RemoveOrderItemsPort removeOrderItemsPort;
+    private final AddOrderItemsPort addOrderItemsPort;
+    private final CreateOrderPort createOrderPort;
+    private final FindAllOrderPort findAllOrderPort;
 
-    public OrderController(ChangeOrderStatusUseCase changeOrderStatusUseCase, RemoveOrderItemsUseCase removeOrderItemsUseCase, AddOrderItemsUseCase addOrderItemsUseCase, CreateOrderUseCase createOrderUseCase, FindAllOrderUseCase findAllOrderUseCase) {
-        this.changeOrderStatusUseCase = changeOrderStatusUseCase;
-        this.removeOrderItemsUseCase = removeOrderItemsUseCase;
-        this.addOrderItemsUseCase = addOrderItemsUseCase;
-        this.createOrderUseCase = createOrderUseCase;
-        this.findAllOrderUseCase = findAllOrderUseCase;
+    public OrderController(ChangeOrderStatusPort changeOrderStatusPort, RemoveOrderItemsPort removeOrderItemsPort, AddOrderItemsPort addOrderItemsPort, CreateOrderPort createOrderPort, FindAllOrderPort findAllOrderPort) {
+        this.changeOrderStatusPort = changeOrderStatusPort;
+        this.removeOrderItemsPort = removeOrderItemsPort;
+        this.addOrderItemsPort = addOrderItemsPort;
+        this.createOrderPort = createOrderPort;
+        this.findAllOrderPort = findAllOrderPort;
     }
 
 //    @GetMapping("/order/{orderId}")
@@ -34,7 +34,7 @@ public class OrderController {
 
     @PostMapping("/create/orders")
     public ResponseEntity<OrderView> createOrder(@RequestBody(required = false) Long userId) {
-        Order order = createOrderUseCase.create(userId);
+        Order order = createOrderPort.create(userId);
 
         URI uri = URI.create("/orders/" + userId);
 
@@ -43,26 +43,26 @@ public class OrderController {
 
     @PostMapping("/add-items/{orderId}")
     public ResponseEntity<OrderView> addItem(@Valid @RequestBody List<OrderItemForm> orderItemsForms, @PathVariable Long orderId) {
-        Order order = addOrderItemsUseCase.addItems(orderItemsForms, orderId);
+        Order order = addOrderItemsPort.addItems(orderItemsForms, orderId);
         return ResponseEntity.ok(OrderView.from(order));
     }
 
     @PostMapping("/remove-items/{orderId}")
     public ResponseEntity<OrderView> removeItems(@Valid @RequestBody List<OrderItemForm> orderItemForms, @PathVariable Long orderId) {
-        Order order = removeOrderItemsUseCase.removeItems(orderItemForms, orderId);
+        Order order = removeOrderItemsPort.removeItems(orderItemForms, orderId);
         return ResponseEntity.ok(OrderView.from(order));
     }
 
     @GetMapping("/orders")
     public ResponseEntity<PagePort<OrderView>> showAll(@RequestParam(defaultValue = "0") int page,
                                                        @RequestParam(defaultValue = "10") int size) {
-        PagePort<OrderView> ordersView = findAllOrderUseCase.findAll(page, size).map(OrderView::from);
+        PagePort<OrderView> ordersView = findAllOrderPort.findAll(page, size).map(OrderView::from);
         return ResponseEntity.ok(ordersView);
     }
 
     @PutMapping("/order/change-status/{orderId}")
     public ResponseEntity<OrderStatusView> changeStatus(@PathVariable("orderId") Long id) {
-        Order order = changeOrderStatusUseCase.changeStatus(id);
+        Order order = changeOrderStatusPort.changeStatus(id);
         return ResponseEntity.ok(OrderStatusView.from(order));
     }
 }

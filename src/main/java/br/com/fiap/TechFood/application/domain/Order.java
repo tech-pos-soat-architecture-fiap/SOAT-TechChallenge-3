@@ -1,4 +1,4 @@
-package br.com.fiap.TechFood.application.usecases.order;
+package br.com.fiap.TechFood.application.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
