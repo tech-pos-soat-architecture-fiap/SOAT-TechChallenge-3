@@ -3,18 +3,18 @@ package br.com.fiap.TechFood.application.usecases.order;
 import br.com.fiap.TechFood.application.domain.Order;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.order.out.OrderRepositoryPort;
-import br.com.fiap.TechFood.application.port.order.in.FindAllOrderPort;
+import br.com.fiap.TechFood.application.port.order.in.FindAllActiveOrderPort;
 
-public class FindAllOrderUseCase implements FindAllOrderPort {
+public class FindAllActiveOrderUseCase implements FindAllActiveOrderPort {
 
     private final OrderRepositoryPort orderRepository;
 
-    public FindAllOrderUseCase(OrderRepositoryPort orderRepository) {
+    public FindAllActiveOrderUseCase(OrderRepositoryPort orderRepository) {
         this.orderRepository = orderRepository;
     }
 
     @Override
-    public PagePort<Order> findAll(int page, int size) {
-        return orderRepository.findAll(page, size);
+    public PagePort<Order> findAllActiveSorted(int page, int size) {
+        return orderRepository.findAllActiveSorted(page, size);
     }
 }

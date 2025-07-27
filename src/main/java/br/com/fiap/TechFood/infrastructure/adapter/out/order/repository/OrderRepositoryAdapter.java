@@ -21,8 +21,8 @@ public class OrderRepositoryAdapter implements OrderRepositoryPort {
     }
 
     @Override
-    public PagePort<Order> findAll(int page, int size) {
-        Page<Order> orders = orderEntityRepository.findAll(PageRequest.of(page, size)).map(OrderEntity::toOrder);
+    public PagePort<Order> findAllActiveSorted(int page, int size) {
+        Page<Order> orders = orderEntityRepository.findAllActiveSorted(PageRequest.of(page, size)).map(OrderEntity::toOrder);
         return new PageDTO<>(orders);
     }
 

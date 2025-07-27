@@ -10,7 +10,7 @@ import java.util.Set;
 public class Order {
     private Long id;
     private Long userId;
-    private final LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt = LocalDateTime.now();
     private OrderStatus status = OrderStatus.DRAFT;
     private Set<OrderItem> orderItems = new HashSet<>();
 
@@ -23,11 +23,12 @@ public class Order {
     }
 
     public Order(Long id, Long userId,
-                 OrderStatus status, Set<OrderItem> orderItems) {
+                 OrderStatus status, Set<OrderItem> orderItems, LocalDateTime createdAt) {
         this.id = id;
         this.userId = userId;
         this.status = status;
         this.orderItems = orderItems;
+        this.createdAt = createdAt;
     }
 
     public Long getId() {

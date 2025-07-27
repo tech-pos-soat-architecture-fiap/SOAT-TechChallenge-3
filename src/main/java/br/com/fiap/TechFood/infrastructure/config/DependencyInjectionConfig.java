@@ -84,10 +84,10 @@ public class DependencyInjectionConfig {
     }
 
     @Bean
-    public FindAllOrderPort findAllOrderUseCase(
+    public FindAllActiveOrderPort findAllOrderUseCase(
             OrderRepositoryPort orderRepositoryPort
     ) {
-        return new FindAllOrderUseCase(orderRepositoryPort);
+        return new FindAllActiveOrderUseCase(orderRepositoryPort);
     }
 
 }
