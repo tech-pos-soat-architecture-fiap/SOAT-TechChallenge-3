@@ -54,7 +54,7 @@ public class OrderController {
     }
 
     @GetMapping("/orders")
-    public ResponseEntity<PagePort<OrderView>> showAll(@RequestParam(defaultValue = "0") int page,
+    public ResponseEntity<PagePort<OrderView>> showAllActiveSorted(@RequestParam(defaultValue = "0") int page,
                                                        @RequestParam(defaultValue = "10") int size) {
         PagePort<OrderView> ordersView = findAllOrderPort.findAllActiveSorted(page, size).map(OrderView::from);
         return ResponseEntity.ok(ordersView);
