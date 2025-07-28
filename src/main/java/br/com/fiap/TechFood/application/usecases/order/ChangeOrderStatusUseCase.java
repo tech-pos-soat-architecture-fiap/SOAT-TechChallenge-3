@@ -1,7 +1,7 @@
 package br.com.fiap.TechFood.application.usecases.order;
 
-import br.com.fiap.TechFood.application.domain.Order;
-import br.com.fiap.TechFood.application.domain.OrderStatus;
+import br.com.fiap.TechFood.application.domain.order.Order;
+import br.com.fiap.TechFood.application.domain.order.OrderStatus;
 import br.com.fiap.TechFood.application.port.order.out.OrderRepositoryPort;
 import br.com.fiap.TechFood.application.port.order.in.ChangeOrderStatusPort;
 import br.com.fiap.TechFood.application.shared.exception.NotFoundException;

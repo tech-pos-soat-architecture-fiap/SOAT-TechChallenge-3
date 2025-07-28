@@ -1,6 +1,6 @@
 package br.com.fiap.TechFood.infrastructure.adapter.out.order.entity;
 
-import br.com.fiap.TechFood.application.domain.OrderItem;
+import br.com.fiap.TechFood.application.domain.order.OrderItem;
 import br.com.fiap.TechFood.infrastructure.adapter.out.product.entity.ProductEntity;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.ManyToOne;

@@ -1,4 +1,4 @@
-package br.com.fiap.TechFood.application.usecases.user;
+package br.com.fiap.TechFood.application.domain.user;
 
 import br.com.fiap.TechFood.application.usecases.user.vo.Cpf;
 

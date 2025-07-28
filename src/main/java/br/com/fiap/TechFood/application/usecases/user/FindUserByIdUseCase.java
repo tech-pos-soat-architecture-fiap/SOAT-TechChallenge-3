@@ -1,5 +1,6 @@
 package br.com.fiap.TechFood.application.usecases.user;
 
+import br.com.fiap.TechFood.application.domain.user.User;
 import br.com.fiap.TechFood.application.port.user.FindUserByIdPort;
 import br.com.fiap.TechFood.application.port.user.UserRepositoryPort;
 
