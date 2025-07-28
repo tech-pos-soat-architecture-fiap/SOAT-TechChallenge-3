@@ -1,11 +1,10 @@
 package br.com.fiap.TechFood.infrastructure.adapter.out.order.repository;
 
-import br.com.fiap.TechFood.application.usecases.order.Order;
+import br.com.fiap.TechFood.application.domain.Order;
 import br.com.fiap.TechFood.application.port.PagePort;
-import br.com.fiap.TechFood.application.port.order.OrderRepositoryPort;
+import br.com.fiap.TechFood.application.port.order.out.OrderRepositoryPort;
 import br.com.fiap.TechFood.infrastructure.adapter.out.PageDTO;
 import br.com.fiap.TechFood.infrastructure.adapter.out.order.entity.OrderEntity;
-import br.com.fiap.TechFood.infrastructure.adapter.out.user.repository.UserEntityRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
@@ -16,11 +15,9 @@ import java.util.Optional;
 public class OrderRepositoryAdapter implements OrderRepositoryPort {
 
     private final OrderEntityRepository orderEntityRepository;
-    private final UserEntityRepository userRepository;
 
-    public OrderRepositoryAdapter(OrderEntityRepository orderEntityRepository, UserEntityRepository userRepository) {
+    public OrderRepositoryAdapter(OrderEntityRepository orderEntityRepository) {
         this.orderEntityRepository = orderEntityRepository;
-        this.userRepository = userRepository;
     }
 
     @Override

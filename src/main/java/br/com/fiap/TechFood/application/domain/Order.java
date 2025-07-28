@@ -1,4 +1,4 @@
-package br.com.fiap.TechFood.application.usecases.order;
+package br.com.fiap.TechFood.application.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -10,17 +10,16 @@ import java.util.Set;
 public class Order {
     private Long id;
     private Long userId;
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private final LocalDateTime createdAt = LocalDateTime.now();
     private OrderStatus status = OrderStatus.DRAFT;
     private Set<OrderItem> orderItems = new HashSet<>();
 
     public static Order createDraft(Long userId) {
-        return new Order(userId, OrderStatus.DRAFT);
+        return new Order(userId);
     }
 
-    private Order(Long user, OrderStatus status) {
+    private Order(Long user) {
         this.userId = user;
-        this.status = status;
     }
 
     public Order(Long id, Long userId,

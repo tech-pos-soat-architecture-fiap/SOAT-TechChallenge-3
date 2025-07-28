@@ -1,6 +1,6 @@
 package br.com.fiap.TechFood.infrastructure.adapter.in.order;
 
-import br.com.fiap.TechFood.application.usecases.order.Order;
+import br.com.fiap.TechFood.application.domain.Order;
 
 public record OrderStatusView(Long id, String statusName) {
     public static OrderStatusView from(Order order) {
