@@ -7,13 +7,5 @@ metadata:
     component: config
     version: v1
 data:
-  SPRING_APPLICATION_NAME: "TechFood"
   SERVER_PORT: "8000"
-  SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
-  SPRING_JPA_SHOW_SQL: "false"
-  SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: "org.hibernate.dialect.PostgreSQLDialect"
-  DATABASE_HOST: "192.168.0.4"
-  DATABASE_PORT: "5432"
-  DATABASE_NAME: "TechFood"
-  SPRING_DATASOURCE_URL: "jdbc:postgresql://192.168.0.4:5432/TechFood"
-  SPRING_DATASOURCE_DRIVER_CLASS_NAME: "org.postgresql.Driver"
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://CHANGE_ME_TO_YOUR_LOCAL_IP:5432/TechFood"
