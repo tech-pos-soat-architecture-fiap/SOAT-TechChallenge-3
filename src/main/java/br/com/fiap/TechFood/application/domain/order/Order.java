@@ -1,5 +1,7 @@
 package br.com.fiap.TechFood.application.domain.order;
 
+import br.com.fiap.TechFood.application.domain.payment.Payment;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -13,6 +15,7 @@ public class Order {
     private final LocalDateTime createdAt = LocalDateTime.now();
     private OrderStatus status = OrderStatus.DRAFT;
     private Set<OrderItem> orderItems = new HashSet<>();
+    private Payment payment;
 
     public static Order createDraft(Long userId) {
         return new Order(userId);
@@ -36,6 +39,10 @@ public class Order {
 
     public Long getUserId() {
         return userId;
+    }
+
+    public Long getPaymentId() {
+        return payment != null ? payment.getId() : null;
     }
 
     public BigDecimal getTotal() {

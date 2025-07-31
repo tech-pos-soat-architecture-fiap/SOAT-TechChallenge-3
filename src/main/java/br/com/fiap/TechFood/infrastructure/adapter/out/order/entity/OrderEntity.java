@@ -2,6 +2,7 @@ package br.com.fiap.TechFood.infrastructure.adapter.out.order.entity;
 
 import br.com.fiap.TechFood.application.domain.order.Order;
 import br.com.fiap.TechFood.application.domain.order.OrderStatus;
+import br.com.fiap.TechFood.infrastructure.adapter.out.payment.entity.PaymentEntity;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -32,6 +33,9 @@ public class OrderEntity {
 
     @Nullable
     private Long userId;
+
+    @OneToOne
+    private PaymentEntity payment;
 
     @Deprecated
     public OrderEntity() {
