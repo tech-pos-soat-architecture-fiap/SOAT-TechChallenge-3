@@ -42,12 +42,11 @@ fi
 
 echo "📍 IP local: $LOCAL_IP"
 
-# Atualizar configmap com o IP
-sed -i "s/CHANGE_ME_TO_YOUR_LOCAL_IP/$LOCAL_IP/g" tech-food-configmap-v1.yaml
+export HOST_IP=$LOCAL_IP
 
 # Aplicar manifestos
 echo "⚙️ Aplicando recursos..."
-kubectl apply -f tech-food-configmap-v1.yaml
+envsubst < tech-food-configmap-v1.yaml | kubectl apply -f -
 kubectl apply -f tech-food-db-secret-v1.yaml
 kubectl apply -f tech-food-deployment-v1.yaml
 kubectl apply -f tech-food-service-v1.yaml
