@@ -19,11 +19,12 @@ public class PaymentRepositoryAdapter implements PaymentRepositoryPort {
     @Override
     public Payment save(Payment payment) {
         PaymentEntity paymentEntity = paymentRepository.save(new PaymentEntity(payment));
-        return paymentEntity.toDomain();
+        return paymentEntity.toPayment();
     }
 
     @Override
     public Optional<Payment> findById(Long paymentId) {
-        return paymentRepository.findById(paymentId).map(PaymentEntity::toDomain);
+        return paymentRepository.findById(paymentId).map(PaymentEntity::toPayment);
     }
+
 }

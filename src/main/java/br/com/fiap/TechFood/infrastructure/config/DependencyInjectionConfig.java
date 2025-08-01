@@ -11,6 +11,7 @@ import br.com.fiap.TechFood.application.usecases.product.*;
 import br.com.fiap.TechFood.infrastructure.adapter.out.product.repository.ProductEntityRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class DependencyInjectionConfig {
@@ -88,6 +89,11 @@ public class DependencyInjectionConfig {
             OrderRepositoryPort orderRepositoryPort
     ) {
         return new FindAllOrderUseCase(orderRepositoryPort);
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 
 }

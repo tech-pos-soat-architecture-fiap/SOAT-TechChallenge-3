@@ -54,6 +54,7 @@ public class OrderEntity {
                 this.id,
                 this.userId,
                 this.status,
+                this.payment.toPayment(),
                 this.items.stream()
                         .map(OrderItemEntity::toOrderItem)
                         .collect(Collectors.toSet()));

@@ -26,11 +26,12 @@ public class Order {
     }
 
     public Order(Long id, Long userId,
-                 OrderStatus status, Set<OrderItem> orderItems) {
+                 OrderStatus status, Payment payment, Set<OrderItem> orderItems) {
         this.id = id;
         this.userId = userId;
         this.status = status;
         this.orderItems = orderItems;
+        this.payment = payment;
     }
 
     public Long getId() {

@@ -39,7 +39,7 @@ public class PaymentEntity {
         this.amount = payment.getAmount();
     }
 
-    public Payment toDomain() {
+    public Payment toPayment() {
         return new Payment(id, createdAt, status, amount);
     }
 }

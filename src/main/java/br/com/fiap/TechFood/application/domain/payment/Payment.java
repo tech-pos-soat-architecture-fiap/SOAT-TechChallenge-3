@@ -27,6 +27,10 @@ public class Payment {
         return new Payment(amount);
     }
 
+    public void updateStatus(PaymentStatus status) {
+        this.status = status;
+    }
+
     public Long getId() {
         return id;
     }
