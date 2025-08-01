@@ -16,9 +16,9 @@ public class OrderController {
     private final RemoveOrderItemsPort removeOrderItemsPort;
     private final AddOrderItemsPort addOrderItemsPort;
     private final CreateOrderPort createOrderPort;
-    private final FindAllOrderPort findAllOrderPort;
+    private final FindAllActiveOrderPort findAllOrderPort;
 
-    public OrderController(ChangeOrderStatusPort changeOrderStatusPort, RemoveOrderItemsPort removeOrderItemsPort, AddOrderItemsPort addOrderItemsPort, CreateOrderPort createOrderPort, FindAllOrderPort findAllOrderPort) {
+    public OrderController(ChangeOrderStatusPort changeOrderStatusPort, RemoveOrderItemsPort removeOrderItemsPort, AddOrderItemsPort addOrderItemsPort, CreateOrderPort createOrderPort, FindAllActiveOrderPort findAllOrderPort) {
         this.changeOrderStatusPort = changeOrderStatusPort;
         this.removeOrderItemsPort = removeOrderItemsPort;
         this.addOrderItemsPort = addOrderItemsPort;
@@ -54,9 +54,9 @@ public class OrderController {
     }
 
     @GetMapping("/orders")
-    public ResponseEntity<PagePort<OrderView>> showAll(@RequestParam(defaultValue = "0") int page,
+    public ResponseEntity<PagePort<OrderView>> showAllActiveSorted(@RequestParam(defaultValue = "0") int page,
                                                        @RequestParam(defaultValue = "10") int size) {
-        PagePort<OrderView> ordersView = findAllOrderPort.findAll(page, size).map(OrderView::from);
+        PagePort<OrderView> ordersView = findAllOrderPort.findAllActiveSorted(page, size).map(OrderView::from);
         return ResponseEntity.ok(ordersView);
     }
 

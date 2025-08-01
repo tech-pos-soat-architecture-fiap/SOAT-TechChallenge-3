@@ -6,7 +6,7 @@ import br.com.fiap.TechFood.application.port.PagePort;
 import java.util.Optional;
 
 public interface OrderRepositoryPort {
-    PagePort<Order> findAll(int page, int size);
+    PagePort<Order> findAllActiveSorted(int page, int size);
     Optional<Order> findById(Long id);
     Order save(Order order);
 }
