@@ -25,7 +25,6 @@ public class PaymentController {
 
     @PostMapping("/api/payment/confirm")
     public ResponseEntity<Void> confirmPayment(@Valid @RequestBody PaymentRequestWebhook requestWebhook) {
-        System.out.println("Received payment confirmation webhook: " + requestWebhook);
         paymentWebhookProcessorPort.processPaymentWebhook(requestWebhook.paymentId(),  requestWebhook.status());
         return ResponseEntity.ok().build();
     }
