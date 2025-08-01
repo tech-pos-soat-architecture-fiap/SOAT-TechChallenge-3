@@ -14,8 +14,6 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class PaymentDependencyInjectionConfig {
 
-
-
     @Bean
     public GetPaymentStatusPort getPaymentStatusPort(PaymentRepositoryPort paymentRepository) {
         return new GetPaymentStatusUseCase(paymentRepository);
