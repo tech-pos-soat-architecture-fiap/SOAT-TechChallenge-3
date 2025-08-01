@@ -22,7 +22,7 @@ public class MockPaymentGatewayProcessor implements PaymentGatewayProcessor {
     //Como esse gerador de QR Code é um mock, daqui já se chama o webhook com o pagamento aprovado.
     @Override
     public PaymentQRCodeView generateQRCode(Order order) {
-        sendWebhook(order);
+        sendWebhook(new PaymentRequestWebhook(order.getPaymentId(), PaymentStatus.APPROVED));
         return new MockPaymentQRCodeView(order.getPaymentId().toString(), generateQrCode(order));
     }
 
@@ -32,12 +32,10 @@ public class MockPaymentGatewayProcessor implements PaymentGatewayProcessor {
                 """.formatted(UUID.randomUUID().toString(), order.getId());
     }
 
-    private void sendWebhook(Order order) {
+    private void sendWebhook(PaymentRequestWebhook request) {
         String webhookUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/api/payment/confirm")
                 .toUriString();
-
-        PaymentRequestWebhook request = new PaymentRequestWebhook(order.getPaymentId(), PaymentStatus.APPROVED);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
