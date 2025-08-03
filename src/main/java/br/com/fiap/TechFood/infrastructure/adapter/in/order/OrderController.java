@@ -1,6 +1,6 @@
 package br.com.fiap.TechFood.infrastructure.adapter.in.order;
 
-import br.com.fiap.TechFood.application.domain.Order;
+import br.com.fiap.TechFood.application.domain.order.Order;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.order.in.*;
 import jakarta.validation.Valid;

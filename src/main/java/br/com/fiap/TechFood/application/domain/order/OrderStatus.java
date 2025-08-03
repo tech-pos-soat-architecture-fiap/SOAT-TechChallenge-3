@@ -1,4 +1,4 @@
-package br.com.fiap.TechFood.application.domain;
+package br.com.fiap.TechFood.application.domain.order;
 
 public enum OrderStatus {
     DRAFT {

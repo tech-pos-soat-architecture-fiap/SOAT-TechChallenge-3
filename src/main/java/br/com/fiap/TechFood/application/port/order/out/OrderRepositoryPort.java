@@ -1,6 +1,6 @@
 package br.com.fiap.TechFood.application.port.order.out;
 
-import br.com.fiap.TechFood.application.domain.Order;
+import br.com.fiap.TechFood.application.domain.order.Order;
 import br.com.fiap.TechFood.application.port.PagePort;
 
 import java.util.Optional;

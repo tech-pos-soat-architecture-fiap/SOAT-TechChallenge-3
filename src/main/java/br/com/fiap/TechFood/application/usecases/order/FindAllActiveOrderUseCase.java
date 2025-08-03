@@ -1,6 +1,6 @@
 package br.com.fiap.TechFood.application.usecases.order;
 
-import br.com.fiap.TechFood.application.domain.Order;
+import br.com.fiap.TechFood.application.domain.order.Order;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.order.out.OrderRepositoryPort;
 import br.com.fiap.TechFood.application.port.order.in.FindAllActiveOrderPort;

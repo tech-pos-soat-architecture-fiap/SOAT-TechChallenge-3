@@ -3,15 +3,6 @@ package br.com.fiap.TechFood.application.port.user;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.domain.user.User;
 
-import java.util.Optional;
-
-public interface UserServicePort {
-
-    Optional<User> findById(Long id);
-
-    Optional<User> findByCpf(String cpf);
-
-    User create(User user);
-
+public interface FindAllUsersPort {
     PagePort<User> findAll(int page, int size);
-}
+} 
