@@ -8,13 +8,17 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public record OrderView(Long id, LocalDateTime createdAt, Set<OrderItemView> items, BigDecimal total,
-                        Long userId) {
+                        Long userId, OrderStatusView orderStatusView) {
 
     public static OrderView from(Order order) {
-        return new OrderView(order.getId(), order.getCreatedAt(),
+        return new OrderView(
+                order.getId(),
+                order.getCreatedAt(),
                 order.getOrderItems().stream().map(OrderItemView::from).collect(Collectors.toSet()),
                 order.getTotal(),
-                order.getUserId());
+                order.getUserId(),
+                OrderStatusView.from(order)
+        );
     }
-
 }
+

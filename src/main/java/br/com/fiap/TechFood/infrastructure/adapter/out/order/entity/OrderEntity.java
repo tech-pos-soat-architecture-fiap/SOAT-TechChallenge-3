@@ -52,6 +52,6 @@ public class OrderEntity {
                 this.status,
                 this.items.stream()
                         .map(OrderItemEntity::toOrderItem)
-                        .collect(Collectors.toSet()));
+                        .collect(Collectors.toSet()), createdAt);
     }
 }
