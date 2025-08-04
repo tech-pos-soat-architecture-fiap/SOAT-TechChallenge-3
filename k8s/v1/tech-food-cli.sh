@@ -53,7 +53,7 @@ kubectl apply -f tech-food-service-v1.yaml
 kubectl apply -f tech-food-hpa-v1.yaml
 
 echo -e "\n${YELLOW}⏳ Aguardando pods...${NC}"
-kubectl wait --for=condition=ready pod -l app=techfood --timeout=180s
+kubectl rollout status deployment/tech-food-deployment-v1 --timeout=180s
 
 MINIKUBE_IP=$(minikube ip)
 
