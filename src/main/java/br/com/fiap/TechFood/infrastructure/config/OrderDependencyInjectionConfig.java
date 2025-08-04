@@ -45,8 +45,8 @@ public class OrderDependencyInjectionConfig {
     }
 
     @Bean
-    public ProccessOrderPaymentPort proccessOrderPaymentUseCase(OrderRepositoryPort orderRepositoryPort, PaymentRepositoryPort paymentRepositoryPort, PaymentGatewayProcessor paymentGatewayProcessor) {
-        return new ProccessOrderPaymentUseCase(orderRepositoryPort, paymentRepositoryPort, paymentGatewayProcessor);
+    public ProccessOrderPaymentPort proccessOrderPaymentUseCase(ChangeOrderStatusPort changeOrderStatusPort, OrderRepositoryPort orderRepositoryPort, PaymentRepositoryPort paymentRepositoryPort, PaymentGatewayProcessor paymentGatewayProcessor) {
+        return new ProccessOrderPaymentUseCase(changeOrderStatusPort, orderRepositoryPort, paymentRepositoryPort, paymentGatewayProcessor);
     }
 
 }
