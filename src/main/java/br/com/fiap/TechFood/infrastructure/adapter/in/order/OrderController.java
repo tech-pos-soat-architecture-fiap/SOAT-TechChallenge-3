@@ -3,9 +3,6 @@ package br.com.fiap.TechFood.infrastructure.adapter.in.order;
 import br.com.fiap.TechFood.application.domain.order.Order;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.order.in.*;
-import br.com.fiap.TechFood.application.port.order.out.OrderRepositoryPort;
-import br.com.fiap.TechFood.application.port.payment.PaymentQRCodeView;
-import br.com.fiap.TechFood.application.port.payment.out.PaymentGatewayProcessor;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,19 +16,14 @@ public class OrderController {
     private final RemoveOrderItemsPort removeOrderItemsPort;
     private final AddOrderItemsPort addOrderItemsPort;
     private final CreateOrderPort createOrderPort;
-    private final FindAllOrderPort findAllOrderPort;
-    //TODO: REMOVER DEPOIS
-    private final PaymentGatewayProcessor paymentGatewayProcessor;
-    private final OrderRepositoryPort orderRepositoryPort;
+    private final FindAllActiveOrderPort findAllOrderPort;
 
-    public OrderController(ChangeOrderStatusPort changeOrderStatusPort, RemoveOrderItemsPort removeOrderItemsPort, AddOrderItemsPort addOrderItemsPort, CreateOrderPort createOrderPort, FindAllOrderPort findAllOrderPort, PaymentGatewayProcessor paymentGatewayProcessor, OrderRepositoryPort orderRepositoryPort) {
+    public OrderController(ChangeOrderStatusPort changeOrderStatusPort, RemoveOrderItemsPort removeOrderItemsPort, AddOrderItemsPort addOrderItemsPort, CreateOrderPort createOrderPort, FindAllActiveOrderPort findAllOrderPort) {
         this.changeOrderStatusPort = changeOrderStatusPort;
         this.removeOrderItemsPort = removeOrderItemsPort;
         this.addOrderItemsPort = addOrderItemsPort;
         this.createOrderPort = createOrderPort;
         this.findAllOrderPort = findAllOrderPort;
-        this.paymentGatewayProcessor = paymentGatewayProcessor;
-        this.orderRepositoryPort = orderRepositoryPort;
     }
 
 //    @GetMapping("/order/{orderId}")
@@ -62,9 +54,9 @@ public class OrderController {
     }
 
     @GetMapping("/orders")
-    public ResponseEntity<PagePort<OrderView>> showAll(@RequestParam(defaultValue = "0") int page,
+    public ResponseEntity<PagePort<OrderView>> showAllActiveSorted(@RequestParam(defaultValue = "0") int page,
                                                        @RequestParam(defaultValue = "10") int size) {
-        PagePort<OrderView> ordersView = findAllOrderPort.findAll(page, size).map(OrderView::from);
+        PagePort<OrderView> ordersView = findAllOrderPort.findAllActiveSorted(page, size).map(OrderView::from);
         return ResponseEntity.ok(ordersView);
     }
 
@@ -72,14 +64,5 @@ public class OrderController {
     public ResponseEntity<OrderStatusView> changeStatus(@PathVariable("orderId") Long id) {
         Order order = changeOrderStatusPort.changeStatus(id);
         return ResponseEntity.ok(OrderStatusView.from(order));
-    }
-
-    //Todo: APENAS PARA TESTES, REMOVER DEPOIS
-    @GetMapping("/teste/finish")
-    public ResponseEntity<PaymentQRCodeView> finishOrder() {
-        Order order = orderRepositoryPort.findById(1L)
-                .orElseThrow(() -> new RuntimeException("Order not found"));
-        var view = paymentGatewayProcessor.generateQRCode(order);
-        return ResponseEntity.ok(view);
     }
 }

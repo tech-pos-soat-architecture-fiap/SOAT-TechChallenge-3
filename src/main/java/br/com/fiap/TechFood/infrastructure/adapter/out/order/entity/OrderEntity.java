@@ -57,6 +57,8 @@ public class OrderEntity {
                 this.payment.toPayment(),
                 this.items.stream()
                         .map(OrderItemEntity::toOrderItem)
-                        .collect(Collectors.toSet()));
+                        .collect(Collectors.toSet()),
+                this.createdAt
+        );
     }
 }
