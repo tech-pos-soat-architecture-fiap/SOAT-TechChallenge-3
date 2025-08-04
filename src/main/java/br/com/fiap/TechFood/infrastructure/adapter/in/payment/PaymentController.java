@@ -2,6 +2,7 @@ package br.com.fiap.TechFood.infrastructure.adapter.in.payment;
 
 import br.com.fiap.TechFood.application.port.payment.in.GetPaymentStatusPort;
 import br.com.fiap.TechFood.application.port.payment.in.PaymentWebhookProcessorPort;
+import br.com.fiap.TechFood.infrastructure.adapter.out.payment.PaymentStatusView;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
