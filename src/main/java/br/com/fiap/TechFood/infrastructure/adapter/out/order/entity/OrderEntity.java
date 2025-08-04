@@ -2,6 +2,7 @@ package br.com.fiap.TechFood.infrastructure.adapter.out.order.entity;
 
 import br.com.fiap.TechFood.application.domain.order.Order;
 import br.com.fiap.TechFood.application.domain.order.OrderStatus;
+import br.com.fiap.TechFood.application.domain.payment.Payment;
 import br.com.fiap.TechFood.infrastructure.adapter.out.payment.entity.PaymentEntity;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
@@ -47,14 +48,16 @@ public class OrderEntity {
         this.createdAt = order.getCreatedAt();
         this.items = order.getOrderItems().stream().map(OrderItemEntity::new).collect(Collectors.toSet());
         this.userId = order.getUserId();
+        this.payment = order.getPayment().map(PaymentEntity::new).orElse(null);
     }
 
     public Order toOrder() {
+        Payment payment = this.payment != null ? this.payment.toPayment() : null;
         return new Order(
                 this.id,
                 this.userId,
                 this.status,
-                this.payment.toPayment(),
+                payment,
                 this.items.stream()
                         .map(OrderItemEntity::toOrderItem)
                         .collect(Collectors.toSet()),
