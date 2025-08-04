@@ -33,9 +33,7 @@ public class OrderDependencyInjectionConfig {
     }
 
     @Bean
-    public FindAllActiveOrderPort findAllActiveOrderUseCase(
-            OrderRepositoryPort orderRepositoryPort
-    ) {
+    public FindAllActiveOrderPort findAllOrderUseCase(OrderRepositoryPort orderRepositoryPort) {
         return new FindAllActiveOrderUseCase(orderRepositoryPort);
     }
 
