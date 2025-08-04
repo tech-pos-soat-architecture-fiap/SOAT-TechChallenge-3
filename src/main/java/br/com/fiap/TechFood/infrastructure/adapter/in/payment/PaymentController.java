@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class PaymentController {
 
-    private final GetPaymentStatusPort getPaymentStatusUseCase;
+    private final GetPaymentStatusPort getPaymentStatusPort;
     private final PaymentWebhookProcessorPort paymentWebhookProcessorPort;
 
-    public PaymentController(GetPaymentStatusPort getPaymentStatusUseCase, PaymentWebhookProcessorPort paymentWebhookProcessorPort) {
-        this.getPaymentStatusUseCase = getPaymentStatusUseCase;
+    public PaymentController(GetPaymentStatusPort getPaymentStatusPort, PaymentWebhookProcessorPort paymentWebhookProcessorPort) {
+        this.getPaymentStatusPort = getPaymentStatusPort;
         this.paymentWebhookProcessorPort = paymentWebhookProcessorPort;
     }
 
     @GetMapping("/api/payment/{paymentId}/status")
     public ResponseEntity<PaymentStatusView> getPaymentStatus(@PathVariable Long paymentId) {
-        var status = getPaymentStatusUseCase.getPaymentStatus(paymentId);
+        var status = getPaymentStatusPort.getPaymentStatus(paymentId);
         return ResponseEntity.ok(new PaymentStatusView(paymentId, status));
     }
 

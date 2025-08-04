@@ -18,22 +18,24 @@ public class OrderController {
     private final AddOrderItemsPort addOrderItemsPort;
     private final CreateOrderPort createOrderPort;
     private final FindAllActiveOrderPort findAllOrderPort;
+    private final FindOrderPort findOrderPort;
     private final ProccessOrderPaymentPort proccessOrderPaymentPort;
 
-    public OrderController(ChangeOrderStatusPort changeOrderStatusPort, RemoveOrderItemsPort removeOrderItemsPort, AddOrderItemsPort addOrderItemsPort, CreateOrderPort createOrderPort, FindAllActiveOrderPort findAllOrderPort, ProccessOrderPaymentPort proccessOrderPaymentPort) {
+    public OrderController(ChangeOrderStatusPort changeOrderStatusPort, RemoveOrderItemsPort removeOrderItemsPort, AddOrderItemsPort addOrderItemsPort, CreateOrderPort createOrderPort, FindAllActiveOrderPort findAllOrderPort, FindOrderPort findOrderPort, ProccessOrderPaymentPort proccessOrderPaymentPort) {
         this.changeOrderStatusPort = changeOrderStatusPort;
         this.removeOrderItemsPort = removeOrderItemsPort;
         this.addOrderItemsPort = addOrderItemsPort;
         this.createOrderPort = createOrderPort;
         this.findAllOrderPort = findAllOrderPort;
+        this.findOrderPort = findOrderPort;
         this.proccessOrderPaymentPort = proccessOrderPaymentPort;
     }
 
-//    @GetMapping("/order/{orderId}")
-//    public ResponseEntity<OrderView> getOrder(@PathVariable Long orderId) {
-//        Order order = orderServicePort.findById(orderId);
-//        return ResponseEntity.ok(OrderView.from(order));
-//    }
+    @GetMapping("/order/{orderId}")
+    public ResponseEntity<OrderView> getOrder(@PathVariable Long orderId) {
+        Order order = findOrderPort.findById(orderId);
+        return ResponseEntity.ok(OrderView.from(order));
+    }
 
     @PostMapping("/create/orders")
     public ResponseEntity<OrderView> createOrder(@RequestBody(required = false) Long userId) {
