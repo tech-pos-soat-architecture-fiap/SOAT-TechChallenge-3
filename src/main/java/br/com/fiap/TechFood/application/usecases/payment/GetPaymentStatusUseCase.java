@@ -16,9 +16,6 @@ public class GetPaymentStatusUseCase implements GetPaymentStatusPort {
 
     @Override
     public PaymentStatus getPaymentStatus(Long paymentId) {
-        if (paymentId == null) {
-            throw new IllegalArgumentException("Payment ID cannot be null");
-        }
         return paymentRepository.findById(paymentId)
                 .map(Payment::getStatus)
                 .orElseThrow(() -> new NotFoundException("Payment not found for ID: " + paymentId));

@@ -23,10 +23,10 @@ public class MockPaymentGatewayProcessor implements PaymentGatewayProcessor {
     @Override
     public PaymentQRCodeView generateQRCode(Order order) {
         sendWebhook(new PaymentRequestWebhook(order.getPaymentId(), PaymentStatus.APPROVED));
-        return new MockPaymentQRCodeView(order.getPaymentId().toString(), generateQrCode(order));
+        return new MockPaymentQRCodeView(UUID.randomUUID().toString(), createQRCodeFake(order), order.getPaymentId());
     }
 
-    private String generateQrCode(Order order) {
+    private String createQRCodeFake(Order order) {
         return """
                 00020101021243650016COM.MERCADOLIBRE02013063638%s35204000053039865802BR5925IZABEL AAAA DE MELO6007BARUERI62070503***63040B6D%s
                 """.formatted(UUID.randomUUID().toString(), order.getId());
