@@ -37,4 +37,9 @@ public class OrderDependencyInjectionConfig {
         return new FindAllActiveOrderUseCase(orderRepositoryPort);
     }
 
+    @Bean
+    public ProccessOrderPaymentPort proccessOrderPaymentUseCase(OrderRepositoryPort orderRepositoryPort, PaymentRepositoryPort paymentRepositoryPort, PaymentGatewayProcessor paymentGatewayProcessor) {
+        return new ProccessOrderPaymentUseCase(orderRepositoryPort, paymentRepositoryPort, paymentGatewayProcessor);
+    }
+
 }

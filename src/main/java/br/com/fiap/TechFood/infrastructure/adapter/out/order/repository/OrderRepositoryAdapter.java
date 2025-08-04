@@ -1,6 +1,7 @@
 package br.com.fiap.TechFood.infrastructure.adapter.out.order.repository;
 
 import br.com.fiap.TechFood.application.domain.order.Order;
+import br.com.fiap.TechFood.application.domain.payment.Payment;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.order.out.OrderRepositoryPort;
 import br.com.fiap.TechFood.infrastructure.adapter.out.PageDTO;
@@ -24,6 +25,12 @@ public class OrderRepositoryAdapter implements OrderRepositoryPort {
     public PagePort<Order> findAllActiveSorted(int page, int size) {
         Page<Order> orders = orderEntityRepository.findAllActiveSorted(PageRequest.of(page, size)).map(OrderEntity::toOrder);
         return new PageDTO<>(orders);
+    }
+
+    @Override
+    public Optional<Order> findByPayment(Payment payment) {
+        return orderEntityRepository.findByPaymentId(payment.getId())
+                .map(OrderEntity::toOrder);
     }
 
     @Override

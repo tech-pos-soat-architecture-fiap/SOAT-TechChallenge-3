@@ -3,6 +3,7 @@ package br.com.fiap.TechFood.infrastructure.adapter.in.order;
 import br.com.fiap.TechFood.application.domain.order.Order;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.order.in.*;
+import br.com.fiap.TechFood.application.port.payment.PaymentQRCodeView;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +18,15 @@ public class OrderController {
     private final AddOrderItemsPort addOrderItemsPort;
     private final CreateOrderPort createOrderPort;
     private final FindAllActiveOrderPort findAllOrderPort;
+    private final ProccessOrderPaymentPort proccessOrderPaymentPort;
 
-    public OrderController(ChangeOrderStatusPort changeOrderStatusPort, RemoveOrderItemsPort removeOrderItemsPort, AddOrderItemsPort addOrderItemsPort, CreateOrderPort createOrderPort, FindAllActiveOrderPort findAllOrderPort) {
+    public OrderController(ChangeOrderStatusPort changeOrderStatusPort, RemoveOrderItemsPort removeOrderItemsPort, AddOrderItemsPort addOrderItemsPort, CreateOrderPort createOrderPort, FindAllActiveOrderPort findAllOrderPort, ProccessOrderPaymentPort proccessOrderPaymentPort) {
         this.changeOrderStatusPort = changeOrderStatusPort;
         this.removeOrderItemsPort = removeOrderItemsPort;
         this.addOrderItemsPort = addOrderItemsPort;
         this.createOrderPort = createOrderPort;
         this.findAllOrderPort = findAllOrderPort;
+        this.proccessOrderPaymentPort = proccessOrderPaymentPort;
     }
 
 //    @GetMapping("/order/{orderId}")
@@ -58,6 +61,11 @@ public class OrderController {
                                                        @RequestParam(defaultValue = "10") int size) {
         PagePort<OrderView> ordersView = findAllOrderPort.findAllActiveSorted(page, size).map(OrderView::from);
         return ResponseEntity.ok(ordersView);
+    }
+
+    @PostMapping("/orders/payment/{orderId}")
+    public ResponseEntity<PaymentQRCodeView> createPayment(@PathVariable Long orderId) {
+        return ResponseEntity.ok(proccessOrderPaymentPort.processPayment(orderId));
     }
 
     @PutMapping("/order/change-status/{orderId}")
