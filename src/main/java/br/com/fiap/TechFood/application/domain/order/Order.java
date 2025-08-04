@@ -43,8 +43,8 @@ public class Order {
         return userId;
     }
 
-    public Long getPaymentId() {
-        return payment != null ? payment.getId() : null;
+    public Optional<Long> getPaymentId() {
+        return Optional.ofNullable(payment).map(Payment::getId);
     }
 
     public BigDecimal getTotal() {
