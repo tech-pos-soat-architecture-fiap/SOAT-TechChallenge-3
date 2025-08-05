@@ -7,11 +7,13 @@ public class MockPaymentQRCodeView implements PaymentQRCodeView {
     private final String storeOrderId;
     private final String qrCode;
     private final Long paymentId;
+    private final Long orderId;
 
-    public MockPaymentQRCodeView(String storeOrderId, String qrCode, Long paymentId) {
+    public MockPaymentQRCodeView(String storeOrderId, String qrCode, Long paymentId, Long orderId) {
         this.storeOrderId = storeOrderId;
         this.qrCode = qrCode;
         this.paymentId = paymentId;
+        this.orderId = orderId;
     }
 
     @Override
@@ -27,5 +29,10 @@ public class MockPaymentQRCodeView implements PaymentQRCodeView {
     @Override
     public Long getPaymentId() {
         return paymentId;
+    }
+
+    @Override
+    public Long getOrderId() {
+        return orderId;
     }
 }

@@ -5,7 +5,7 @@ import br.com.fiap.TechFood.application.domain.order.OrderItem;
 import br.com.fiap.TechFood.application.port.order.in.AddOrderItemsPort;
 import br.com.fiap.TechFood.application.port.order.out.OrderRepositoryPort;
 import br.com.fiap.TechFood.application.port.product.out.ProductGatewayPort;
-import br.com.fiap.TechFood.application.usecases.product.domain.Product;
+import br.com.fiap.TechFood.application.domain.product.Product;
 import br.com.fiap.TechFood.application.port.order.*;
 import br.com.fiap.TechFood.application.shared.exception.NotFoundException;
 

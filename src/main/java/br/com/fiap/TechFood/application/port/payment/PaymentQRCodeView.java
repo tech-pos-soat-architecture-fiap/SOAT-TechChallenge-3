@@ -4,4 +4,5 @@ public interface PaymentQRCodeView {
     String getStoreOrderId();
     String getQRCodeData();
     Long getPaymentId();
+    Long getOrderId();
 }

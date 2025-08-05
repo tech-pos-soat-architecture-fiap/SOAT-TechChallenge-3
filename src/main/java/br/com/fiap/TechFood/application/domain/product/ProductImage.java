@@ -1,4 +1,4 @@
-package br.com.fiap.TechFood.application.usecases.product.domain;
+package br.com.fiap.TechFood.application.domain.product;
 
 public class ProductImage implements ImageContract {
 

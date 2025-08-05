@@ -2,8 +2,8 @@ package br.com.fiap.TechFood.infrastructure.adapter.out.product;
 
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.product.out.ProductGatewayPort;
-import br.com.fiap.TechFood.application.usecases.product.domain.Product;
-import br.com.fiap.TechFood.application.usecases.product.domain.ProductCategory;
+import br.com.fiap.TechFood.application.domain.product.Product;
+import br.com.fiap.TechFood.application.domain.product.ProductCategory;
 import br.com.fiap.TechFood.infrastructure.adapter.out.PageDTO;
 import br.com.fiap.TechFood.infrastructure.adapter.out.product.entity.ProductEntity;
 import br.com.fiap.TechFood.infrastructure.adapter.out.product.repository.ProductEntityRepository;

@@ -429,32 +429,6 @@ Resposta: **200 OK**
 
 <details>
 <summary>
- Alterar status do pedido
-</summary>
-
-**Método:** PUT  
-**URI:** `/order/change-status/{orderId}`
-
-**Parâmetros:**
-
-*   `orderId` (path, required): `integer` (int64)
-
-**Exemplo request:**
-```bash
-curl -X GET "http://localhost:8000/order/change-status/1"
-```
-
-Resposta: **200 OK**
-```json
-{
-  "id": 0,
-  "statusName": "RECEIVED"
-}
-```
-</details>
-
-<details>
-<summary>
  Adicionar itens ao pedido
 </summary>
 
@@ -523,6 +497,60 @@ Resposta: **200 OK**
   ],
   "total": 0,
   "userId": 0
+}
+```
+</details>
+<details>
+<summary>
+ Fazer checkout do pedido
+</summary>
+
+**Método:** POST  
+**URI:** `/orders/payment/{orderId}`
+
+**Parâmetros:**
+
+* `orderId` (path, required): `integer` (int64)
+
+**Exemplo request:**
+```bash
+curl -X GET "http://localhost:8000/orders/payment/1"
+```
+Resposta: **200 OK**
+
+```json
+{
+  "storeOrderId": "95e2c402-34b4-4b86-838b-71859a0c70e0",
+  "paymentId": 1,
+  "orderId": 1,
+  "qrcodeData": "00020101021243650016COM.MERCADOLIBRE02013063638c84c8c55-050c-4329-a097-526d63fe632b35204000053039865802BR5925IZABEL AAAA DE MELO6007BARUERI62070503***63040B6D1"
+}
+```
+
+</details>
+
+<details>
+<summary>
+ Alterar status do pedido
+</summary>
+
+**Método:** PUT  
+**URI:** `/order/change-status/{orderId}`
+
+**Parâmetros:**
+
+*   `orderId` (path, required): `integer` (int64)
+
+**Exemplo request:**
+```bash
+curl -X GET "http://localhost:8000/order/change-status/1"
+```
+
+Resposta: **200 OK**
+```json
+{
+  "id": 0,
+  "statusName": "RECEIVED"
 }
 ```
 </details>

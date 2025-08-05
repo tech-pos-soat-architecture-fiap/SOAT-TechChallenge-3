@@ -3,7 +3,7 @@ package br.com.fiap.TechFood.application.usecases.product;
 import br.com.fiap.TechFood.application.port.product.in.UpdateProductPort;
 import br.com.fiap.TechFood.application.port.product.out.ProductGatewayPort;
 import br.com.fiap.TechFood.application.shared.exception.NotFoundException;
-import br.com.fiap.TechFood.application.usecases.product.domain.Product;
+import br.com.fiap.TechFood.application.domain.product.Product;
 import br.com.fiap.TechFood.infrastructure.adapter.in.product.ProductContractForm;
 import br.com.fiap.TechFood.infrastructure.adapter.in.product.ProductView;
 
