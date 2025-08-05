@@ -31,10 +31,18 @@ Este projeto consiste no desenvolvimento de um sistema de autoatendimento para u
 - Minikube: Ferramenta para executar Kubernetes localmente para desenvolvimento e testes.
 
 ## Documentação
-- [Requisitos de négocio](https://excalidraw.com/#room=956182d839a6f9a2ee9c,TUlZhpNnWnFA-Q_HF-FuMw)
+
+### Requisitos de négocio 
+![requisitos_negocio.png](docs/requisitos_negocio.png)
+[link dos requisitos de négocio](https://excalidraw.com/#room=956182d839a6f9a2ee9c,TUlZhpNnWnFA-Q_HF-FuMw), caso a visualização esteja ruim.
+
+### Requisitos de infraestrutura
+![arch-k8s.png](docs/arch-k8s.png)
+[link requisitos da arquitetura](https://drive.google.com/file/d/1fz9hC03PPe-gDPT77sN5di2mLGvb06x4/view?usp=sharing)
+
+### Outros 
 - [API Reference](docs/API-Reference.md)
 - [Documentação API com Swagger](http://localhost:8000/swagger-ui/index.html) (Docker Compose) ou `http://<minikube-ip>:30000/swagger-ui/index.html` (Kubernetes)
-
 
 ## Pré-requisitos
 
@@ -68,13 +76,6 @@ Este projeto consiste no desenvolvimento de um sistema de autoatendimento para u
 ```bash
   cd SOAT-TechChallenge-2
 ```
-- Subir a aplicação com o docker compose:
-
-```bash
-  docker compose --profile=prod up -d
-```
-> [!NOTE]
-> Usamos a flag '--profile=prod' para subir a aplicação, sem isso somente as dependências, como o postgres, por exemplo, irão ser executadas. Com isso facilita o desenvolvimento local.
 
 ### Deploy em Kubernetes (Minikube)
 
