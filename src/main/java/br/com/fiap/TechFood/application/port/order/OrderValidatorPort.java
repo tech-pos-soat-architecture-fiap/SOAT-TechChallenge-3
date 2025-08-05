@@ -1,7 +1,7 @@
 package br.com.fiap.TechFood.application.port.order;
 
 import br.com.fiap.TechFood.application.domain.order.Order;
-import br.com.fiap.TechFood.application.usecases.product.domain.Product;
+import br.com.fiap.TechFood.application.domain.product.Product;
 import br.com.fiap.TechFood.application.shared.exception.ValidationResult;
 
 import java.util.List;

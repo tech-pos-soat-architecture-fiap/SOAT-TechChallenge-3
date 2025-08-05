@@ -1,6 +1,6 @@
 package br.com.fiap.TechFood.infrastructure.adapter.out.product.repository;
 
-import br.com.fiap.TechFood.application.usecases.product.domain.ProductCategory;
+import br.com.fiap.TechFood.application.domain.product.ProductCategory;
 import br.com.fiap.TechFood.infrastructure.adapter.out.product.entity.ProductEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

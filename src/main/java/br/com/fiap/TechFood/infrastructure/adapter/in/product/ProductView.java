@@ -1,7 +1,7 @@
 package br.com.fiap.TechFood.infrastructure.adapter.in.product;
 
-import br.com.fiap.TechFood.application.usecases.product.domain.Product;
-import br.com.fiap.TechFood.application.usecases.product.domain.ProductImage;
+import br.com.fiap.TechFood.application.domain.product.Product;
+import br.com.fiap.TechFood.application.domain.product.ProductImage;
 
 import java.math.BigDecimal;
 import java.util.Set;

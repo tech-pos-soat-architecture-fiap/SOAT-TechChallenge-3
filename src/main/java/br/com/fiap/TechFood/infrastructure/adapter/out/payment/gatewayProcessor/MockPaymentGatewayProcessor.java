@@ -13,19 +13,11 @@ import java.util.UUID;
 
 public class MockPaymentGatewayProcessor implements PaymentGatewayProcessor {
 
-    private final RestTemplate restTemplate;
-
-    public MockPaymentGatewayProcessor(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
-
-    //Como esse gerador de QR Code é um mock, daqui já se chama o webhook com o pagamento aprovado.
     @Override
     public PaymentQRCodeView generateQRCode(Order order) {
         Long paymentId = order.getPaymentId().orElseThrow(() -> new IllegalArgumentException("Order must have a payment ID"));
 
-        sendWebhook(new PaymentRequestWebhook(paymentId, PaymentStatus.APPROVED));
-        return new MockPaymentQRCodeView(UUID.randomUUID().toString(), createQRCodeFake(order), paymentId);
+        return new MockPaymentQRCodeView(UUID.randomUUID().toString(), createQRCodeFake(order), paymentId, order.getId());
     }
 
     private String createQRCodeFake(Order order) {
@@ -34,17 +26,5 @@ public class MockPaymentGatewayProcessor implements PaymentGatewayProcessor {
                 """.formatted(UUID.randomUUID().toString(), order.getId());
     }
 
-    private void sendWebhook(PaymentRequestWebhook request) {
-        String webhookUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/api/payment/confirm")
-                .toUriString();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        HttpEntity<PaymentRequestWebhook> entity = new HttpEntity<>(request, headers);
-
-        restTemplate.postForEntity(webhookUrl, entity, Void.class);
-    }
 
 }

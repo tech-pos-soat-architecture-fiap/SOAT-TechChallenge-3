@@ -1,6 +1,6 @@
 package br.com.fiap.TechFood.infrastructure.adapter.in.product;
 
-import br.com.fiap.TechFood.application.usecases.product.domain.ImageContract;
+import br.com.fiap.TechFood.application.domain.product.ImageContract;
 import br.com.fiap.TechFood.infrastructure.adapter.in.validation.Unique;
 import br.com.fiap.TechFood.infrastructure.adapter.in.validation.ValidCategory;
 import br.com.fiap.TechFood.infrastructure.adapter.out.product.entity.ProductEntity;

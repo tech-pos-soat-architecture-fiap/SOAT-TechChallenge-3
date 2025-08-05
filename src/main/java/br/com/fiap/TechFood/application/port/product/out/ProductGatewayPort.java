@@ -1,7 +1,7 @@
 package br.com.fiap.TechFood.application.port.product.out;
 
-import br.com.fiap.TechFood.application.usecases.product.domain.Product;
-import br.com.fiap.TechFood.application.usecases.product.domain.ProductCategory;
+import br.com.fiap.TechFood.application.domain.product.Product;
+import br.com.fiap.TechFood.application.domain.product.ProductCategory;
 import br.com.fiap.TechFood.application.port.PagePort;
 
 import java.util.List;

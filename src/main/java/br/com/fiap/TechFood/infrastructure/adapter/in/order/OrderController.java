@@ -19,16 +19,16 @@ public class OrderController {
     private final CreateOrderPort createOrderPort;
     private final FindAllActiveOrderPort findAllOrderPort;
     private final FindOrderPort findOrderPort;
-    private final ProccessOrderPaymentPort proccessOrderPaymentPort;
+    private final CreateOrderPaymentPort createOrderPaymentPort;
 
-    public OrderController(ChangeOrderStatusPort changeOrderStatusPort, RemoveOrderItemsPort removeOrderItemsPort, AddOrderItemsPort addOrderItemsPort, CreateOrderPort createOrderPort, FindAllActiveOrderPort findAllOrderPort, FindOrderPort findOrderPort, ProccessOrderPaymentPort proccessOrderPaymentPort) {
+    public OrderController(ChangeOrderStatusPort changeOrderStatusPort, RemoveOrderItemsPort removeOrderItemsPort, AddOrderItemsPort addOrderItemsPort, CreateOrderPort createOrderPort, FindAllActiveOrderPort findAllOrderPort, FindOrderPort findOrderPort, CreateOrderPaymentPort createOrderPaymentPort) {
         this.changeOrderStatusPort = changeOrderStatusPort;
         this.removeOrderItemsPort = removeOrderItemsPort;
         this.addOrderItemsPort = addOrderItemsPort;
         this.createOrderPort = createOrderPort;
         this.findAllOrderPort = findAllOrderPort;
         this.findOrderPort = findOrderPort;
-        this.proccessOrderPaymentPort = proccessOrderPaymentPort;
+        this.createOrderPaymentPort = createOrderPaymentPort;
     }
 
     @GetMapping("/order/{orderId}")
@@ -58,7 +58,7 @@ public class OrderController {
         return ResponseEntity.ok(OrderView.from(order));
     }
 
-    @GetMapping("/orders")
+    @GetMapping("/orders/active")
     public ResponseEntity<PagePort<OrderView>> showAllActiveSorted(@RequestParam(defaultValue = "0") int page,
                                                        @RequestParam(defaultValue = "10") int size) {
         PagePort<OrderView> ordersView = findAllOrderPort.findAllActiveSorted(page, size).map(OrderView::from);
@@ -67,7 +67,7 @@ public class OrderController {
 
     @PostMapping("/orders/payment/{orderId}")
     public ResponseEntity<PaymentQRCodeView> createPayment(@PathVariable Long orderId) {
-        return ResponseEntity.ok(proccessOrderPaymentPort.processPayment(orderId));
+        return ResponseEntity.ok(createOrderPaymentPort.createPayment(orderId));
     }
 
     @PutMapping("/order/change-status/{orderId}")

@@ -21,8 +21,8 @@ public class PaymentDependencyInjectionConfig {
     }
 
     @Bean
-    public PaymentGatewayProcessor paymentGatewayProcessor(RestTemplate restTemplate) {
-        return new MockPaymentGatewayProcessor(restTemplate);
+    public PaymentGatewayProcessor paymentGatewayProcessor() {
+        return new MockPaymentGatewayProcessor();
     }
 
     @Bean

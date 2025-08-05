@@ -1,6 +1,6 @@
 package br.com.fiap.TechFood.application.domain.order;
 
-import br.com.fiap.TechFood.application.usecases.product.domain.Product;
+import br.com.fiap.TechFood.application.domain.product.Product;
 
 import java.math.BigDecimal;
 
