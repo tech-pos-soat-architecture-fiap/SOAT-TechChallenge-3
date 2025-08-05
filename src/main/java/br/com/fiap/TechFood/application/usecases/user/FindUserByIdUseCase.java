@@ -1,8 +1,8 @@
 package br.com.fiap.TechFood.application.usecases.user;
 
-import br.com.fiap.TechFood.application.domain.user.User;
 import br.com.fiap.TechFood.application.port.user.FindUserByIdPort;
 import br.com.fiap.TechFood.application.port.user.UserRepositoryPort;
+import br.com.fiap.TechFood.infrastructure.adapter.in.user.UserView;
 
 import java.util.Optional;
 
@@ -14,7 +14,7 @@ public class FindUserByIdUseCase implements FindUserByIdPort {
         this.userRepositoryPort = userRepositoryPort;
     }
 
-    public Optional<User> findById(Long id) {
-        return userRepositoryPort.findById(id);
+    public Optional<UserView> findById(Long id) {
+        return userRepositoryPort.findById(id).map(UserView::of);
     }
 } 
