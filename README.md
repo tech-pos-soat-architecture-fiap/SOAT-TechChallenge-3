@@ -38,7 +38,6 @@ Este projeto consiste no desenvolvimento de um sistema de autoatendimento para u
 
 ### Requisitos de infraestrutura
 ![arch-k8s.png](docs/arch-k8s.png)
-[link requisitos da arquitetura](https://drive.google.com/file/d/1fz9hC03PPe-gDPT77sN5di2mLGvb06x4/view?usp=sharing)
 
 ### Outros 
 - [API Reference](docs/API-Reference.md)
