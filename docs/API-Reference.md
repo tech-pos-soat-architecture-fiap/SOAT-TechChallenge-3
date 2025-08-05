@@ -203,6 +203,7 @@ Resposta: **200 OK**
 </details>
 
 ## Usuário
+
 <details>
 <summary>
  Cadastro de usuário
@@ -225,6 +226,44 @@ Resposta: **200 OK**
 ```
 </details>
 
+<details>
+<summary>
+Listar usuários
+</summary>
+
+**Método:** GET  
+**URI:** `/users`
+
+**Parâmetros:**
+
+*   `page` (query, optional): `integer` (int32, default: 0)
+*   `size` (query, optional): `integer` (int32, default: 10)
+
+**Exemplo request:**
+```bash
+curl -X GET "http://localhost:8000/users?page=0&size=10"
+```
+
+Resposta: **200 OK**
+
+```json
+{
+  "totalElements": 0,
+  "totalPages": 0,
+  "currentPage": 0,
+  "elementsPerPage": 0,
+  "content": [
+    {
+      "id": 0,
+      "name": "João",
+      "email": "joão@gmail.com",
+      "cpf": "000.000.000-00"
+    }
+  ]
+}
+```
+
+</details>
 
 <details>
 <summary>
@@ -241,6 +280,34 @@ Resposta: **200 OK**
 **Exemplo request:**
 ```bash
 curl -X GET "http://localhost:8000/users/1"
+```
+
+Resposta: **200 OK**
+```json
+{
+  "id": 0,
+  "name": "João",
+  "email": "joão@gmail.com",
+  "cpf": "000.000.000-00"
+}
+```
+</details>
+
+<details>
+<summary>
+ Obter usuário por CPF
+</summary>
+
+**Método:** GET  
+**URI:** `/users/cpf/{cpf}`
+
+**Parâmetros:**
+
+*   `cpf` (path, required): `string`
+
+**Exemplo request:**
+```bash
+curl -X GET "http://localhost:8000/users/cpf/12345678900"
 ```
 
 Resposta: **200 OK**
@@ -456,6 +523,132 @@ Resposta: **200 OK**
   ],
   "total": 0,
   "userId": 0
+}
+```
+</details>
+
+## Pagamento
+
+<details>
+<summary>
+ Obter status do pagamento
+</summary>
+
+**Método:** GET  
+**URI:** `/api/payment/{paymentId}/status`
+
+**Parâmetros:**
+
+*   `paymentId` (path, required): `integer` (int64)
+
+**Exemplo request:**
+```bash
+curl -X GET "http://localhost:8000/api/payment/1/status"
+```
+
+Resposta: **200 OK**
+```json
+{
+  "paymentId": 1,
+  "status": "PENDING"
+}
+```
+</details>
+
+<details>
+<summary>
+ Confirmar pagamento (Webhook)
+</summary>
+
+**Método:** POST  
+**URI:** `/api/payment/confirm`
+
+**Exemplo request:**
+```bash
+curl -X POST "http://localhost:8000/api/payment/confirm" \
+  -H "Content-Type: application/json" \
+  -d '{"paymentId":1,"status":"CONFIRMED"}'
+```
+
+Resposta: **200 OK**
+
+(No content)
+
+</details>
+
+## Sistema
+
+<details>
+<summary>
+ Health Check
+</summary>
+
+**Método:** GET  
+**URI:** `/actuator/health`
+
+**Exemplo request:**
+```bash
+curl -X GET "http://localhost:8000/actuator/health"
+```
+
+Resposta: **200 OK**
+```json
+{
+  "status": "UP",
+  "components": {
+    "db": {
+      "status": "UP"
+    }
+  }
+}
+```
+</details>
+
+<details>
+<summary>
+ Informações da aplicação
+</summary>
+
+**Método:** GET  
+**URI:** `/actuator/info`
+
+**Exemplo request:**
+```bash
+curl -X GET "http://localhost:8000/actuator/info"
+```
+
+Resposta: **200 OK**
+```json
+{
+  "app": {
+    "name": "TechFood",
+    "description": "Sistema de autoatendimento para lanchonete"
+  }
+}
+```
+</details>
+
+<details>
+<summary>
+ Métricas da aplicação
+</summary>
+
+**Método:** GET  
+**URI:** `/actuator/metrics`
+
+**Exemplo request:**
+```bash
+curl -X GET "http://localhost:8000/actuator/metrics"
+```
+
+Resposta: **200 OK**
+```json
+{
+  "names": [
+    "jvm.memory.used",
+    "jvm.memory.max",
+    "process.cpu.usage"
+  ]
 }
 ```
 </details>
