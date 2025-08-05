@@ -1,5 +1,6 @@
 package br.com.fiap.TechFood.infrastructure.config;
 
+import br.com.fiap.TechFood.application.port.order.in.ChangeOrderStatusPort;
 import br.com.fiap.TechFood.application.port.payment.in.GetPaymentStatusPort;
 import br.com.fiap.TechFood.application.port.payment.in.PaymentWebhookProcessorPort;
 import br.com.fiap.TechFood.application.port.payment.out.PaymentGatewayProcessor;
@@ -25,9 +26,8 @@ public class PaymentDependencyInjectionConfig {
     }
 
     @Bean
-    public PaymentWebhookProcessorPort paymentWebhookProcessorPort(
-            PaymentRepositoryPort paymentRepository) {
-        return new PaymentWebhookProcessorUseCase(paymentRepository);
+    public PaymentWebhookProcessorPort paymentWebhookProcessorPort(ChangeOrderStatusPort changeOrderStatusPort, PaymentRepositoryPort paymentRepository) {
+        return new PaymentWebhookProcessorUseCase(changeOrderStatusPort, paymentRepository);
     }
 
 }

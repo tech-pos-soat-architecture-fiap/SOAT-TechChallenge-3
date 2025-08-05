@@ -1,6 +1,7 @@
 package br.com.fiap.TechFood.application.domain.order;
 
 import br.com.fiap.TechFood.application.domain.payment.Payment;
+import br.com.fiap.TechFood.application.domain.payment.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -25,8 +26,7 @@ public class Order {
         this.userId = user;
     }
 
-    public Order(Long id, Long userId,
-                 OrderStatus status, Payment payment, Set<OrderItem> orderItems, LocalDateTime createdAt) {
+    public Order(Long id, Long userId, OrderStatus status, Payment payment, Set<OrderItem> orderItems, LocalDateTime createdAt) {
         this.id = id;
         this.userId = userId;
         this.status = status;
@@ -47,6 +47,14 @@ public class Order {
         return Optional.ofNullable(payment).map(Payment::getId);
     }
 
+    public Optional<Payment> getPayment() {
+        return Optional.ofNullable(payment);
+    }
+
+    public boolean hasApprovedPayment() {
+        return payment != null && PaymentStatus.APPROVED.equals(payment.getStatus());
+    }
+
     public BigDecimal getTotal() {
         return orderItems.stream()
                 .map(OrderItem::getSubTotal)
@@ -61,8 +69,12 @@ public class Order {
         return status;
     }
 
-    public boolean isNotFinished() {
-        return !status.is(OrderStatus.FINISHED);
+    public boolean isPendingPaymentStatus() {
+        return status.is(OrderStatus.PENDING_PAYMENT);
+    }
+
+    public boolean isFinished() {
+        return status.is(OrderStatus.FINISHED);
     }
 
     public String getStatusName() {
@@ -77,10 +89,13 @@ public class Order {
         this.status = status;
     }
 
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
     public void addItems(List<OrderItem> items) {
         items.forEach(this::addItem);
     }
-
 
     private void addItem(OrderItem item) {
         Optional<OrderItem> existingItem = orderItems.stream()

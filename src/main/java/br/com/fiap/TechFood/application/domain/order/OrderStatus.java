@@ -4,10 +4,14 @@ public enum OrderStatus {
     DRAFT {
         @Override
         public OrderStatus next() {
+            return PENDING_PAYMENT;
+        }
+    }, PENDING_PAYMENT {
+        @Override
+        public OrderStatus next() {
             return RECEIVED;
         }
-    },
-    RECEIVED {
+    }, RECEIVED {
         @Override
         public OrderStatus next() {
             return IN_PROGRESS;

@@ -1,10 +1,11 @@
 package br.com.fiap.TechFood.infrastructure.adapter.out.order.repository;
 
 import br.com.fiap.TechFood.infrastructure.adapter.out.order.entity.OrderEntity;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import java.util.Optional;
 
 public interface OrderEntityRepository extends JpaRepository<OrderEntity, Long> {
     @Query("""
@@ -18,6 +19,9 @@ public interface OrderEntityRepository extends JpaRepository<OrderEntity, Long> 
         ELSE 4
       END,
       o.createdAt ASC
-""")
-    Page<OrderEntity> findAllActiveSorted(PageRequest pageRequest);
+    """)
+    Page<OrderEntity> findAllActiveSorted(Pageable pageRequest);
+
+    @Query("SELECT o FROM orders o WHERE o.payment.id = :paymentId")
+    Optional<OrderEntity> findByPaymentId(Long paymentId);
 }
