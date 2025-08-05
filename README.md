@@ -30,6 +30,11 @@ Este projeto consiste no desenvolvimento de um sistema de autoatendimento para u
 - Kubernetes: Plataforma de orquestração de contêineres para deploy e gerenciamento da aplicação em produção.
 - Minikube: Ferramenta para executar Kubernetes localmente para desenvolvimento e testes.
 
+## Documentação
+- [Desenho da arquitetura](https://drive.google.com/file/d/1fz9hC03PPe-gDPT77sN5di2mLGvb06x4/view?usp=sharing)
+- [API Reference](docs/API-Reference.md)
+- [Documentação API com Swagger](http://localhost:8000/swagger-ui/index.html) (Docker Compose) ou `http://<minikube-ip>:30000/swagger-ui/index.html` (Kubernetes)
+
 
 ## Pré-requisitos
 
@@ -117,11 +122,6 @@ minikube ip
 # Parar o Minikube
 minikube stop
 ```
-
-## Documentação
-- [Desenho da arquitetura](https://drive.google.com/file/d/1fz9hC03PPe-gDPT77sN5di2mLGvb06x4/view?usp=sharing)
-- [API Reference](docs/API-Reference.md)
-- [Documentação API com Swagger](http://localhost:8000/swagger-ui/index.html) (Docker Compose) ou `http://<minikube-ip>:30000/swagger-ui/index.html` (Kubernetes)
 
 ## Observações
 - O projeto não inclui frontend, apenas backend.
