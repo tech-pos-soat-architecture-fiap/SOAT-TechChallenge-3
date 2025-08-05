@@ -119,7 +119,6 @@ minikube stop
 ```
 
 ## Documentação
-- [Documentação do sistema (DDD) com Event Storming](https://miro.com/app/board/uXjVI3-v7GA=/)
 - [Desenho da arquitetura](https://drive.google.com/file/d/1fz9hC03PPe-gDPT77sN5di2mLGvb06x4/view?usp=sharing)
 - [API Reference](docs/API-Reference.md)
 - [Documentação API com Swagger](http://localhost:8000/swagger-ui/index.html) (Docker Compose) ou `http://<minikube-ip>:30000/swagger-ui/index.html` (Kubernetes)
