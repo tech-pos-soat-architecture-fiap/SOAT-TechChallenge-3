@@ -1,9 +1,9 @@
 package br.com.fiap.TechFood.application.usecases.user;
 
-import br.com.fiap.TechFood.application.domain.user.User;
 import br.com.fiap.TechFood.application.port.PagePort;
 import br.com.fiap.TechFood.application.port.user.FindAllUsersPort;
 import br.com.fiap.TechFood.application.port.user.UserRepositoryPort;
+import br.com.fiap.TechFood.infrastructure.adapter.in.user.UserView;
 
 public class FindAllUsersUseCase implements FindAllUsersPort {
 
@@ -13,7 +13,7 @@ public class FindAllUsersUseCase implements FindAllUsersPort {
         this.userRepositoryPort = userRepositoryPort;
     }
 
-    public PagePort<User> findAll(int page, int size) {
-        return userRepositoryPort.findAll(page, size);
+    public PagePort<UserView> findAll(int page, int size) {
+        return userRepositoryPort.findAll(page, size).map(UserView::of);
     }
 } 
