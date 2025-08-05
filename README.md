@@ -83,10 +83,17 @@ Este projeto consiste no desenvolvimento de um sistema de autoatendimento para u
   minikube start
 ```
 
-2. **Executar o script de deploy:**
+2. **Iniciar o docker com o banco:**
 ```bash
+  docker compose --profile=dev up -d
+```
+
+3. **Executar o script de deploy:**
+```bash 
   cd k8s/v1
+  
   chmod +x tech-food-cli.sh
+  
   ./tech-food-cli.sh
 ```
 
@@ -97,7 +104,7 @@ O script irá:
 - Aguardar o deploy dos pods
 - Exibir as URLs de acesso
 
-3. **Acessar a aplicação:**
+4. **Acessar a aplicação:**
 - Swagger UI: `http://<minikube-ip>:30000/swagger-ui/index.html`
 - Health Check: `http://<minikube-ip>:30000/actuator/health`
 
