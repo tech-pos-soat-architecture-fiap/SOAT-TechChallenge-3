@@ -19,6 +19,9 @@ public class PaymentWebhookProcessorUseCase implements PaymentWebhookProcessorPo
     @Override
     public void processPaymentWebhook(Long paymentId, PaymentStatus paymentStatus) {
         Payment payment = paymentRepositoryPort.findById(paymentId).orElseThrow(() -> new IllegalArgumentException("Payment not found for ID: " + paymentId));
+        if (payment.getStatus() != PaymentStatus.PENDING) {
+            throw new IllegalStateException("Payment is not in a pending state, cannot update status.");
+        }
         payment.updateStatus(paymentStatus);
         paymentRepositoryPort.save(payment);
 

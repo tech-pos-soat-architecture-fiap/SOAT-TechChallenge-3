@@ -6,6 +6,7 @@ import br.com.fiap.TechFood.application.port.order.in.*;
 import br.com.fiap.TechFood.application.port.payment.PaymentQRCodeView;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -65,6 +66,7 @@ public class OrderController {
         return ResponseEntity.ok(ordersView);
     }
 
+    @Transactional
     @PostMapping("/orders/payment/{orderId}")
     public ResponseEntity<PaymentQRCodeView> createPayment(@PathVariable Long orderId) {
         return ResponseEntity.ok(createOrderPaymentPort.createPayment(orderId));

@@ -13,6 +13,8 @@ import java.util.UUID;
 
 public class MockPaymentGatewayProcessor implements PaymentGatewayProcessor {
 
+    public static final String TEMPLATE_QRCODE = "00020101021243650016COM.MERCADOLIBRE02013063638%s35204000053039865802BR5925IZABEL AAAA DE MELO6007BARUERI62070503***63040B6D%s";
+
     @Override
     public PaymentQRCodeView generateQRCode(Order order) {
         Long paymentId = order.getPaymentId().orElseThrow(() -> new IllegalArgumentException("Order must have a payment ID"));
@@ -21,9 +23,7 @@ public class MockPaymentGatewayProcessor implements PaymentGatewayProcessor {
     }
 
     private String createQRCodeFake(Order order) {
-        return """
-                00020101021243650016COM.MERCADOLIBRE02013063638%s35204000053039865802BR5925IZABEL AAAA DE MELO6007BARUERI62070503***63040B6D%s
-                """.formatted(UUID.randomUUID().toString(), order.getId());
+        return TEMPLATE_QRCODE.formatted(UUID.randomUUID().toString(), order.getId());
     }
 
 

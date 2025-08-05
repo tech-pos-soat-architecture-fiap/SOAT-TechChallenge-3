@@ -27,6 +27,11 @@ public class CreateOrderPaymentUseCase implements CreateOrderPaymentPort {
     @Override
     public PaymentQRCodeView createPayment(Long orderId) {
         Order order = orderRepositoryPort.findById(orderId).orElseThrow(NotFoundException::new);
+
+        if (order.getPayment().isPresent()) {
+            throw new IllegalStateException("Order already has a payment associated with it.");
+        }
+
         Payment payment = paymentRepositoryPort.save(Payment.create(order.getTotal()));
 
         order.setPayment(payment);
