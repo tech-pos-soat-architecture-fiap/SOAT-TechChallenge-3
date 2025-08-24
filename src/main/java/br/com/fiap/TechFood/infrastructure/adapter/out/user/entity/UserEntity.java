@@ -6,7 +6,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", indexes = {
+        @Index(name = "idx_user_cpf", columnList = "cpf")
+})
+
 public class UserEntity {
 
     @Id
@@ -19,6 +22,7 @@ public class UserEntity {
     private String email;
 
     @Embedded
+    @AttributeOverride(name = "cpf", column = @Column(name = "cpf"))
     private CpfEntity cpf;
 
     public UserEntity() {
