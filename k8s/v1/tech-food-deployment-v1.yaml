@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: techfood
-          image: techfood:v2
+          image: DOCKER_IMAGE_PLACEHOLDER
           imagePullPolicy: Never
           ports:
             - containerPort: 8000
