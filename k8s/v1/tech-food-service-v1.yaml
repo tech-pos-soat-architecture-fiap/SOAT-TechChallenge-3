@@ -3,6 +3,10 @@ kind: Service
 metadata:
   name: tech-food-service
   namespace: techfood
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-name: "my-custom-nlb-name"
+            
 spec:
   selector:
     app: techfood
