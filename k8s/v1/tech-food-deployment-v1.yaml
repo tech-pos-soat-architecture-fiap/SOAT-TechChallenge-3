@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tech-food-deployment-v1
+  namespace: techfood
   labels:
     app: tech-food-deployment-v1
     version: v1
@@ -18,7 +19,7 @@ spec:
       containers:
         - name: techfood
           image: DOCKER_IMAGE_PLACEHOLDER
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
           envFrom:
