@@ -7,5 +7,4 @@ metadata:
     component: config
     version: v1
 data:
-  SERVER_PORT: "8000"
-  SPRING_DATASOURCE_URL: "jdbc:postgresql://${HOST_IP}:5432/TechFood"
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://tech-food.c34qiakmaq1a.us-east-1.rds.amazonaws.com/techfood"

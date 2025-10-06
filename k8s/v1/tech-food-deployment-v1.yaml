@@ -18,7 +18,7 @@ spec:
       containers:
         - name: techfood
           image: DOCKER_IMAGE_PLACEHOLDER
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
           envFrom:
