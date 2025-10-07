@@ -32,28 +32,28 @@ public class OrderController {
         this.createOrderPaymentPort = createOrderPaymentPort;
     }
 
-    @GetMapping("/order/{orderId}")
+    @GetMapping("/orders/{orderId}")
     public ResponseEntity<OrderView> getOrder(@PathVariable Long orderId) {
         Order order = findOrderPort.findById(orderId);
         return ResponseEntity.ok(OrderView.from(order));
     }
 
-    @PostMapping("/create/orders")
+    @PostMapping("/orders")
     public ResponseEntity<OrderView> createOrder(@RequestBody(required = false) Long userId) {
         Order order = createOrderPort.create(userId);
 
-        URI uri = URI.create("/orders/" + userId);
+        URI uri = URI.create("/orders/" + order.getId());
 
         return ResponseEntity.created(uri).body(OrderView.from(order));
     }
 
-    @PostMapping("/add-items/{orderId}")
+    @PostMapping("/orders/{orderId}/items")
     public ResponseEntity<OrderView> addItem(@Valid @RequestBody List<OrderItemForm> orderItemsForms, @PathVariable Long orderId) {
         Order order = addOrderItemsPort.addItems(orderItemsForms, orderId);
         return ResponseEntity.ok(OrderView.from(order));
     }
 
-    @PostMapping("/remove-items/{orderId}")
+    @DeleteMapping("/orders/{orderId}/items")
     public ResponseEntity<OrderView> removeItems(@Valid @RequestBody List<OrderItemForm> orderItemForms, @PathVariable Long orderId) {
         Order order = removeOrderItemsPort.removeItems(orderItemForms, orderId);
         return ResponseEntity.ok(OrderView.from(order));
@@ -67,12 +67,12 @@ public class OrderController {
     }
 
     @Transactional
-    @PostMapping("/orders/payment/{orderId}")
+    @PostMapping("/orders/{orderId}/payment")
     public ResponseEntity<PaymentQRCodeView> createPayment(@PathVariable Long orderId) {
         return ResponseEntity.ok(createOrderPaymentPort.createPayment(orderId));
     }
 
-    @PutMapping("/order/change-status/{orderId}")
+    @PutMapping("/orders/{orderId}/status")
     public ResponseEntity<OrderStatusView> changeStatus(@PathVariable("orderId") Long id) {
         Order order = changeOrderStatusPort.changeStatus(id);
         return ResponseEntity.ok(OrderStatusView.from(order));

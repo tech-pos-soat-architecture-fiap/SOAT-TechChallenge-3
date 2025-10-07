@@ -38,7 +38,7 @@ public class ProductController {
         return ResponseEntity.created(uri).build();
     }
 
-    @PutMapping("/product/{id}")
+    @PutMapping("/products/{id}")
     public ResponseEntity<String> update(@PathVariable("id") Long id, @Valid @RequestBody ProductForm updateProductForm) {
         ProductView productView = updateProductPort.update(id, updateProductForm);
 
@@ -54,7 +54,7 @@ public class ProductController {
         return ResponseEntity.ok(productView);
     }
 
-    @GetMapping("/product/{id}")
+    @GetMapping("/products/{id}")
     public ResponseEntity<ProductView> showById(@PathVariable("id") Long id) {
         Optional<ProductView> possibleProduct = findProductPort.findById(id);
 
@@ -69,7 +69,7 @@ public class ProductController {
         return ResponseEntity.ok(productsView);
     }
 
-    @DeleteMapping("/product/{id}")
+    @DeleteMapping("/products/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         removeProductPort.remove(id);
         return ResponseEntity.noContent().build();
