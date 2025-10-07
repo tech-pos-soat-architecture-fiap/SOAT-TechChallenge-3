@@ -46,7 +46,6 @@ Este projeto consiste no desenvolvimento de um sistema de autoatendimento para u
 
 ### Outros 
 - [API Reference](docs/API-Reference.md)
-- Documentação API com Swagger: Disponível no LoadBalancer após deploy (`http://<load-balancer-url>/swagger-ui/index.html`)
 
 ## Arquitetura da Solução
 
@@ -99,17 +98,6 @@ A infraestrutura AWS é criada e gerenciada automaticamente via Terraform em um 
 - ECR Registry
 - VPC, Subnets, Security Groups
 - IAM Roles e Policies
-
-### Acesso à Aplicação
-
-Após o deploy bem-sucedido:
-- **API Swagger**: `http://<load-balancer-url>/swagger-ui/index.html`
-- **Health Check**: `http://<load-balancer-url>/actuator/health`
-
-Para obter a URL do LoadBalancer, execute:
-```bash
-kubectl get svc tech-food-service-v1 -n techfood
-```
 
 ## Observações
 - O projeto não inclui frontend, apenas backend.
