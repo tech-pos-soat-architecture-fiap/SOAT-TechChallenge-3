@@ -18,13 +18,13 @@ public class PaymentController {
         this.paymentWebhookProcessorPort = paymentWebhookProcessorPort;
     }
 
-    @GetMapping("/api/payment/{paymentId}/status")
+    @GetMapping("/payments/{paymentId}/status")
     public ResponseEntity<PaymentStatusView> getPaymentStatus(@PathVariable Long paymentId) {
         var status = getPaymentStatusPort.getPaymentStatus(paymentId);
         return ResponseEntity.ok(new PaymentStatusView(paymentId, status));
     }
 
-    @PostMapping("/api/payment/confirm")
+    @PostMapping("/payments/confirm")
     public ResponseEntity<Void> confirmPayment(@Valid @RequestBody PaymentRequestWebhook requestWebhook) {
         paymentWebhookProcessorPort.processPaymentWebhook(requestWebhook.paymentId(),  requestWebhook.status());
         return ResponseEntity.ok().build();
