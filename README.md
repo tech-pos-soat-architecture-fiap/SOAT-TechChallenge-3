@@ -49,15 +49,15 @@ Este projeto consiste no desenvolvimento de um sistema de autoatendimento para u
 
 ## Arquitetura da Solução
 
-A aplicação está hospedada na **AWS** com os seguintes componentes:
+A aplicação está hospedada na **AWS** com os seguintes componentes principais:
 
 - **Amazon EKS**: Cluster Kubernetes gerenciado que orquestra os containers da aplicação
 - **Amazon ECR**: Registry privado para armazenamento das imagens Docker
 - **Amazon RDS**: Banco de dados PostgreSQL gerenciado
+- **Amazon EC2**: Instâncias de computação que executam os nodes do cluster EKS
 - **Load Balancer**: Distribui o tráfego entre os pods da aplicação
-- **Auto Scaling**: Escala automaticamente os pods baseado em CPU/Memória (HPA)
 
-A infraestrutura é provisionada via **Terraform** e o deploy é automatizado via **GitHub Actions**.
+A infraestrutura é gerenciada via **Terraform** e o deploy é automatizado via **GitHub Actions**.
 
 ## Deploy Automatizado
 
