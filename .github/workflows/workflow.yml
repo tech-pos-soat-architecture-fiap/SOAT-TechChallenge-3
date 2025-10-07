@@ -59,7 +59,12 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
+          kubectl delete namespace techfood --ignore-not-found=true
+          kubectl wait --for=delete namespace/techfood --timeout=120s || true
           kubectl apply -f k8s/v1/tech-food-namespace.yaml
+
+          sleep 5
+
           sed -i.bak "s|DOCKER_IMAGE_PLACEHOLDER|${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}|g" k8s/v1/tech-food-deployment-v1.yaml
           kubectl apply -f k8s/v1/tech-food-configmap-v1.yaml
           kubectl apply -f k8s/v1/tech-food-db-secret-v1.yaml
