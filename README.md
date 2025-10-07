@@ -17,7 +17,7 @@ Este projeto consiste no desenvolvimento de um sistema de autoatendimento para u
 
 ## Tecnologias Utilizadas
 
-
+### Aplicação
 - Java 24: A linguagem base adotada para o desenvolvimento do projeto.
 - Spring Framework: Framework para desenvolvimento de aplicações Java, oferecendo suporte a diversas funcionalidades.
 - Spring Boot: Framework que simplifica a configuração e o desenvolvimento de aplicações Spring, permitindo uma inicialização rápida e fácil.
@@ -25,10 +25,15 @@ Este projeto consiste no desenvolvimento de um sistema de autoatendimento para u
 - Swagger: Ferramenta para documentação de APIs REST, permitindo a visualização e testes das rotas disponíveis.
 - Postgres: Banco de dados relacional utilizado para persistência de dados.
 - Hibernate: ORM (Object-Relational Mapping) utilizado para mapear objetos Java para tabelas do banco de dados.
-- Docker: Ferramenta para criação e gerenciamento de contêineres, permitindo a execução da aplicação em ambientes isolados.
-- Docker Compose: Ferramenta para definir e executar aplicações multi-contêineres, facilitando a orquestração dos serviços necessários para o projeto.
-- Kubernetes: Plataforma de orquestração de contêineres para deploy e gerenciamento da aplicação em produção.
-- Minikube: Ferramenta para executar Kubernetes localmente para desenvolvimento e testes.
+
+### Infraestrutura e DevOps
+- AWS (Amazon Web Services): Plataforma de cloud computing utilizada para hospedagem da aplicação.
+- Amazon EKS (Elastic Kubernetes Service): Serviço gerenciado de Kubernetes para orquestração de contêineres.
+- Amazon ECR (Elastic Container Registry): Registro de imagens Docker.
+- Amazon RDS (Relational Database Service): Banco de dados PostgreSQL gerenciado.
+- Terraform: Ferramenta de Infrastructure as Code (IaC) para provisionamento da infraestrutura na AWS.
+- Docker: Ferramenta para criação e gerenciamento de contêineres.
+- GitHub Actions: Plataforma de CI/CD para automação de build, testes e deploy.
 
 ## Documentação
 
@@ -36,102 +41,77 @@ Este projeto consiste no desenvolvimento de um sistema de autoatendimento para u
 ![requisitos_negocio.png](docs/requisitos_negocio.png)
 [link dos requisitos de négocio](https://excalidraw.com/#room=956182d839a6f9a2ee9c,TUlZhpNnWnFA-Q_HF-FuMw), caso a visualização esteja ruim.
 
-### Requisitos de infraestrutura
+### Arquitetura de infraestrutura
 ![arch-k8s.png](docs/arch-k8s.png)
 
 ### Outros 
 - [API Reference](docs/API-Reference.md)
-- [Documentação API com Swagger](http://localhost:8000/swagger-ui/index.html) (Docker Compose) ou `http://<minikube-ip>:30000/swagger-ui/index.html` (Kubernetes)
+- Documentação API com Swagger: Disponível no LoadBalancer após deploy (`http://<load-balancer-url>/swagger-ui/index.html`)
 
-## Pré-requisitos
+## Arquitetura da Solução
 
-### Para desenvolvimento local (Docker Compose)
-- [Docker](https://docs.docker.com/engine/install/)
-- [Docker Compose](https://docs.docker.com/compose/install/)
-- [Git](https://git-scm.com/downloads)
+A aplicação está hospedada na **AWS** com os seguintes componentes:
 
-### Para deploy em Kubernetes
-- [Docker](https://docs.docker.com/engine/install/)
-- [Minikube v1.36+](https://minikube.sigs.k8s.io/docs/start/)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/)
-- [Git](https://git-scm.com/downloads)
+- **Amazon EKS**: Cluster Kubernetes gerenciado que orquestra os containers da aplicação
+- **Amazon ECR**: Registry privado para armazenamento das imagens Docker
+- **Amazon RDS**: Banco de dados PostgreSQL gerenciado
+- **Load Balancer**: Distribui o tráfego entre os pods da aplicação
+- **Auto Scaling**: Escala automaticamente os pods baseado em CPU/Memória (HPA)
 
-## Executar projeto
+A infraestrutura é provisionada via **Terraform** e o deploy é automatizado via **GitHub Actions**.
 
-### Desenvolvimento Local (Docker Compose)
+## Deploy Automatizado
 
-- Clonando o repositório
+### Configuração do GitHub Actions
+
+A aplicação possui deploy automatizado via GitHub Actions. O workflow é acionado automaticamente a cada push na branch `main`.
+
+#### Passos executados pelo workflow:
+
+1. **Build da Aplicação**
+   - Checkout do código
+   - Configuração do JDK 24
+   - Build com Maven (`mvnw clean package`)
+   
+2. **Build e Push da Imagem Docker**
+   - Autenticação no AWS ECR
+   - Build da imagem Docker
+   - Push da imagem para o Amazon ECR
+   
+3. **Deploy no EKS**
+   - Configuração das credenciais AWS
+   - Atualização do kubeconfig para o cluster EKS
+   - Deploy dos manifestos Kubernetes (namespace, configmap, secrets, deployment, service, hpa)
+
+#### Variáveis de Ambiente
+
+As seguintes variáveis estão configuradas no workflow:
+- `AWS_REGION`: us-east-1
+- `ECR_REPOSITORY`: techfood
+- `EKS_CLUSTER_NAME`: eks-terraform-tech-food
+- `IMAGE_TAG`: latest
+
+### Configuração da Infraestrutura
+
+A infraestrutura AWS é criada e gerenciada automaticamente via Terraform em um repositório separado. O Terraform realiza a criação dos seguintes recursos:
+- Cluster EKS com nodes configurados
+- RDS PostgreSQL
+- ECR Registry
+- VPC, Subnets, Security Groups
+- IAM Roles e Policies
+
+### Acesso à Aplicação
+
+Após o deploy bem-sucedido:
+- **API Swagger**: `http://<load-balancer-url>/swagger-ui/index.html`
+- **Health Check**: `http://<load-balancer-url>/actuator/health`
+
+Para obter a URL do LoadBalancer, execute:
 ```bash
-  # SSH
-  git clone git@github.com:tech-pos-soat-architecture-fiap/SOAT-TechChallenge-2.git
-```
-```bash
-  # HTTPS
-  git clone https://github.com/tech-pos-soat-architecture-fiap/SOAT-TechChallenge-2.git
-```
-
-- Entrar no diretório do projeto
-
-```bash
-  cd SOAT-TechChallenge-2
-```
-
-### Deploy em Kubernetes (Minikube)
-
-1. **Iniciar o Minikube:**
-```bash
-  minikube start
-```
-
-2. **Iniciar o docker com o banco:**
-```bash
-  docker compose --profile=dev up -d
-```
-
-3. **Executar o script de deploy:**
-```bash 
-  cd k8s/v1
-  
-  chmod +x tech-food-cli.sh
-  
-  ./tech-food-cli.sh
-```
-
-O script irá:
-- Criar a imagem Docker da aplicação
-- Carregar a imagem no Minikube
-- Aplicar todos os manifestos Kubernetes (Deployment, Service, ConfigMap, Secret, HPA)
-- Aguardar o deploy dos pods
-- Exibir as URLs de acesso
-
-4. **Acessar a aplicação:**
-- Swagger UI: `http://<minikube-ip>:30000/swagger-ui/index.html`
-- Health Check: `http://<minikube-ip>:30000/actuator/health`
-
-### Comandos úteis para Kubernetes
-
-```bash
-# Verificar status dos pods
-kubectl get pods
-
-# Ver logs da aplicação
-kubectl logs -f deployment/tech-food-deployment-v1
-
-# Verificar HPA (Horizontal Pod Autoscaler)
-kubectl get hpa
-
-# Verificar serviços
-kubectl get services
-
-# Acessar o Minikube
-minikube ip
-
-# Parar o Minikube
-minikube stop
+kubectl get svc tech-food-service-v1 -n techfood
 ```
 
 ## Observações
 - O projeto não inclui frontend, apenas backend.
-- Para desenvolvimento local, use Docker Compose.
-- Para testes de produção e escalabilidade, use Kubernetes com Minikube.
+- A aplicação escala automaticamente baseada na utilização de recursos (CPU/Memória).
 - Para dúvidas ou problemas, consulte os integrantes da [organização](https://github.com/tech-pos-soat-architecture-fiap).
