@@ -20,7 +20,7 @@ curl -X POST "http://localhost:8000/products" \
 
 Resposta: **200 OK**
 ```json
-"/product/1"
+"/products/1"
 ```
 </details>
 
@@ -31,7 +31,7 @@ Resposta: **200 OK**
 </summary>
 
 **Método:** GET  
-**URI:** `/product/{id}`
+**URI:** `/products/{id}`
 
 **Parâmetros:**
 
@@ -39,7 +39,7 @@ Resposta: **200 OK**
 
 **Exemplo request:**
 ```bash
-curl -X GET "http://localhost:8000/product/1"
+curl -X GET "http://localhost:8000/products/1"
 ```
 
 Resposta: **200 OK**
@@ -66,7 +66,7 @@ Atualizar produto
 </summary>
 
 **Método:** PUT  
-**URI:** `/product/{id}`
+**URI:** `/products/{id}`
 
 **Parâmetros:**
 
@@ -74,14 +74,14 @@ Atualizar produto
 
 **Exemplo request:**
 ```bash
-curl -X PUT "http://localhost:8000/product/1" \
+curl -X PUT "http://localhost:8000/products/1" \
   -H "Content-Type: application/json" \
   -d '{"name":"Produto X","category":"Categoria Y","price":99.99,"description":"Descrição do produto","images":[{"url":"http://exemplo.com/img.jpg","description":"Imagem principal","position":1}]}'
 ```
 
 Resposta: **200 OK**
 ```json
-"/product/1"
+"/products/1"
 ```
 </details>
 
@@ -91,7 +91,7 @@ Remover produto
 </summary>
 
 **Método:** DELETE  
-**URI:** `/product/{id}`
+**URI:** `/products/{id}`
 
 **Parâmetros:**
 
@@ -99,7 +99,7 @@ Remover produto
 
 **Exemplo request:**
 ```bash
-curl -X DELETE "http://localhost:8000/product/1"
+curl -X DELETE "http://localhost:8000/products/1"
 ```
 
 Resposta: **200 OK**
@@ -222,7 +222,7 @@ curl -X POST "http://localhost:8000/users" \
 
 Resposta: **200 OK**
 ```json
-"/user/1"
+"/users/1"
 ```
 </details>
 
@@ -329,19 +329,19 @@ Resposta: **200 OK**
 </summary>
 
 **Método:** POST  
-**URI:** `/create/orders`
+**URI:** `/orders`
 
 
 **Exemplo request:**
 ```bash
-curl -X POST "http://localhost:8000/create/orders" \
+curl -X POST "http://localhost:8000/orders" \
   -H "Content-Type: application/json" \
   -d '1'
 ```
 
-Resposta: **200 OK**
+Resposta: **201 Created**
 ```json
-"/product/1"
+"/orders/1"
 ```
 </details>
 
@@ -351,7 +351,7 @@ Resposta: **200 OK**
 </summary>
 
 **Método:** GET  
-**URI:** `/order/{orderId}`
+**URI:** `/orders/{orderId}`
 
 **Parâmetros:**
 
@@ -359,7 +359,7 @@ Resposta: **200 OK**
 
 **Exemplo request:**
 ```bash
-curl -X GET "http://localhost:8000/order/1"
+curl -X GET "http://localhost:8000/orders/1"
 ```
 
 Resposta: **200 OK**
@@ -382,11 +382,11 @@ Resposta: **200 OK**
 
 <details>
 <summary>
-Listar pedidos
+Listar pedidos ativos
 </summary>
 
 **Método:** GET  
-**URI:** `/orders`
+**URI:** `/orders/active`
 
 **Parâmetros:**
 
@@ -395,7 +395,7 @@ Listar pedidos
 
 **Exemplo request:**
 ```bash
-curl -X GET "http://localhost:8000/orders?page=0&size=10"
+curl -X GET "http://localhost:8000/orders/active?page=0&size=10"
 ```
 
 
@@ -433,7 +433,7 @@ Resposta: **200 OK**
 </summary>
 
 **Método:** POST  
-**URI:** `/add-items/{orderId}`
+**URI:** `/orders/{orderId}/items`
 
 **Parâmetros:**
 
@@ -441,7 +441,7 @@ Resposta: **200 OK**
 
 **Exemplo request:**
 ```bash
-curl -X POST "http://localhost:8000/add-items/1" \
+curl -X POST "http://localhost:8000/orders/1/items" \
   -H "Content-Type: application/json" \
   -d '[{"productId":2,"quantity":3}]'
 ```
@@ -469,8 +469,8 @@ Resposta: **200 OK**
  Remover itens de um pedido
 </summary>
 
-**Método:** POST  
-**URI:** `/remove-items/{orderId}`
+**Método:** DELETE  
+**URI:** `/orders/{orderId}/items`
 
 **Parâmetros:**
 
@@ -478,7 +478,7 @@ Resposta: **200 OK**
 
 **Exemplo request:**
 ```bash
-curl -X POST "http://localhost:8000/remove-items/1" \
+curl -X DELETE "http://localhost:8000/orders/1/items" \
   -H "Content-Type: application/json" \
   -d '[{"productId":2,"quantity":1}]'
 ```
@@ -506,7 +506,7 @@ Resposta: **200 OK**
 </summary>
 
 **Método:** POST  
-**URI:** `/orders/payment/{orderId}`
+**URI:** `/orders/{orderId}/payment`
 
 **Parâmetros:**
 
@@ -514,7 +514,7 @@ Resposta: **200 OK**
 
 **Exemplo request:**
 ```bash
-curl -X GET "http://localhost:8000/orders/payment/1"
+curl -X POST "http://localhost:8000/orders/1/payment"
 ```
 Resposta: **200 OK**
 
@@ -535,7 +535,7 @@ Resposta: **200 OK**
 </summary>
 
 **Método:** PUT  
-**URI:** `/order/change-status/{orderId}`
+**URI:** `/orders/{orderId}/status`
 
 **Parâmetros:**
 
@@ -543,7 +543,7 @@ Resposta: **200 OK**
 
 **Exemplo request:**
 ```bash
-curl -X GET "http://localhost:8000/order/change-status/1"
+curl -X PUT "http://localhost:8000/orders/1/status"
 ```
 
 Resposta: **200 OK**
@@ -563,7 +563,7 @@ Resposta: **200 OK**
 </summary>
 
 **Método:** GET  
-**URI:** `/api/payment/{paymentId}/status`
+**URI:** `/payments/{paymentId}/status`
 
 **Parâmetros:**
 
@@ -571,7 +571,7 @@ Resposta: **200 OK**
 
 **Exemplo request:**
 ```bash
-curl -X GET "http://localhost:8000/api/payment/1/status"
+curl -X GET "http://localhost:8000/payments/1/status"
 ```
 
 Resposta: **200 OK**
@@ -589,11 +589,11 @@ Resposta: **200 OK**
 </summary>
 
 **Método:** POST  
-**URI:** `/api/payment/confirm`
+**URI:** `/payments/confirm`
 
 **Exemplo request:**
 ```bash
-curl -X POST "http://localhost:8000/api/payment/confirm" \
+curl -X POST "http://localhost:8000/payments/confirm" \
   -H "Content-Type: application/json" \
   -d '{"paymentId":1,"status":"CONFIRMED"}'
 ```
